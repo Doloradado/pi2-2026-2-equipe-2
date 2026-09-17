@@ -14,7 +14,7 @@ Este projeto consiste em uma Web API desenvolvida para gerenciar as interações
 
 ## Como rodar o projeto localmente
 
-A infraestrutura do projeto está 100% conteinerizada, o que significa que você não precisa instalar o SDK do .NET ou o PostgreSQL na sua máquina local.
+A infraestrutura do projeto está 100% conteinerizada, o que significa que não precisa instalar o SDK do .NET ou o PostgreSQL na sua máquina local.
 
 **Pré-requisitos:**
 * [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado e rodando.
