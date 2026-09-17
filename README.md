@@ -34,4 +34,6 @@ A infraestrutura do projeto está 100% conteinerizada, o que significa que você
    ```bash
    docker compose up --build
    
-4. Para desligar pressione cntrl + c no terminal.
+4. Para desligar pressione no terminal:
+   ```bash
+   Ctrl + C
