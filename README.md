@@ -62,3 +62,22 @@ Para comprovar que tudo está rodando perfeitamente, você pode inspecionar o ba
 
 2. **Via Logs da Aplicação no Terminal:**
    * Ao iniciar a API, os logs do Entity Framework exibirão a aplicação bem-sucedida das migrações (`Applying migration 'InitialCreate'`), confirmando que a conexão com o container PostgreSQL está ativa e respondendo.
+
+
+---
+
+## Frontend
+
+### Stack
+- **React** — biblioteca de UI
+- **Vite** — build tool e dev server
+- **JavaScript** — linguagem
+- **Tailwind CSS** — estilização
+
+### Objetivo
+Interface administrativa para o profissional acompanhar as conversas
+do chatbot e assumir manualmente uma conversa quando quiser.
+
+### Observação
+Somente o profissional será usuário deste sistema.
+Os clientes dele **não** terão acesso a esta interface.
