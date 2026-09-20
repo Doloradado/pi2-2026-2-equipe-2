@@ -37,3 +37,28 @@ A infraestrutura do projeto está 100% conteinerizada, o que significa que não 
 4. Para desligar pressione no terminal:
    ```bash
    Ctrl + C
+
+
+
+   ---
+
+### 🗄️ Camada de Banco de Dados e MER 
+
+A modelagem do banco de dados foi construída seguindo estritamente os requisitos funcionais do projeto (identificação por WhatsApp, sessões de atendimento e histórico de mensagens), utilizando o **Entity Framework Core** com migrações automáticas para o **PostgreSQL**.
+
+#### Como validar se o Banco e as Migrations estão integrados e funcionando:
+
+Assim que você subir os containers com o `docker compose up --build`, o Entity Framework executará automaticamente as *migrations* pendentes, criando as tabelas estruturadas no PostgreSQL (`clientes`, `sessoes_atendimento` e `historico_mensagens`).
+
+Para comprovar que tudo está rodando perfeitamente, você pode inspecionar o banco de dados de duas formas:
+
+1. **Via Interface Gráfica (VS Code / Extensão PostgreSQL):**
+   * Conecte-se ao servidor local configurado no `appsettings.json` (porta `5432`, base `chatbot_db`).
+   * Expanda a pasta **`public` -> Tabelas**.
+   * Você deverá visualizar as três tabelas oficiais do projeto criadas com sucesso:
+     * `clientes`
+     * `sessoes_atendimento`
+     * `historico_mensagens`
+
+2. **Via Logs da Aplicação no Terminal:**
+   * Ao iniciar a API, os logs do Entity Framework exibirão a aplicação bem-sucedida das migrações (`Applying migration 'InitialCreate'`), confirmando que a conexão com o container PostgreSQL está ativa e respondendo.
