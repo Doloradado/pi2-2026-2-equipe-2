@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,19 +10,14 @@ namespace ChatbotBackend.Models
     {
         [Key]
         [Column("id")]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         [Required]
         [Column("id_cliente")]
-        public Guid IdCliente { get; set; }
+        public Guid ClienteId { get; set; }
 
-        [ForeignKey("IdCliente")]
-        public Cliente? Cliente { get; set; }
-
-        [Required]
-        [MaxLength(30)]
         [Column("status")]
-        public string Status { get; set; } = "BOT_ATENDENDO";
+        public string? Status { get; set; }
 
         [Column("data_inicio")]
         public DateTime DataInicio { get; set; } = DateTime.UtcNow;
@@ -29,8 +25,13 @@ namespace ChatbotBackend.Models
         [Column("data_fim")]
         public DateTime? DataFim { get; set; }
 
-        [MaxLength(255)]
         [Column("resumo_tags")]
         public string? ResumoTags { get; set; }
+
+        [ForeignKey("ClienteId")]
+        public virtual Cliente? Cliente { get; set; }
+
+        // Relacionamento (1:N com Historico de Mensagens)
+        public virtual ICollection<HistoricoMensagem> Mensagens { get; set; } = new List<HistoricoMensagem>();
     }
 }

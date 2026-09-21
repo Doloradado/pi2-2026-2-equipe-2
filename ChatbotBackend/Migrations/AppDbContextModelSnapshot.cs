@@ -30,8 +30,10 @@ namespace ChatbotBackend.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("DataCadastro")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("data_cadastro");
+                        .HasColumnName("data_cadastro")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Nome")
                         .HasMaxLength(100)
@@ -46,10 +48,13 @@ namespace ChatbotBackend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TelefoneWhatsapp")
+                        .IsUnique();
+
                     b.ToTable("clientes");
                 });
 
-            modelBuilder.Entity("ChatbotBackend.Models.HistoricoMensagens", b =>
+            modelBuilder.Entity("ChatbotBackend.Models.HistoricoMensagem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,21 +66,17 @@ namespace ChatbotBackend.Migrations
                         .HasColumnName("conteudo");
 
                     b.Property<DateTime>("DataEnvio")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("data_envio");
+                        .HasColumnName("data_envio")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("IdMensagemWhatsapp")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasColumnType("text")
                         .HasColumnName("id_mensagem_whatsapp");
 
-                    b.Property<Guid>("IdSessao")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id_sessao");
-
                     b.Property<string>("IntencaoIdentificada")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasColumnType("text")
                         .HasColumnName("intencao_identificada");
 
                     b.Property<string>("Remetente")
@@ -84,24 +85,31 @@ namespace ChatbotBackend.Migrations
                         .HasColumnType("character varying(30)")
                         .HasColumnName("remetente");
 
+                    b.Property<Guid>("SessaoId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id_sessao");
+
                     b.Property<string>("TextoTranscrito")
                         .HasColumnType("text")
                         .HasColumnName("texto_transcrito");
 
                     b.Property<string>("TipoMidia")
-                        .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)")
+                        .HasDefaultValue("TEXTO")
                         .HasColumnName("tipo_midia");
 
                     b.Property<string>("UrlMidia")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
+                        .HasColumnType("text")
                         .HasColumnName("url_midia");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSessao");
+                    b.HasIndex("IdMensagemWhatsapp")
+                        .IsUnique();
+
+                    b.HasIndex("SessaoId");
 
                     b.ToTable("historico_mensagens");
                 });
@@ -113,21 +121,22 @@ namespace ChatbotBackend.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id_cliente");
+
                     b.Property<DateTime?>("DataFim")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_fim");
 
                     b.Property<DateTime>("DataInicio")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("data_inicio");
-
-                    b.Property<Guid>("IdCliente")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id_cliente");
+                        .HasColumnName("data_inicio")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("ResumoTags")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
+                        .HasColumnType("text")
                         .HasColumnName("resumo_tags");
 
                     b.Property<string>("Status")
@@ -138,31 +147,41 @@ namespace ChatbotBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCliente");
+                    b.HasIndex("ClienteId");
 
                     b.ToTable("sessoes_atendimento");
                 });
 
-            modelBuilder.Entity("ChatbotBackend.Models.HistoricoMensagens", b =>
+            modelBuilder.Entity("ChatbotBackend.Models.HistoricoMensagem", b =>
                 {
-                    b.HasOne("ChatbotBackend.Models.SessaoAtendimento", "SessaoAtendimento")
-                        .WithMany()
-                        .HasForeignKey("IdSessao")
+                    b.HasOne("ChatbotBackend.Models.SessaoAtendimento", "Sessao")
+                        .WithMany("Mensagens")
+                        .HasForeignKey("SessaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SessaoAtendimento");
+                    b.Navigation("Sessao");
                 });
 
             modelBuilder.Entity("ChatbotBackend.Models.SessaoAtendimento", b =>
                 {
                     b.HasOne("ChatbotBackend.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("IdCliente")
+                        .WithMany("Sessoes")
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("ChatbotBackend.Models.Cliente", b =>
+                {
+                    b.Navigation("Sessoes");
+                });
+
+            modelBuilder.Entity("ChatbotBackend.Models.SessaoAtendimento", b =>
+                {
+                    b.Navigation("Mensagens");
                 });
 #pragma warning restore 612, 618
         }
