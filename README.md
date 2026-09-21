@@ -74,6 +74,12 @@ Para comprovar que tudo está rodando perfeitamente, você pode inspecionar o ba
 - **JavaScript** — linguagem
 - **Tailwind CSS** — estilização
 
+
+## Protótipo
+
+🔗 [Protótipo das páginas no Figma](https://www.figma.com/design/c66dk22TX8piHAWbdMvX4y/projeto-wilson?node-id=0-1&t=1wKIO6lEUms3U4ft-1)
+
+
 ### Objetivo
 Interface administrativa para o profissional acompanhar as conversas
 do chatbot e assumir manualmente uma conversa quando quiser.
