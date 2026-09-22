@@ -1,15 +1,40 @@
+import { Navigate, Route, Routes } from "react-router-dom"
+
+import Layout from "./layouts/Layout"
+
+function Login() {
+  return <h1>Login</h1>
+}
+
+function Dashboard() {
+  return <h1>Dashboard</h1>
+}
+
+function Atendimento() {
+  return <h1>Atendimento</h1>
+}
+
+function NotFound() {
+  return <h1>Página não encontrada</h1>
+}
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900">
-      <div className="bg-white p-8 rounded-2xl shadow-xl">
-        <h1 className="text-3xl font-bold text-slate-900">
-          Tailwind funcionando! 🎉
-        </h1>
-        <p className="text-slate-600 mt-2">
-          Se você está vendo isso estilizado, a configuração deu certo.
-        </p>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+
+      <Route element={<Layout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/atendimento/:id" element={<Atendimento />} />
+      </Route>
+
+      <Route
+        path="/"
+        element={<Navigate to="/login" replace />}
+      />
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
 
