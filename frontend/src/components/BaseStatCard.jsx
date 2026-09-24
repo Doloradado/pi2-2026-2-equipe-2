@@ -12,7 +12,7 @@
 
 function BaseStatCard({
     valor = "00",
-    titulo = "Sem titulo",
+    titulo = "Sem título",
 }) {
     return (
         <div className="bg-[#151313] rounded-xl w-70 h-40 flex flex-col items-center justify-center gap-2">

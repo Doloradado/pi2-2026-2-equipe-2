@@ -14,9 +14,9 @@
  * - disabled: false
  */
 function BaseButton({
-    texto = "Clicque aqui",
+    texto = "Clique aqui",
     variante = "login",
-    onClick,
+    onClick = () => { },
     disabled = false,
 }) {
     const estilos = {
@@ -30,7 +30,7 @@ function BaseButton({
             type="button"
             onClick={onClick}
             disabled={disabled}
-            className={estilos[variante ?? estilos.login]}
+            className={estilos[variante]?? estilos.login}
         >
             {texto}
         </button>

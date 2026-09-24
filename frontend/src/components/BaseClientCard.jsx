@@ -22,9 +22,9 @@ function BaseClientCard({
   nome = "Cliente",
   data = "Data não informada",
   status = "NOVO",
-  onVerRespostas,
-  onWhatsApp,
-  onExcluir,
+  onVerRespostas = () => { },
+  onWhatsApp = () => { },
+  onExcluir = () => { },
 }) {
   return (
     <div className="w-full h-25 bg-[#151313] rounded-xl flex items-center px-6 flex-shrink-0">
