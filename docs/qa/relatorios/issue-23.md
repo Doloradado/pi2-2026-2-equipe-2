@@ -533,6 +533,34 @@ Foram identificadas as seguintes inconsistências:
 
 ---
 
+#### Reteste — QA-023-08
+
+**Motivo do reteste:**  
+Foram realizadas correções nas inconsistências identificadas durante
+a execução inicial do caso de teste QA-023-08.
+
+**Itens verificados:**
+
+- `BaseButton`: o valor padrão da prop `texto` foi corrigido para
+  `"Clique aqui"`, ficando consistente com a documentação.
+- `BaseButton`: foi definido `() => {}` como valor padrão da prop
+  `onClick`, conforme documentado.
+- `BaseStatCard`: o valor padrão da prop `titulo` foi corrigido para
+  `"Sem título"`, ficando consistente com a documentação.
+- `BaseClientCard`: foram definidos valores padrão `() => {}` para
+  as props `onVerRespostas`, `onWhatsApp` e `onExcluir`, conforme
+  documentado.
+
+**Resultado obtido:**
+
+As inconsistências identificadas na execução inicial foram corrigidas.
+A documentação e os valores padrão definidos na implementação estão
+consistentes nos componentes verificados.
+
+**Status do reteste:** Aprovado
+
+---
+
 ## 6. Resumo da Execução
 
 | Caso | Descrição | Status |
@@ -544,56 +572,64 @@ Foram identificadas as seguintes inconsistências:
 | QA-023-05 | Renderização do BaseStatCard | Aprovado |
 | QA-023-06 | Funcionamento do BaseClientCard | Aprovado |
 | QA-023-07 | Renderização do BaseHeader | Aprovado |
-| QA-023-08 | Documentação e valores padrão das props | Reprovado |
+| QA-023-08 | Documentação e valores padrão das props | Reprovado → Aprovado no reteste |
 
 ## 7. Registro de Defeitos
 
-Durante a execução dos testes foram identificadas
+Durante a execução inicial dos testes foram identificadas
 inconsistências relacionadas à documentação e aos valores
 padrão das props, registradas no caso QA-023-08.
 
-As inconsistências serão comunicadas na issue #23 para
-avaliação e correção pelo responsável pela implementação.
-
-Não foram identificadas falhas que impedissem a
-inicialização ou a renderização dos componentes.
-
-**Defeitos confirmados:**
+### Defeitos identificados na execução inicial
 
 - Inconsistência entre o valor padrão documentado e implementado
   da prop `texto` no `BaseButton`.
-- A prop `onClick` do `BaseButton` é documentada com uma função
-  vazia como valor padrão, mas não possui esse valor definido
+- A prop `onClick` do `BaseButton` era documentada com uma função
+  vazia como valor padrão, mas não possuía esse valor definido
   na implementação.
 - Inconsistência entre o valor padrão documentado e implementado
   da prop `titulo` no `BaseStatCard`.
 - As props `onVerRespostas`, `onWhatsApp` e `onExcluir` do
-  `BaseClientCard` são documentadas com funções vazias como
-  valores padrão, mas não possuem esses valores definidos
+  `BaseClientCard` eram documentadas com funções vazias como
+  valores padrão, mas não possuíam esses valores definidos
   na implementação.
 
 **Total de defeitos identificados:** 4
 
+### Situação após correção
+
+As inconsistências foram corrigidas pelo responsável pela
+implementação e submetidas a reteste.
+
+Durante o reteste do QA-023-08, foi verificado que os valores
+padrão e a documentação dos componentes `BaseButton`,
+`BaseStatCard` e `BaseClientCard` estão consistentes.
+
+**Defeitos pendentes após o reteste:** 0
+
+**Status:** Corrigidos e validados
+
 ## 8. Considerações Finais
 
 A implementação da issue #23 foi submetida a oito casos
-de teste, abrangendo inicialização do frontend,
+de teste, abrangendo a inicialização do frontend,
 renderização e funcionamento dos componentes e revisão
-da documentação das props.
+da documentação e dos valores padrão das props.
 
-Os testes funcionais e de renderização foram concluídos
-com sucesso. O frontend iniciou corretamente e os
-componentes apresentaram o comportamento esperado durante
-os testes realizados.
+Na execução inicial, os testes funcionais e de renderização
+foram concluídos com sucesso. Entretanto, o caso QA-023-08
+identificou inconsistências relacionadas à documentação e
+aos valores padrão das props nos componentes `BaseButton`,
+`BaseStatCard` e `BaseClientCard`.
 
-Entretanto, o critério de aceitação referente à
-documentação e aos valores padrão das props não foi
-atendido integralmente. Foram identificadas inconsistências
-nos componentes BaseButton, BaseStatCard e BaseClientCard,
-conforme detalhado no caso QA-023-08.
+Após a correção das inconsistências pelo responsável pela
+implementação, foi realizado o reteste do QA-023-08.
 
-Dessa forma, a validação da issue permanece pendente de
-correção das inconsistências identificadas no QA-023-08.
-**Status:** Não executado
+O reteste confirmou que as inconsistências identificadas
+foram corrigidas e que a documentação e os valores padrão
+das props estão consistentes com a implementação.
 
-**Evidências:** Pendentes.
+Dessa forma, todos os critérios de aceitação avaliados
+para a issue #23 foram atendidos.
+
+**Resultado final da validação QA: Aprovado**
