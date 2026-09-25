@@ -594,6 +594,29 @@ conforme detalhado no caso QA-023-08.
 
 Dessa forma, a validação da issue permanece pendente de
 correção das inconsistências identificadas no QA-023-08.
-**Status:** Não executado
 
-**Evidências:** Pendentes.
+#### Reteste — QA-023-08
+
+**Motivo do reteste:**  
+Foram realizadas correções nas inconsistências identificadas durante
+a execução inicial do caso de teste QA-023-08.
+
+**Itens verificados:**
+
+- `BaseButton`: o valor padrão da prop `texto` foi corrigido para
+  `"Clique aqui"`, ficando consistente com a documentação.
+- `BaseButton`: foi definido `() => {}` como valor padrão da prop
+  `onClick`, conforme documentado.
+- `BaseStatCard`: o valor padrão da prop `titulo` foi corrigido para
+  `"Sem título"`, ficando consistente com a documentação.
+- `BaseClientCard`: foram definidos valores padrão `() => {}` para
+  as props `onVerRespostas`, `onWhatsApp` e `onExcluir`, conforme
+  documentado.
+
+**Resultado obtido:**
+
+As inconsistências identificadas na execução inicial foram corrigidas.
+A documentação e os valores padrão definidos na implementação estão
+consistentes nos componentes verificados.
+
+**Status do reteste:** Aprovado
