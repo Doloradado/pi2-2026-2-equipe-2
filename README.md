@@ -68,16 +68,69 @@ Para comprovar que tudo está rodando perfeitamente, você pode inspecionar o ba
 
 ## Frontend
 
+O frontend é responsável pela interface administrativa utilizada pelo profissional para acompanhar os atendimentos realizados pelo chatbot.
+
 ### Stack
-- **React** — biblioteca de UI
-- **Vite** — build tool e dev server
-- **JavaScript** — linguagem
-- **Tailwind CSS** — estilização
+
+* **React** - biblioteca para construção da interface
+* **Vite** - build tool e servidor de desenvolvimento
+* **JavaScript** - linguagem utilizada no desenvolvimento
+* **Tailwind CSS** - estilização da interface
 
 ### Objetivo
-Interface administrativa para o profissional acompanhar as conversas
-do chatbot e assumir manualmente uma conversa quando quiser.
 
-### Observação
-Somente o profissional será usuário deste sistema.
-Os clientes dele **não** terão acesso a esta interface.
+Interface administrativa para o profissional acompanhar as conversas do chatbot, visualizar informações dos clientes e assumir manualmente uma conversa quando necessário.
+
+### Como rodar o Frontend localmente
+
+**Pré-requisitos:**
+
+* [Node.js](https://nodejs.org/) instalado.
+* Git instalado.
+
+**Passo a Passo:**
+
+1. Clone este repositório:
+
+```bash
+git clone https://github.com/Doloradado/pi2-2026-2-equipe-2.git
+```
+
+2. Acesse a pasta do frontend pelo terminal:
+
+```bash
+cd pi2-2026-2-equipe-2/frontend
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+5. O Vite exibirá no terminal o endereço local para acessar a aplicação no navegador.
+
+### Build
+
+Para gerar a versão de produção:
+
+```bash
+npm run build
+```
+
+Para visualizar a versão de produção localmente:
+
+```bash
+npm run preview
+```
+
+
+## Protótipo
+
+[Protótipo das páginas no Figma](https://www.figma.com/design/c66dk22TX8piHAWbdMvX4y/projeto-wilson?node-id=0-1&t=1wKIO6lEUms3U4ft-1)
