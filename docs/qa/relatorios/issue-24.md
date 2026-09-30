@@ -366,6 +366,44 @@ issue explicando como realizar essa substituição.
 
 ---
 
+#### Reteste — QA-024-06
+
+**Motivo do reteste:**
+
+Foi realizada uma nova validação após a correção da pendência
+identificada na primeira execução do QA-024-06.
+
+**Correção analisada:**
+
+Commit `91418dd` — `feat: documenta a substituição do mock pela API real`
+
+Foi adicionada documentação ao arquivo `frontend/src/services/api.js`,
+descrevendo a camada de acesso aos dados e o procedimento previsto
+para substituição do mock pela API real.
+
+A documentação apresenta:
+
+- o uso atual do `mockApi.js`;
+- o papel do `api.js` como camada de acesso aos dados;
+- a substituição futura da implementação mockada por chamadas HTTP;
+- a manutenção das mesmas funções utilizadas pelas páginas, sempre
+  que possível;
+- o fluxo atual: `Página -> api.js -> mockApi.js`;
+- o fluxo futuro: `Página -> api.js -> API real -> Backend`.
+
+**Resultado obtido:**
+
+A documentação necessária para orientar a futura substituição da
+camada mockada pela API real foi adicionada.
+
+A pendência identificada na execução original foi corrigida.
+
+**Status do reteste:** Aprovado
+
+**Evidência:**
+
+![Documentação da substituição do mock pela API real](../evidencias/issue-24/QA-024-06-reteste-documentacao.png)
+
 ## 6. Resumo da Execução
 
 | Caso | Descrição | Status |
@@ -375,61 +413,41 @@ issue explicando como realizar essa substituição.
 | QA-024-03 | Retorno de atendimento inexistente | Aprovado |
 | QA-024-04 | Retorno de conversa inexistente | Aprovado |
 | QA-024-05 | Simulação de delay | Aprovado |
-| QA-024-06 | Abstração entre mock e API real | Aprovado com observação |
+| QA-024-06 | Abstração entre mock e API real | Aprovado no reteste |
 
 ## 7. Registro de Defeitos e Observações
 
-Durante a execução dos testes não foram identificados defeitos
-funcionais na camada de mock de dados.
+### Observação identificada na execução inicial
 
-As funções testadas apresentaram os retornos esperados, incluindo
-o tratamento de IDs inexistentes e a simulação de delay. A camada
-`api.js` também fornece uma abstração entre os consumidores dos
-serviços e a implementação presente em `mockApi.js`.
+Na primeira execução do QA-024-06, não foi encontrada documentação
+orientando a substituição futura da camada de mock pela API real,
+conforme previsto nas atividades da issue #24.
 
-### Observação identificada
+A observação foi corrigida posteriormente no commit `91418dd`, com
+a inclusão da documentação no arquivo `frontend/src/services/api.js`.
 
-Durante a revisão da implementação foi identificada uma pendência
-relacionada à atividade de documentação prevista na issue #24:
-
-- Não foi encontrada, nos arquivos alterados pela implementação,
-  documentação explicando como substituir a camada de mock pela
-  API real no futuro.
-
-A ausência dessa documentação não impediu o funcionamento da
-implementação nem invalidou a estrutura de abstração identificada
-no QA-024-06.
+O ponto foi submetido a reteste e considerado aprovado.
 
 **Defeitos funcionais identificados:** 0
 
-**Observações/Pendências:** 1
+**Observações pendentes após o reteste:** 0
 
 ## 8. Considerações Finais
 
-A implementação da issue #24 foi submetida a seis casos de teste,
-abrangendo a execução dos testes automatizados, a estrutura dos
-dados mockados, o tratamento de IDs inexistentes, a simulação de
-delay e a abstração entre a camada de mock e uma futura API real.
+Após a execução inicial dos testes, foi identificada uma observação
+referente à ausência de documentação sobre a futura substituição do
+mock pela API real.
 
-Os testes executados foram concluídos com sucesso. As funções da
-camada de mock apresentaram os retornos esperados e a simulação
-de latência funcionou conforme definido na implementação.
+A documentação foi posteriormente adicionada no commit `91418dd` e
+o ponto afetado foi submetido a reteste.
 
-A análise do arquivo `api.js` também confirmou a existência de uma
-camada de abstração entre os consumidores dos serviços e a
-implementação presente em `mockApi.js`, permitindo que a fonte dos
-dados seja posteriormente substituída mantendo a mesma interface
-utilizada pelo frontend.
+No reteste do QA-024-06, foi confirmado que o arquivo
+`frontend/src/services/api.js` passou a documentar o fluxo atual com
+o mock e o fluxo previsto para integração com a API real.
 
-Não foram identificados defeitos funcionais durante a validação.
+A pendência anteriormente registrada foi considerada resolvida.
 
-Entretanto, foi registrada uma observação referente à documentação:
-não foi encontrada, nos arquivos alterados pela implementação,
-documentação explicando como realizar a substituição do mock pela
-API real, apesar dessa atividade estar prevista na issue #24.
+Não permanecem defeitos funcionais ou observações pendentes
+relacionadas à issue #24.
 
-Dessa forma, os critérios de aceitação avaliados foram atendidos,
-permanecendo como pendência apenas a documentação mencionada no
-QA-024-06.
-
-**Resultado final da validação QA: Aprovado com observação**
+**Resultado final da validação QA: Aprovado**
