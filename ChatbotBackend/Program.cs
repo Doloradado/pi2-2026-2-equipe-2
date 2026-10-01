@@ -27,7 +27,10 @@ app.UseCors("PermitirFrontend");
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(c =>
+    {
+        c.SerializeAsV2 = true;
+    });
     app.UseSwaggerUI();
 }
 
