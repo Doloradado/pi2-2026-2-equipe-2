@@ -38,10 +38,6 @@ A infraestrutura do projeto está 100% conteinerizada, o que significa que não 
    ```bash
    Ctrl + C
 
-
-
-   ---
-
 ### 🗄️ Camada de Banco de Dados e MER 
 
 A modelagem do banco de dados foi construída seguindo estritamente os requisitos funcionais do projeto (identificação por WhatsApp, sessões de atendimento e histórico de mensagens), utilizando o **Entity Framework Core** com migrações automáticas para o **PostgreSQL**.
