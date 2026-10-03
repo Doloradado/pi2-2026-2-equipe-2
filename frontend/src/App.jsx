@@ -1,13 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
 import Layout from "./layouts/Layout"
+import Dashboard from "./pages/Dashboard"
 
 function Login() {
   return <h1>Login</h1>
-}
-
-function Dashboard() {
-  return <h1>Dashboard</h1>
 }
 
 function Atendimento() {
@@ -30,7 +27,7 @@ function App() {
 
       <Route
         path="/"
-        element={<Navigate to="/login" replace />}
+        element={<Navigate to="/dashboard" replace />}
       />
 
       <Route path="*" element={<NotFound />} />
