@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-
+import AtendimentoDetalhe from "./pages/AtendimentoDetalhe"
 import Layout from "./layouts/Layout"
 
 function Login() {
@@ -10,9 +10,6 @@ function Dashboard() {
   return <h1>Dashboard</h1>
 }
 
-function Atendimento() {
-  return <h1>Atendimento</h1>
-}
 
 function NotFound() {
   return <h1>Página não encontrada</h1>
@@ -25,7 +22,7 @@ function App() {
 
       <Route element={<Layout />}>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/atendimento/:id" element={<Atendimento />} />
+        <Route path="/atendimento/:id" element={<AtendimentoDetalhe />} />
       </Route>
 
       <Route
