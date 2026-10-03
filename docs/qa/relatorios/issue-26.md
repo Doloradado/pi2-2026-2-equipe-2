@@ -73,7 +73,8 @@ e a aplicação foi disponibilizada em `http://localhost:5173/`.
 **Status:** ✅ Aprovado
 
 **Evidência:**  
-`QA-026-01-inicializacao-frontend.png`
+
+![Inicialização do frontend](../evidencias/issue-26/QA-026-01-inicializacao-frontend.png)
 
 ---
 
@@ -103,7 +104,8 @@ legibilidade.
 **Status:** ⚠️ Aprovado com observação
 
 **Evidência:**  
-`QA-026-02-layout-login.png`
+
+![Layout da tela de Login](../evidencias/issue-26/QA-026-02-layout-login.png)
 
 ---
 
@@ -132,9 +134,18 @@ do formulário.
 **Status:** ✅ Aprovado
 
 **Evidências:**  
-- `QA-026-03a-campos-vazios.png`
-- `QA-026-03b-sem-senha.png`
-- `QA-026-03c-sem-email.png`
+
+**Campos de e-mail e senha vazios:**
+
+![Validação com os dois campos vazios](../evidencias/issue-26/QA-026-03a-campos-vazios.png)
+
+**Somente e-mail preenchido:**
+
+![Validação sem preenchimento da senha](../evidencias/issue-26/QA-026-03b-sem-senha.png)
+
+**Somente senha preenchida:**
+
+![Validação sem preenchimento do e-mail](../evidencias/issue-26/QA-026-03c-sem-email.png)
 
 ---
 
@@ -165,7 +176,8 @@ previsto pela issue ocorreu corretamente.
 **Status:** ✅ Aprovado
 
 **Evidência:**  
-`QA-026-04-redirecionamento-dashboard.png`
+
+![Redirecionamento para o Dashboard](../evidencias/issue-26/QA-026-04-redirecionamento-dashboard.png)
 
 ---
 
