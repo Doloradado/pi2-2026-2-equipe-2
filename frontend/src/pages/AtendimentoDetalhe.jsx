@@ -52,7 +52,7 @@ function AtendimentoDetalhe() {
                     onClick={() => navigate("/dashboard")}
                     className="font-inter mb-6 text-[16px] font-semibold text-gray-300 hover:text-white"
                 >
-                    &lt; Voltar para atendimentos
+                    <span>←</span> Voltar para atendimentos
                 </button>
                 <header className="mb-6">
                     <h1 className="font-jomhuria text-[64px] font-normal">
@@ -88,7 +88,15 @@ function AtendimentoDetalhe() {
 
                         <div className="space-y-4">
                             {conversa.map((mensagem) => (
-                                <div key={mensagem.id}>
+                                <div
+                                    key={mensagem.id}
+                                    className={`flex flex-col ${mensagem.remetente === "chatbot"
+                                        ? "items-end"
+                                        : mensagem.remetente === "sistema"
+                                            ? "items-center"
+                                            : "items-start"
+                                        }`}
+                                >
                                     {mensagem.remetente === "sistema" ? (
                                         <div className="my-6 rounded-xl bg-[#353333] px-4 py-3 text-center">
                                             <p className="font-plex text-[24px] font-medium text-white">
@@ -106,7 +114,7 @@ function AtendimentoDetalhe() {
                                             </p>
 
                                             <div
-                                                className={`rounded-xl p-4 ${mensagem.remetente === "cliente"
+                                                className={`max-w-[75%] rounded-xl p-4 ${mensagem.remetente === "cliente"
                                                     ? "bg-[#114BB8] text-white"
                                                     : "bg-[#0D6720] text-white"
                                                     }`}
