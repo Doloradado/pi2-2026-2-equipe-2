@@ -8,14 +8,6 @@ import Dashboard from "./pages/Dashboard"
 import DashboardMock from "./pages/Dashboard-mock"
 import DashboardMockC from "./pages/DashboardMockC"
 
-function Login() {
-  return <h1>Login</h1>
-}
-
-function Dashboard() {
-  return <h1>Dashboard</h1>
-}
-
 function Atendimento() {
   return <h1>Atendimento</h1>
 }
