@@ -1,12 +1,19 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
 import Layout from "./layouts/Layout"
+
+import Login from "./pages/Login"
+import TesteComponentes from "./pages/TesteComponentes"
 import Dashboard from "./pages/Dashboard"
 import DashboardMock from "./pages/Dashboard-mock"
 import DashboardMockC from "./pages/DashboardMockC"
 
 function Login() {
   return <h1>Login</h1>
+}
+
+function Dashboard() {
+  return <h1>Dashboard</h1>
 }
 
 function Atendimento() {
@@ -20,7 +27,9 @@ function NotFound() {
 function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+
+<Route path="/login" element={<Login />} />
+<Route path="/teste" element={<TesteComponentes />} />
 
       <Route element={<Layout />}>
         <Route path="/dashboard" element={<Dashboard />} />
