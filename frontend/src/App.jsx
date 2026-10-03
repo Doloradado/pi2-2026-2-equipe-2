@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from "react-router-dom"
 
 import Layout from "./layouts/Layout"
 import Dashboard from "./pages/Dashboard"
+import DashboardMock from "./pages/Dashboard-mock"
+import DashboardMockC from "./pages/DashboardMockC"
 
 function Login() {
   return <h1>Login</h1>
@@ -23,6 +25,8 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/atendimento/:id" element={<Atendimento />} />
+        <Route path="/dashboardmock" element={<DashboardMock />} />
+        <Route path="/dashboardmockc" element={<DashboardMockC />} />
       </Route>
 
       <Route
