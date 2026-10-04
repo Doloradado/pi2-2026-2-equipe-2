@@ -25,6 +25,7 @@ const atendimentos = [
     data: "18/09/2026 às 09:42",
     status: "NOVO",
     ultimaMensagem: "Gostaria de saber mais sobre a consultoria.",
+    resumo: "Cliente deseja informações sobre a consultoria online. Perguntou sobre valores e funcionamento do serviço.",
   },
   {
     id: 2,
@@ -34,6 +35,7 @@ const atendimentos = [
     data: "18/09/2026 às 13:05",
     status: "EM ATENDIMENTO",
     ultimaMensagem: "Tenho uma dúvida que você não conseguiu responder.",
+    resumo: "Cliente solicitou ajuda sobre uma dúvida que não foi compreendida pelo chatbot.",
   },
   {
     id: 3,
@@ -43,6 +45,7 @@ const atendimentos = [
     data: "17/09/2026 às 18:00",
     status: "FINALIZADO",
     ultimaMensagem: "Obrigado pelo atendimento.",
+    resumo: "Cliente recebeu as informações solicitadas e agradeceu pelo atendimento.",
   },
 ]
 

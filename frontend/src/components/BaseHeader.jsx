@@ -46,11 +46,11 @@ function BaseHeader({
                 />
 
                 <div className="flex flex-col justify-center">
-                    <h1 className="text-white font-semibold text-[24px] leading-[100%]">
+                    <h1 className="font-instrument text-white font-bold text-[24px] leading-[100%]">
                         Olá, {nome}!
                     </h1>
 
-                    <p className="text-white text-[14px] mt-1">
+                    <p className="font-instrument text-white text-[20px] font-normal mt-1">
                         {descricao}
                     </p>
                 </div>
