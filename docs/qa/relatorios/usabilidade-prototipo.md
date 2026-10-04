@@ -93,7 +93,7 @@ A ação principal possui destaque visual e sua finalidade é compreensível. Ao
 
 **Evidência:**
 
-![Tela inicial de acesso](../evidencias/usabilidade-prototipo/QA-USAB-01-login.png)
+![Tela inicial de acesso](../evidencias/prototipo/QA-USAB-01-login.png)
 
 ---
 
@@ -124,7 +124,7 @@ Entretanto, foram identificadas inconsistências na padronização dos nomes apr
 
 **Evidência:**
 
-![Dashboard](../evidencias/usabilidade-prototipo/QA-USAB-02-dashboard.png)
+![Dashboard](../evidencias/prototipo/QA-USAB-02-dashboard.png)
 
 ---
 
@@ -157,15 +157,15 @@ A inconsistência pode gerar dúvida ao usuário, pois elementos visualmente igu
 
 **Tereza dos Santos — acesso disponível:**
 
-![Detalhe do atendimento de Tereza](../evidencias/usabilidade-prototipo/QA-USAB-03a-teresa.png)
+![Detalhe do atendimento de Tereza](../evidencias/prototipo/QA-USAB-03a-teresa.png)
 
 **Mariana Sampaio — ação sem navegação:**
 
-![Ver respostas de Mariana](../evidencias/usabilidade-prototipo/QA-USAB-03b-mariana.png)
+![Ver respostas de Mariana](../evidencias/prototipo/QA-USAB-03b-mariana.png)
 
 **Adrian Moreira — ação sem navegação:**
 
-![Ver respostas de Adrian](../evidencias/usabilidade-prototipo/QA-USAB-03c-adrian.png)
+![Ver respostas de Adrian](../evidencias/prototipo/QA-USAB-03c-adrian.png)
 
 ---
 
@@ -201,9 +201,9 @@ A opção "Voltar para atendimentos" funcionou corretamente e permitiu retornar 
 
 **Evidências:**
 
-![Detalhe do atendimento](../evidencias/usabilidade-prototipo/QA-USAB-04a-detalhe-atendimento.png)
+![Detalhe do atendimento](../evidencias/prototipo/QA-USAB-04a-detalhe-atendimento.png)
 
-![Histórico da conversa](../evidencias/usabilidade-prototipo/QA-USAB-04b-historico-conversa.png)
+![Histórico da conversa](../evidencias/prototipo/QA-USAB-04b-historico-conversa.png)
 
 ---
 
@@ -237,9 +237,9 @@ Entretanto, durante a validação, nenhuma das duas opções apresentou interaç
 
 **Evidências:**
 
-![Modal assumir atendimento - Flow 1](../evidencias/usabilidade-prototipo/QA-USAB-05a-assumir-flow1.png)
+![Modal assumir atendimento - Flow 1](../evidencias/prototipo/QA-USAB-05a-assumir-flow1.png)
 
-![Modal assumir atendimento - Flow 2](../evidencias/usabilidade-prototipo/QA-USAB-05b-assumir-flow2.png)
+![Modal assumir atendimento - Flow 2](../evidencias/prototipo/QA-USAB-05b-assumir-flow2.png)
 
 ---
 
@@ -270,9 +270,9 @@ Entretanto, nenhuma das opções apresentou interação perceptível durante o t
 
 **Evidências:**
 
-![Modal de exclusão - Flow 1](../evidencias/usabilidade-prototipo/QA-USAB-06a-exclusao-flow1.png)
+![Modal de exclusão - Flow 1](../evidencias/prototipo/QA-USAB-06a-exclusao-flow1.png)
 
-![Modal de exclusão - Flow 3](../evidencias/usabilidade-prototipo/QA-USAB-06b-exclusao-flow3.png)
+![Modal de exclusão - Flow 3](../evidencias/prototipo/QA-USAB-06b-exclusao-flow3.png)
 
 ---
 
@@ -304,11 +304,11 @@ Entretanto, ao testar a opção "sair", nenhuma interação perceptível foi apr
 
 **Evidências:**
 
-![Menu do usuário](../evidencias/usabilidade-prototipo/QA-USAB-07a-menu-perfil.png)
+![Menu do usuário](../evidencias/prototipo/QA-USAB-07a-menu-perfil.png)
 
-![Tela Meu perfil](../evidencias/usabilidade-prototipo/QA-USAB-07b-perfil.png)
+![Tela Meu perfil](../evidencias/prototipo/QA-USAB-07b-perfil.png)
 
-![Opção sair sem interação](../evidencias/usabilidade-prototipo/QA-USAB-07c-sair.png)
+![Opção sair sem interação](../evidencias/prototipo/QA-USAB-07c-sair.png)
 
 ---
 
@@ -346,11 +346,11 @@ A impossibilidade de digitar diretamente nos campos do modal de alteração de e
 
 **Evidências:**
 
-![Tela Meu perfil](../evidencias/usabilidade-prototipo/QA-USAB-08a-perfil.png)
+![Tela Meu perfil](../evidencias/prototipo/QA-USAB-08a-perfil.png)
 
-![Modal de alteração de e-mail](../evidencias/usabilidade-prototipo/QA-USAB-08b-alterar-email.png)
+![Modal de alteração de e-mail](../evidencias/prototipo/QA-USAB-08b-alterar-email.png)
 
-![Alteração de telefone sem interação](../evidencias/usabilidade-prototipo/QA-USAB-08c-alterar-telefone.png)
+![Alteração de telefone sem interação](../evidencias/prototipo/QA-USAB-08c-alterar-telefone.png)
 
 ---
 
