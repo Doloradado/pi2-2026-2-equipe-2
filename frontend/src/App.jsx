@@ -7,6 +7,7 @@ import TesteComponentes from "./pages/TesteComponentes"
 import Dashboard from "./pages/Dashboard"
 import DashboardMock from "./pages/Dashboard-mock"
 import DashboardMockC from "./pages/DashboardMockC"
+import Perfil from "./pages/Perfil"
 
 function Atendimento() {
   return <h1>Atendimento</h1>
@@ -28,6 +29,8 @@ function App() {
         <Route path="/atendimento/:id" element={<Atendimento />} />
         <Route path="/dashboardmock" element={<DashboardMock />} />
         <Route path="/dashboardmockc" element={<DashboardMockC />} />
+        <Route path="/perfil" element={<Perfil />} />
+        
       </Route>
 
       <Route
