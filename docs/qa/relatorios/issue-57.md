@@ -3,16 +3,20 @@
 ## 1. Identificação
 
 - **Issue:** #57
+- **Issue de QA do reteste:** #74
 - **Branch testada:** `frontend/feature-perfil-admin`
-- **Commit testado:** `670bd5b` — `merge: integra main na feature de perfil`
+- **Commit da validação inicial:** `670bd5b` — `merge: integra main na feature de perfil`
+- **Commit do reteste:** `2bba3a8` — `fix: ajusta perfil e responsividade do header`
 - **Responsável pelos testes:** QA
-- **Resultado final:** ❌ Reprovado — necessita correções de fidelidade visual e responsividade
+- **Resultado final:** ✅ Aprovado após reteste
 
 ---
 
 ## 2. Objetivo
 
 Validar a implementação da área de perfil do administrador, incluindo o menu do usuário, navegação, exibição e alteração local das informações do administrador, utilização de dados mockados, modais de alteração de e-mail e telefone, validações dos formulários, fidelidade ao protótipo e comportamento da interface em diferentes tamanhos de tela.
+
+Após a identificação de duas não conformidades na validação inicial, foi realizado um reteste das correções implementadas.
 
 ---
 
@@ -44,12 +48,24 @@ Foram verificados:
 
 ## 4. Ambiente e preparação
 
+### Validação inicial
+
 - **Sistema operacional:** Windows
 - **Frontend:** React + Vite
 - **Branch:** `frontend/feature-perfil-admin`
 - **Commit:** `670bd5b`
 - **Execução:** `npm run dev`
 - **URL:** `localhost:5173`
+
+### Reteste
+
+- **Sistema operacional:** Windows
+- **Frontend:** React + Vite
+- **Branch:** `frontend/feature-perfil-admin`
+- **Commit:** `2bba3a8`
+- **Execução:** `npm run dev`
+- **URL:** `localhost:5173`
+- **Viewport mobile utilizado:** iPhone SE — `375 × 667`
 
 O frontend foi iniciado através do Vite antes da execução dos testes.
 
@@ -285,16 +301,31 @@ Comparar a implementação da página de perfil com o layout definido no protót
 **Resultado esperado:**  
 A implementação deve apresentar layout fiel ao protótipo.
 
-**Resultado obtido:**  
+**Resultado obtido na validação inicial:**  
 Foram identificadas diferenças visuais relevantes. No protótipo, a página utiliza fundo escuro, os dados de e-mail e telefone são apresentados em cards escuros e as ações "Editar" aparecem como botões vermelhos. Na implementação, o conteúdo utiliza fundo branco, os cards previstos não são apresentados e as ações "Editar" aparecem apenas como texto.
 
-**Status:** ❌ Reprovado
+**Status inicial:** ❌ Reprovado
 
-**Evidências:**
+**Evidências da validação inicial:**
 
 ![Implementação da página de perfil](../evidencias/issue-57/QA-057-03-pagina-perfil.png)
 
 ![Protótipo da página de perfil](../evidencias/issue-57/QA-057-09-prototipo-perfil.png)
+
+#### Reteste — QA-057-09
+
+**Commit retestado:** `2bba3a8`
+
+**Resultado obtido:**  
+A página foi ajustada visualmente. O fundo passou a seguir a apresentação escura prevista, os dados de e-mail e telefone passaram a ser exibidos em cards escuros e as ações "Editar" passaram a ser apresentadas como botões vermelhos.
+
+As diferenças que motivaram a reprovação inicial foram corrigidas.
+
+**Status após reteste:** ✅ Aprovado
+
+**Evidência do reteste:**
+
+![Reteste da fidelidade visual](../evidencias/issue-57/QA-057-reteste-layout-desktop.png)
 
 ---
 
@@ -312,36 +343,62 @@ Verificar o comportamento da página de perfil em dispositivo móvel.
 **Resultado esperado:**  
 A página deve funcionar corretamente em diferentes tamanhos de tela, sem sobreposição ou corte inadequado dos elementos.
 
-**Resultado obtido:**  
+**Resultado obtido na validação inicial:**  
 O conteúdo principal da página de perfil permaneceu acessível. Entretanto, o `BaseHeader` não se adaptou corretamente ao viewport mobile. A saudação e a identificação "Administrador" apresentaram sobreposição e parte do conteúdo do cabeçalho ficou cortada.
 
-**Status:** ❌ Reprovado
+**Status inicial:** ❌ Reprovado
 
-**Evidência:**
+**Evidência da validação inicial:**
 
 ![Problema de responsividade em tela mobile](../evidencias/issue-57/QA-057-10-responsividade-mobile.png)
+
+#### Reteste — QA-057-10
+
+**Commit retestado:** `2bba3a8`
+
+**Resultado obtido:**  
+No viewport de iPhone SE (`375 × 667`), o `BaseHeader` passou a reorganizar seus elementos sem a sobreposição observada anteriormente. A saudação, a descrição e a identificação "Administrador" permaneceram visíveis e organizadas.
+
+O conteúdo da página também permaneceu acessível em tela mobile, incluindo os cards de e-mail e telefone e suas respectivas ações.
+
+**Status após reteste:** ✅ Aprovado
+
+**Evidência do reteste:**
+
+![Reteste da responsividade em tela mobile](../evidencias/issue-57/QA-057-reteste-responsividade-iphone-se.png)
 
 ---
 
 ## 6. Resumo dos Resultados
+
+### Validação inicial
 
 - **Casos executados:** 10
 - **Aprovados:** 8
 - **Reprovados:** 2
 - **Defeitos identificados:** 2
 
-| Caso | Resultado |
-|---|---|
-| QA-057-01 | ✅ Aprovado |
-| QA-057-02 | ✅ Aprovado |
-| QA-057-03 | ✅ Aprovado |
-| QA-057-04 | ✅ Aprovado |
-| QA-057-05 | ✅ Aprovado |
-| QA-057-06 | ✅ Aprovado |
-| QA-057-07 | ✅ Aprovado |
-| QA-057-08 | ✅ Aprovado |
-| QA-057-09 | ❌ Reprovado |
-| QA-057-10 | ❌ Reprovado |
+### Reteste
+
+- **Casos retestados:** 2
+- **Aprovados no reteste:** 2
+- **Reprovados no reteste:** 0
+- **Defeitos pendentes:** 0
+
+| Caso | Validação inicial | Após reteste |
+|---|---|---|
+| QA-057-01 | ✅ Aprovado | — |
+| QA-057-02 | ✅ Aprovado | — |
+| QA-057-03 | ✅ Aprovado | — |
+| QA-057-04 | ✅ Aprovado | — |
+| QA-057-05 | ✅ Aprovado | — |
+| QA-057-06 | ✅ Aprovado | — |
+| QA-057-07 | ✅ Aprovado | — |
+| QA-057-08 | ✅ Aprovado | — |
+| QA-057-09 | ❌ Reprovado | ✅ Aprovado no reteste |
+| QA-057-10 | ❌ Reprovado | ✅ Aprovado no reteste |
+
+**Resultado final:** ✅ Aprovado após reteste.
 
 ---
 
@@ -349,37 +406,33 @@ O conteúdo principal da página de perfil permaneceu acessível. Entretanto, o 
 
 ### DEF-057-01 — Layout da página de perfil divergente do protótipo
 
-**Descrição:**  
-A implementação apresenta diferenças visuais relevantes em relação ao protótipo. O protótipo utiliza fundo escuro, cards para apresentação de e-mail e telefone e botões vermelhos para a ação "Editar". Esses elementos não foram reproduzidos na implementação atual.
-
-**Impacto:**  
-O fluxo funcional permanece utilizável, porém o critério explícito de fidelidade ao protótipo não é atendido.
+**Descrição original:**  
+A implementação apresentava diferenças visuais relevantes em relação ao protótipo. O protótipo utiliza fundo escuro, cards para apresentação de e-mail e telefone e botões vermelhos para a ação "Editar". Esses elementos não haviam sido reproduzidos na implementação inicial.
 
 **Severidade:** Média.
 
-**Recomendação:**  
-Adequar cores, estrutura dos cards, botões e demais elementos visuais da página ao protótipo definido para o projeto.
+**Situação após reteste:** ✅ Corrigido.
+
+No commit `2bba3a8`, foram realizados ajustes visuais na página de perfil. Os cards de e-mail e telefone e os botões "Editar" passaram a seguir a estrutura visual esperada.
 
 ---
 
 ### DEF-057-02 — Header apresenta sobreposição em tela mobile
 
-**Descrição:**  
-Em viewport de `375 × 667` (iPhone SE), os elementos do `BaseHeader` não se reorganizam adequadamente. A saudação e a identificação "Administrador" apresentam sobreposição e parte do conteúdo fica cortada.
-
-**Impacto:**  
-O conteúdo principal da página permanece acessível, porém há perda significativa de legibilidade e organização visual em dispositivos móveis.
+**Descrição original:**  
+Em viewport de `375 × 667` (iPhone SE), os elementos do `BaseHeader` não se reorganizavam adequadamente. A saudação e a identificação "Administrador" apresentavam sobreposição e parte do conteúdo ficava cortada.
 
 **Severidade:** Média.
 
-**Recomendação:**  
-Ajustar o comportamento responsivo do `BaseHeader` para reorganizar seus elementos em larguras menores, evitando sobreposição e corte de conteúdo.
+**Situação após reteste:** ✅ Corrigido.
+
+No commit `2bba3a8`, o comportamento responsivo do `BaseHeader` foi ajustado. No reteste realizado em `375 × 667`, não foi reproduzida a sobreposição identificada anteriormente.
 
 ---
 
 ## 8. Considerações Finais
 
-As funcionalidades principais da área de perfil do administrador foram executadas com sucesso. O menu apresentou as opções previstas, abriu corretamente e pôde ser fechado tanto através de novo clique em "Administrador" quanto através de clique fora do menu.
+Na validação inicial, as funcionalidades principais da área de perfil do administrador foram executadas com sucesso. O menu apresentou as opções previstas, abriu corretamente e pôde ser fechado tanto através de novo clique em "Administrador" quanto através de clique fora do menu.
 
 A navegação através da opção "Perfil" direcionou corretamente para `/perfil`, enquanto a opção "Sair" realizou o redirecionamento para `/login`.
 
@@ -387,6 +440,10 @@ A página apresentou corretamente o nome, e-mail e telefone do administrador uti
 
 Os modais de alteração de e-mail e telefone apresentaram os campos e botões previstos. A opção "cancelar" fechou corretamente ambos os modais sem realizar alterações. Com dados válidos, a opção "confirmar" atualizou localmente o e-mail e o telefone apresentados na página. A aplicação também impediu a confirmação quando os campos obrigatórios foram mantidos vazios.
 
-Entretanto, foram identificadas duas não conformidades relacionadas a critérios explícitos de aceitação. A implementação apresenta diferenças visuais relevantes em relação ao protótipo e o `BaseHeader` apresenta problemas de responsividade em viewport mobile.
+Na validação inicial, foram identificadas duas não conformidades: divergências visuais em relação ao protótipo e problemas de responsividade do `BaseHeader` em viewport mobile.
 
-**Resultado final: ❌ Reprovado — necessita correções de fidelidade visual e responsividade.**
+Após as correções realizadas no commit `2bba3a8`, os casos QA-057-09 e QA-057-10 foram executados novamente. As diferenças visuais que motivaram a reprovação inicial foram corrigidas e o problema de sobreposição do cabeçalho não foi reproduzido no viewport de iPhone SE (`375 × 667`).
+
+Dessa forma, os dois defeitos identificados na validação inicial são considerados corrigidos e não permanecem pendências bloqueantes dentro do escopo validado pela QA.
+
+**Resultado final: ✅ Aprovado após reteste.**
