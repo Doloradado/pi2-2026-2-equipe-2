@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   api:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     ports:
@@ -12,10 +12,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=db;Database=chatbot_db;Username=postgres;Password=admin
-
+    env_file:
+      - ./Services/.env
   db:
     image: postgres:15-alpine
     restart: always
+
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin

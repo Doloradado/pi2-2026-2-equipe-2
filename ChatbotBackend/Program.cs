@@ -8,7 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<GeminiService>();
+builder.Services.AddHttpClient<GeminiService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -46,11 +46,17 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    SeedData.Initialize(context);
-}
 
-using var migrationScope = app.Services.CreateScope();
-var db = migrationScope.ServiceProvider.GetRequiredService<AppDbContext>();
-db.Database.Migrate();
+    try
+    {
+        context.Database.Migrate();
+
+        SeedData.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}");
+    }
+}
 
 app.Run();
