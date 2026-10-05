@@ -56,11 +56,12 @@ Como o projeto agora integra a API do Google Gemini, é necessário configurar a
       "Microsoft.AspNetCore": "Warning"
     }
   },
-  "Gemini": {
+ "Gemini": {
     "ApiKey": "SUA_API_KEY_AQUI"
   }
 }
-
+```
+### Camada de Banco de Dados e MER
 ###  Camada de Banco de Dados e MER 
 
 A modelagem do banco de dados foi construída seguindo estritamente os requisitos funcionais do projeto (identificação por WhatsApp, sessões de atendimento e histórico de mensagens), utilizando o **Entity Framework Core** com migrações automáticas para o **PostgreSQL**.
