@@ -1,5 +1,6 @@
 import { useState } from "react"
 import BaseHeader from "../components/BaseHeader"
+import BaseBackButton from "../components/BaseBackButton"
 
 function Perfil() {
     const [modalEmailAberto, setModalEmailAberto] = useState(false)
@@ -16,6 +17,7 @@ function Perfil() {
             <BaseHeader />
 
             <div className="w-full p-6 pt-[180px] md:pt-31">
+                <BaseBackButton />
                 <h1 className="font-jomhuria text-[64px] font-normal text-white">
                     Meu perfil
                 </h1>
