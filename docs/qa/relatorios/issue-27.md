@@ -3,21 +3,21 @@
 ## 1. Identificação
 
 - **Issue:** #27 — Implementar Dashboard de atendimentos
-- **Issue de QA:** #60 — QA — Validar implementação do Dashboard de atendimentos (#27)
-- **Requisito relacionado:** RF020 — Dashboard administrativo
+- **Issue de QA da validação inicial:** #60
+- **Issue de QA do reteste:** #72 — QA — Retestar correções da issue #27
 - **Branch testada:** `frontend/implementar+dashboard/27`
-- **Commit testado:** `951b1b7`
+- **Commit da validação inicial:** `951b1b7`
+- **Commit do reteste:** `d35af52` — `correção no dashboard`
 - **Responsável pelos testes:** QA
-- **Resultado final:** Reprovado — necessita correções
+- **Resultado final:** ✅ Aprovado após reteste
 
 ---
 
 ## 2. Objetivo
 
-Validar a implementação do Dashboard de atendimentos desenvolvida na issue #27,
-verificando os critérios de aceitação definidos, a renderização dos dados,
-a navegação para os atendimentos e a conformidade visual com o protótipo
-disponibilizado pela equipe de Design.
+Validar a implementação do Dashboard de atendimentos desenvolvida na issue #27, verificando a inicialização da aplicação, a conformidade da interface com o protótipo, a utilização da camada de dados mockados e a navegação para os detalhes de um atendimento.
+
+O reteste teve como objetivo verificar as correções dos dois defeitos funcionais identificados durante a validação inicial.
 
 ---
 
@@ -29,13 +29,13 @@ Foram considerados os seguintes critérios definidos na issue #27:
 - Cards e lista renderizam dados mockados corretamente;
 - Botão "Ver respostas" navega para `/atendimento/:id`.
 
-Também foram verificados os elementos previstos na implementação:
+Também foram considerados os elementos previstos na implementação:
 
-- Saudação ao profissional ("Olá, Wilson!");
+- Saudação ao profissional;
 - Quatro cards de estatísticas;
-- Lista de clientes recentes;
-- Avatar, nome, status e data dos clientes;
-- Botão "Ver respostas" em cada cliente.
+- Lista de clientes recentes com avatar, nome, status e data;
+- Botão "Ver respostas" em cada cliente;
+- Utilização de dados mockados.
 
 ---
 
@@ -46,7 +46,9 @@ Também foram verificados os elementos previstos na implementação:
 - Branch da issue testada em detached HEAD;
 - Aplicação iniciada com `npm run dev`;
 - Protótipo do Figma utilizado como referência visual;
-- `mockApi.js` utilizado como referência para validação dos dados mockados.
+- Camada de mocks utilizada como referência para validação dos dados.
+
+Para o reteste, foi utilizada a versão da branch correspondente ao commit `d35af52`.
 
 ---
 
@@ -57,151 +59,147 @@ Também foram verificados os elementos previstos na implementação:
 **Objetivo:**  
 Verificar se o frontend inicia corretamente na branch da issue #27.
 
-**Procedimento:**  
-1. Acessar a pasta `frontend`.
-2. Executar `npm run dev`.
-
 **Resultado esperado:**  
-O frontend deve iniciar sem erros e disponibilizar a aplicação localmente.
+A aplicação deve iniciar sem erros e disponibilizar o frontend localmente.
 
 **Resultado obtido:**  
-O frontend iniciou corretamente pelo Vite, sem erros de inicialização, e a aplicação foi disponibilizada em `http://localhost:5173/`.
+O frontend iniciou corretamente e o Dashboard pôde ser acessado.
 
 **Status:** ✅ Aprovado
-
-**Evidência:**  
-
-![Inicialização do frontend](../evidencias/issue-27/QA-027-01-inicializacao-frontend.png)
 
 ---
 
 ### QA-027-02 — Layout e elementos do Dashboard
 
 **Objetivo:**  
-Verificar se o Dashboard apresenta os elementos previstos na issue #27 e mantém conformidade visual com o protótipo.
-
-**Procedimento:**  
-1. Acessar `/dashboard`.
-2. Comparar a tela implementada com o protótipo disponibilizado pela equipe de Design.
-3. Verificar a saudação apresentada no cabeçalho.
-4. Verificar a presença dos quatro cards de estatísticas.
-5. Verificar a seção "Clientes Recentes".
-6. Verificar a exibição de avatar, nome, data e status dos clientes.
+Verificar se o Dashboard apresenta os elementos previstos e mantém conformidade com o protótipo.
 
 **Resultado esperado:**  
-O Dashboard deve apresentar a saudação "Olá, Wilson!", quatro cards de estatísticas e uma lista de clientes recentes contendo avatar, nome, data e status, mantendo o layout de acordo com o protótipo.
+A tela deve apresentar a saudação ao profissional, quatro cards de estatísticas, lista de clientes recentes e as ações previstas.
 
 **Resultado obtido:**  
-O Dashboard apresentou a saudação "Olá, Wilson!", os quatro cards de estatísticas e a seção "Clientes Recentes".
+Os elementos previstos foram apresentados e a estrutura geral da tela permaneceu compatível com o protótipo.
 
-Os clientes exibidos apresentam avatar, nome, data do atendimento e status. A estrutura geral da interface está de acordo com o protótipo.
-
-Foram observadas pequenas diferenças visuais entre o protótipo e a implementação, como a representação do avatar dos clientes e alguns espaçamentos/proporções dos elementos, sem comprometer a utilização da interface.
+Foram observadas pequenas diferenças visuais em relação ao protótipo, principalmente nos avatares e em alguns espaçamentos/proporções, sem impedir a utilização da interface.
 
 **Status:** ⚠️ Aprovado com observação
-
-**Evidências:**  
-
-![Dashboard e cards de estatísticas](../evidencias/issue-27/QA-027-02a-dashboard.png)
-
-![Lista de clientes recentes](../evidencias/issue-27/QA-027-02b-clientes-recentes.png)
 
 ---
 
 ### QA-027-03 — Renderização dos dados mockados
 
 **Objetivo:**  
-Verificar se os cards e a lista de clientes do Dashboard utilizam e renderizam corretamente os dados disponibilizados pela camada de mock.
-
-**Procedimento:**  
-1. Acessar `/dashboard`.
-2. Verificar os clientes, datas e status apresentados na seção "Clientes Recentes".
-3. Comparar os dados exibidos com os dados definidos em `src/services/mockApi.js`.
-4. Verificar se a interface está utilizando corretamente os dados da camada de mock.
-5. Verificar a origem dos valores apresentados nos cards e na lista de clientes.
+Verificar se os cards e a lista de clientes utilizam corretamente a camada de dados mockados.
 
 **Resultado esperado:**  
-O Dashboard deve utilizar os dados disponibilizados pela camada de mock e renderizar corretamente as informações dos atendimentos e clientes.
+Os dados apresentados no Dashboard devem corresponder aos dados disponibilizados pela camada de mocks.
 
-**Resultado obtido:**  
-Os dados exibidos no Dashboard não correspondem integralmente aos dados definidos em `mockApi.js`.
+**Resultado obtido na validação inicial:**  
+Os valores dos cards e os clientes apresentados no Dashboard estavam definidos diretamente na implementação e não correspondiam integralmente aos dados existentes em `mockApi.js`.
 
-Na camada de mock estão definidos os seguintes atendimentos:
+Foram observados no Dashboard clientes diferentes dos disponibilizados pela camada de mocks.
 
-- Tereza dos Santos — 18/09/2026 às 09:42 — NOVO;
-- Mariana Sampaio — 18/09/2026 às 13:05 — EM ATENDIMENTO;
-- Adrian Moreira — 17/09/2026 às 18:00 — FINALIZADO.
-
-Na interface foram exibidos:
-
-- Tereza dos Santos — 18/09/2026 às 09:42 — NOVO;
-- Carlos Oliveira — 17/09/2026 às 15:20 — NOVO;
-- Mariana Souza — 16/09/2026 às 11:05 — NOVO.
-
-Apenas os dados de Tereza dos Santos correspondem aos dados da camada de mock.
-
-Além da divergência entre os dados exibidos e os dados definidos em
-`mockApi.js`, foi verificado em `Dashboard.jsx` que os valores dos quatro
-cards de estatísticas e os dados dos clientes estão definidos diretamente
-no componente.
-
-Não foi identificada utilização da camada `mockApi.js` para obtenção
-dos dados apresentados no Dashboard.
-
-**Status:** ❌ Reprovado
-
-**Evidências:**  
-
-![Dados exibidos no Dashboard](../evidencias/issue-27/QA-027-03a-dashboard-dados.png)
-
-![Dados definidos na camada de mock](../evidencias/issue-27/QA-027-03b-dados-mock.png)
-
-![Dados definidos diretamente no Dashboard](../evidencias/issue-27/QA-027-03c-dados-fixos-dashboard.png)
+**Status da validação inicial:** ❌ Reprovado
 
 ---
 
 ### QA-027-04 — Navegação pelo botão "Ver respostas"
 
 **Objetivo:**  
-Verificar se o botão "Ver respostas" direciona o usuário para a página de atendimento correspondente ao cliente selecionado.
-
-**Procedimento:**  
-1. Acessar `/dashboard`.
-2. Localizar um cliente na seção "Clientes Recentes".
-3. Clicar no botão "Ver respostas" do cliente Tereza dos Santos.
-4. Verificar o comportamento da aplicação e a rota acessada.
+Verificar se o botão "Ver respostas" direciona o usuário para o atendimento correspondente.
 
 **Resultado esperado:**  
-Ao clicar em "Ver respostas", o sistema deve navegar para a rota `/atendimento/:id`, utilizando o identificador correspondente ao atendimento selecionado.
+Ao clicar em "Ver respostas", a aplicação deve navegar para `/atendimento/:id`, utilizando o identificador correspondente ao atendimento selecionado.
+
+**Resultado obtido na validação inicial:**  
+Ao clicar em "Ver respostas", a aplicação exibia apenas um alerta com a mensagem "Ver respostas" e permanecia no Dashboard.
+
+**Status da validação inicial:** ❌ Reprovado
+
+---
+
+## 5.1 Reteste
+
+### Reteste — QA-027-03 — Renderização dos dados mockados
+
+**Objetivo:**  
+Verificar se o Dashboard passou a utilizar corretamente os dados provenientes da camada de mocks.
+
+**Commit do reteste:** `d35af52` — `correção no dashboard`
+
+**Procedimento:**
+1. Executar a versão atualizada da branch `frontend/implementar+dashboard/27`.
+2. Acessar `/dashboard`.
+3. Verificar os clientes apresentados na lista.
+4. Comparar os dados apresentados com os dados da camada de mocks.
+
+**Resultado esperado:**  
+O Dashboard deve apresentar os dados disponibilizados pela camada de mocks.
 
 **Resultado obtido:**  
-Ao clicar no botão "Ver respostas", foi exibido apenas um alerta com a mensagem "Ver respostas".
+O Dashboard passou a apresentar os clientes correspondentes aos dados mockados:
 
-A aplicação permaneceu na rota `/dashboard` e não realizou a navegação para `/atendimento/:id`.
+- Tereza dos Santos — `NOVO`;
+- Mariana Sampaio — `EM ATENDIMENTO`;
+- Adrian Moreira — `FINALIZADO`.
 
-**Status:** ❌ Reprovado
+Os dados exibidos passaram a corresponder aos dados utilizados pela camada de mocks.
 
-**Evidência:**  
+O defeito `DEF-027-01` foi considerado corrigido.
 
-![Botão Ver respostas sem redirecionamento](../evidencias/issue-27/QA-027-04-ver-respostas-sem-redirecionamento.png)
+**Status:** ✅ Aprovado no reteste
+
+**Evidência:**
+
+![Reteste dos dados mockados](../evidencias/issue-27/QA-027-03-reteste-dados-mockados.png)
+
+---
+
+### Reteste — QA-027-04 — Navegação pelo botão "Ver respostas"
+
+**Objetivo:**  
+Verificar se o botão "Ver respostas" passou a realizar a navegação prevista para o detalhe do atendimento.
+
+**Commit do reteste:** `d35af52` — `correção no dashboard`
+
+**Procedimento:**
+1. Acessar `/dashboard`.
+2. Localizar o atendimento de Tereza dos Santos.
+3. Clicar no botão "Ver respostas".
+4. Verificar a URL acessada após a ação.
+
+**Resultado esperado:**  
+A aplicação deve navegar para a rota correspondente ao atendimento selecionado, no formato `/atendimento/:id`.
+
+**Resultado obtido:**  
+Ao clicar em "Ver respostas" no atendimento de Tereza dos Santos, a aplicação navegou corretamente para `/atendimento/1`.
+
+O alerta apresentado na implementação anterior não foi mais exibido e o defeito `DEF-027-02` foi considerado corrigido.
+
+**Status:** ✅ Aprovado no reteste
+
+**Evidência:**
+
+![Reteste da navegação para o atendimento](../evidencias/issue-27/QA-027-04-reteste-navegacao-atendimento.png)
 
 ---
 
 ## 6. Resumo dos Resultados
 
-| Caso | Descrição | Resultado |
-|---|---|---|
-| QA-027-01 | Inicialização do frontend | ✅ Aprovado |
-| QA-027-02 | Layout e elementos do Dashboard | ⚠️ Aprovado com observação |
-| QA-027-03 | Renderização dos dados mockados | ❌ Reprovado |
-| QA-027-04 | Navegação pelo botão "Ver respostas" | ❌ Reprovado |
+| Caso | Descrição | Validação inicial | Resultado após reteste |
+|---|---|---|---|
+| QA-027-01 | Inicialização do frontend | ✅ Aprovado | ✅ Aprovado |
+| QA-027-02 | Layout e elementos do Dashboard | ⚠️ Aprovado com observação | ⚠️ Aprovado com observação |
+| QA-027-03 | Renderização dos dados mockados | ❌ Reprovado | ✅ Aprovado no reteste |
+| QA-027-04 | Navegação pelo botão "Ver respostas" | ❌ Reprovado | ✅ Aprovado no reteste |
 
-**Total de casos executados:** 4  
-**Aprovados:** 1  
-**Aprovados com observação:** 1  
-**Reprovados:** 2  
-**Defeitos funcionais encontrados:** 2  
+**Casos da validação inicial:** 4  
+**Casos retestados:** 2  
+**Defeitos funcionais identificados inicialmente:** 2  
+**Defeitos funcionais pendentes após o reteste:** 0  
 **Observações visuais:** 1
+
+**Resultado final:** ✅ Aprovado após reteste, mantendo uma observação visual não bloqueante.
 
 ---
 
@@ -209,57 +207,50 @@ A aplicação permaneceu na rota `/dashboard` e não realizou a navegação para
 
 ### DEF-027-01 — Dashboard não utiliza corretamente a camada de dados mockados
 
-Os cards de estatísticas e os dados apresentados na lista de clientes estão definidos diretamente em `Dashboard.jsx`.
-
-Os clientes apresentados na interface também não correspondem integralmente aos atendimentos existentes em `mockApi.js`.
-
-**Impacto:** Alto.
-
-**Critério afetado:**  
-"Cards e lista renderizam dados mockados corretamente."
-
-**Recomendação:**  
-Utilizar a camada de serviços/mocks existente para obter os dados do Dashboard, evitando manter os valores dos cards e os dados dos clientes definidos diretamente no componente.
-
----
-
-### DEF-027-02 — Botão "Ver respostas" não navega para o atendimento
-
-Ao clicar no botão "Ver respostas", a aplicação apresenta apenas um alerta e permanece na rota `/dashboard`.
+**Situação inicial:**  
+Os valores e dados dos clientes apresentados no Dashboard estavam definidos diretamente na implementação e não correspondiam integralmente aos dados existentes na camada de mocks.
 
 **Impacto:** Alto.
 
-**Critério afetado:**  
-"Botão 'Ver respostas' navega para `/atendimento/:id`."
+**Situação após reteste:** ✅ Corrigido.
 
-**Recomendação:**  
-Implementar a navegação utilizando o identificador do atendimento selecionado, direcionando o usuário para a rota `/atendimento/:id`.
+No commit `d35af52`, o Dashboard passou a apresentar os clientes provenientes da camada de dados mockados, incluindo Tereza dos Santos, Mariana Sampaio e Adrian Moreira.
 
 ---
 
-### OBS-027-01 — Pequenas divergências visuais em relação ao protótipo
+### DEF-027-02 — Botão "Ver respostas" não realiza navegação
 
-Foram identificadas pequenas diferenças entre a implementação e o protótipo, principalmente na representação visual dos avatares e em alguns espaçamentos e proporções dos elementos.
+**Situação inicial:**  
+Ao clicar no botão "Ver respostas", era exibido apenas um alerta e a aplicação permanecia em `/dashboard`.
 
-As diferenças observadas não impedem a utilização do Dashboard.
+**Impacto:** Alto.
 
-**Impacto:** Baixo.
+**Situação após reteste:** ✅ Corrigido.
 
-**Recomendação:**  
-Realizar ajustes visuais para aumentar a fidelidade da implementação em relação ao protótipo.
+No commit `d35af52`, o botão passou a navegar corretamente para a rota `/atendimento/:id`. Durante o reteste com o atendimento de Tereza dos Santos, a aplicação foi direcionada para `/atendimento/1`.
+
+---
+
+### OBS-027-01 — Diferenças visuais em relação ao protótipo
+
+Na validação inicial foram observadas pequenas diferenças visuais, principalmente nos avatares e em alguns espaçamentos/proporções.
+
+As diferenças não impedem o funcionamento da interface e não foram classificadas como defeito funcional.
+
+**Situação:** ⚠️ Observação não bloqueante.
 
 ---
 
 ## 8. Considerações Finais
 
-A implementação da issue #27 apresenta corretamente a estrutura principal do Dashboard, incluindo a saudação ao profissional, os quatro cards de estatísticas e a lista de clientes recentes.
+Na validação inicial da issue #27, os testes identificaram dois defeitos funcionais: o Dashboard não utilizava corretamente a camada de dados mockados e o botão "Ver respostas" não realizava a navegação prevista para `/atendimento/:id`.
 
-Entretanto, foram identificados dois problemas que afetam diretamente os critérios de aceitação da issue.
+No reteste realizado no commit `d35af52`, foi confirmado que ambos os problemas foram corrigidos.
 
-O Dashboard não está utilizando corretamente a camada de dados mockados, mantendo os valores dos cards e os dados dos clientes definidos diretamente em `Dashboard.jsx`. Além disso, o botão "Ver respostas" não realiza a navegação prevista para `/atendimento/:id`.
+O Dashboard passou a apresentar os clientes correspondentes aos dados mockados e o botão "Ver respostas" passou a navegar corretamente para o detalhe do atendimento selecionado.
 
-Também foram observadas pequenas divergências visuais em relação ao protótipo, sem impacto significativo no uso da interface.
+A observação visual registrada anteriormente permanece classificada como não bloqueante e não compromete o funcionamento dos critérios funcionais da issue.
 
-Como dois critérios de aceitação funcionais não foram atendidos, a implementação necessita de correções e nova validação de QA.
+Não permanecem defeitos funcionais pendentes identificados pela QA no escopo da issue #27.
 
-**Resultado final da validação: ❌ Reprovado — necessita correções.**
+**Resultado final da validação: ✅ Aprovado após reteste, com observação visual não bloqueante.**
