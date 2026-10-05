@@ -38,29 +38,24 @@ A infraestrutura do projeto está 100% conteinerizada, o que significa que não 
    ```bash
    Ctrl + C
 
-### Configuração da Inteligência Artificial (Google Gemini)
+### Configuração da Inteligência Artificial (Google Gemini) e Variáveis de Ambiente
 
-Como o projeto agora integra a API do Google Gemini, é necessário configurar a sua própria chave de API localmente, pois ela não é enviada para o GitHub por motivos de segurança.
+Como o projeto integra a API do Google Gemini, a chave de API deve ser configurada localmente através de um ficheiro de variáveis de ambiente (`.env`), garantindo que a credencial nunca seja enviada acidentalmente para o GitHub por motivos de segurança.
 
-**Antes de rodar o `docker compose up`, faça o seguinte:**
+**Antes de rodar o `docker compose up --build`, faça o seguinte:**
 
-1. Obtenha uma API Key gratuita no [Google AI Studio](https://aistudio.google.com/app/apikey).
-2. Na pasta `ChatbotBackend`, crie um ficheiro chamado `appsettings.Development.json` (se ainda não existir).
-3. Adicione a seguinte estrutura ao ficheiro, substituindo a sua chave:
+1. Obtenha uma API Key válida no [Google AI Studio](https://aistudio.google.com/app/apikey).
+2. Na pasta raiz `ChatbotBackend`, crie um ficheiro chamado exatamente **`.env`** (certifique-se de que não fica com extensão `.txt`).
+3. Adicione a sua chave no seguinte formato dentro do ficheiro `.env`:
 
-```json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
- "Gemini": {
-    "ApiKey": "SUA_API_KEY_AQUI"
-  }
-}
+```env
+Gemini__ApiKey=SUA_API_KEY_AQUI
 ```
+```Aceda à documentação interativa da API (Swagger) no navegador através de:
+http://localhost:8080/swagger
+```
+OBS: Para rodar a IA, ela está localizada integrada na branch feature/integracao-gemini.
+
 ### Camada de Banco de Dados e MER
 ###  Camada de Banco de Dados e MER 
 
