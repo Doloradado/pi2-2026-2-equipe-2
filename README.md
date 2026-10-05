@@ -49,11 +49,13 @@ Como o projeto integra a API do Google Gemini, a chave de API deve ser configura
 3. Adicione a sua chave no seguinte formato dentro do ficheiro `.env`:
 
 ```env
-Gemini__ApiKey=SUA_API_KEY_AQUI
+   Gemini__ApiKey=SUA_API_KEY_AQUI
 ```
-```Aceda à documentação interativa da API (Swagger) no navegador através de:
-http://localhost:8080/swagger
-```
+
+4. Aceda à documentação interativa da API (Swagger) no navegador através de:
+   ```bash
+   http://localhost:8080/swagger
+   
 OBS: Para rodar a IA, ela está localizada integrada na branch feature/integracao-gemini.
 
 ### Camada de Banco de Dados e MER
