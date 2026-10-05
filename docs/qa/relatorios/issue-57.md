@@ -325,7 +325,7 @@ As diferenças que motivaram a reprovação inicial foram corrigidas.
 
 **Evidência do reteste:**
 
-![Reteste da fidelidade visual](../evidencias/issue-57/QA-057-09-reteste-layout-desktop.png)
+![Reteste da fidelidade visual](../evidencias/issue-57/QA-057-reteste-layout-desktop.png)
 
 ---
 
@@ -365,7 +365,7 @@ O conteúdo da página também permaneceu acessível em tela mobile, incluindo o
 
 **Evidência do reteste:**
 
-![Reteste da responsividade em tela mobile](../evidencias/issue-57/QA-057-10-reteste-responsividade-iphone-se.png)
+![Reteste da responsividade em tela mobile](../evidencias/issue-57/QA-057-reteste-responsividade-iphone-se.png)
 
 ---
 
