@@ -58,6 +58,7 @@ Como o projeto integra a API do Google Gemini, a chave de API deve ser configura
    
 OBS: Para rodar a IA, ela está localizada integrada na branch feature/integracao-gemini.
 
+
 ### Camada de Banco de Dados e MER
 ###  Camada de Banco de Dados e MER 
 
