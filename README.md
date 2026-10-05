@@ -59,7 +59,6 @@ Como o projeto integra a API do Google Gemini, a chave de API deve ser configura
 OBS: Para rodar a IA, ela está localizada integrada na branch feature/integracao-gemini.
 
 
-### Camada de Banco de Dados e MER
 ###  Camada de Banco de Dados e MER 
 
 A modelagem do banco de dados foi construída seguindo estritamente os requisitos funcionais do projeto (identificação por WhatsApp, sessões de atendimento e histórico de mensagens), utilizando o **Entity Framework Core** com migrações automáticas para o **PostgreSQL**.
