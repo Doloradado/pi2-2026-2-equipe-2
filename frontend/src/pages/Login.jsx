@@ -72,7 +72,7 @@ function Login() {
 
       <button
         type="button"
-        className="text-black font-semibold hover:text-white transition"
+        className="text-[#D11919] font-semibold hover:text-[#FA2F2F] transition"
       >
         Esqueci minha senha
       </button>
