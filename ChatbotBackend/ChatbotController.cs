@@ -69,12 +69,18 @@ namespace ChatbotBackend.Controllers
             return CreatedAtAction(nameof(GetClientePorId), new { id = clienteId }, novaSessao);
         }
 
+
         [HttpPost("mensagem")]
         public async Task<IActionResult> RegistrarMensagem([FromBody] HistoricoMensagem mensagem)
         {
-            var sessaoExiste = await _context.SessoesAtendimento.AnyAsync(s => s.Id == mensagem.SessaoId);
+            var sessaoExiste = await _context.SessoesAtendimento
+                .AnyAsync(s => s.Id == mensagem.SessaoId);
+
             if (!sessaoExiste)
                 return NotFound(new { mensagem = "Sessão de atendimento não encontrada." });
+
+            if (string.IsNullOrWhiteSpace(mensagem.Conteudo))
+                return BadRequest(new { mensagem = "O conteúdo da mensagem não pode estar vazio." });
 
             if (string.IsNullOrEmpty(mensagem.IdMensagemWhatsapp))
             {
@@ -86,5 +92,6 @@ namespace ChatbotBackend.Controllers
 
             return Ok(mensagem);
         }
+
     }
 }

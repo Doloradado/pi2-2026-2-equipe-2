@@ -6,7 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler =
+            System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -40,15 +47,15 @@ app.MapGet("/", () => "API do Chatbot do Personal Trainer rodando com sucesso! ð
 
 app.MapControllers();
 
+using var migrationScope = app.Services.CreateScope();
+var db = migrationScope.ServiceProvider.GetRequiredService<AppDbContext>();
+db.Database.Migrate();
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
     SeedData.Initialize(context);
 }
-
-using var migrationScope = app.Services.CreateScope();
-var db = migrationScope.ServiceProvider.GetRequiredService<AppDbContext>();
-db.Database.Migrate();
 
 app.Run();
