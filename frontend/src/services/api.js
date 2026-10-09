@@ -1,23 +1,67 @@
-/**
- * Camada de acesso aos dados utilizada pelo frontend.
- *
- * Atualmente, as funções são fornecidas pelo mockApi.js
- * para permitir o desenvolvimento sem depender do backend.
- *
- * Quando a API real estiver disponível, este arquivo deverá
- * substituir a implementação mockada pelas chamadas HTTP
- * para o backend, mantendo as mesmas funções utilizadas
- * pelas páginas sempre que possível.
- *
- * Fluxo atual:
- * Página -> api.js -> mockApi.js
- *
- * Fluxo futuro:
- * Página -> api.js -> API real -> Backend
- */
+const API_URL = "http://localhost:8080/api/Chatbot";
 
+export async function getClientes() {
+  const response = await fetch(`${API_URL}/clientes`);
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar clientes.");
+  }
+
+  return await response.json();
+}
+
+export async function criarSessao(clienteId) {
+  const response = await fetch(`${API_URL}/sessao`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(clienteId),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao criar sessão.");
+  }
+
+  return await response.json();
+}
+
+export async function enviarMensagem(
+  sessaoId,
+  remetente,
+  conteudo,
+  tipoMidia = "TEXTO",
+) {
+  const response = await fetch(`${API_URL}/mensagem`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sessaoId,
+      remetente,
+      conteudo,
+      tipoMidia,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao enviar mensagem.");
+  }
+
+  return await response.json();
+}
+
+export async function getMensagens(sessaoId) {
+  const response = await fetch(`${API_URL}/sessoes/${sessaoId}/mensagens`);
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar mensagens.");
+  }
+
+  return await response.json();
+}
 export {
-  getClientes,
   getAtendimentos,
   getAtendimentoById,
   getConversaByAtendimentoId,

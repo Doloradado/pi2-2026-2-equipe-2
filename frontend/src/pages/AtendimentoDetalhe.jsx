@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import BaseHeader from "../components/BaseHeader";
+import BaseBackButton from "../components/BaseBackButton"
 import {
     getAtendimentoById,
     getConversaByAtendimentoId,
@@ -9,27 +10,31 @@ import {
 
 function AtendimentoDetalhe() {
     const { id } = useParams()
-    const navigate = useNavigate()
 
     const [atendimento, setAtendimento] = useState(null)
     const [conversa, setConversa] = useState([])
     const [carregando, setCarregando] = useState(true)
     const [modalAberto, setModalAberto] = useState(false)
-    const [status, setStatus] = useState("")
     useEffect(() => {
         async function CarregarDados() {
-            const atendimentoEncontrado = await getAtendimentoById(id)
-            if (!atendimentoEncontrado) {
-                setAtendimento(null)
-                setCarregando(false)
-                return
-            }
-            const conversaEncontrada = await getConversaByAtendimentoId(id)
+            try {
+                const atendimentoEncontrado = await getAtendimentoById(id)
 
-            setAtendimento(atendimentoEncontrado)
-            setStatus(atendimentoEncontrado.status)
-            setConversa(conversaEncontrada)
-            setCarregando(false)
+                if (!atendimentoEncontrado) {
+                    setAtendimento(null)
+                    return
+                }
+
+                const conversaEncontrada = await getConversaByAtendimentoId(id)
+
+                setAtendimento(atendimentoEncontrado)
+                setConversa(conversaEncontrada)
+            } catch (erro) {
+                console.error("Erro ao carregar atendimento:", erro)
+                setAtendimento(null)
+            } finally {
+                setCarregando(false)
+            }
         }
 
         CarregarDados()
@@ -46,16 +51,11 @@ function AtendimentoDetalhe() {
         <main className="min-h-screen bg-[#252121] text-white">
             <BaseHeader />
 
-            <div className="mx-auto max-w-6xl p-6 pt-31">
-                <button
-                    type="button"
-                    onClick={() => navigate("/dashboard")}
-                    className="font-inter mb-6 text-[16px] font-semibold text-gray-300 hover:text-white"
-                >
-                    <span>←</span> Voltar para atendimentos
-                </button>
+            <div className="mx-auto max-w-6xl p-6 pt-[180px] md:pt-31">
+                <BaseBackButton />
+
                 <header className="mb-6">
-                    <h1 className="font-jomhuria text-[64px] font-normal">
+                    <h1 className="font-jomhuria text-[40px] font-normal leading-none md:text-[64px]">
                         Atendimento de {atendimento.cliente}
                     </h1>
 
@@ -69,7 +69,7 @@ function AtendimentoDetalhe() {
                     </p>
                 </header>
 
-                <section className="grid grid-cols-2 gap-6">
+                <section className="grid grid-cols-1 items-start gap-6 md:grid-cols-2">
 
                     <div className="rounded-2xl bg-[rgba(0,0,0,0.42)] p-6 text-white">
                         <h2 className="font-plex mb-4 text-[24px] font-bold">
@@ -100,11 +100,15 @@ function AtendimentoDetalhe() {
                                     {mensagem.remetente === "sistema" ? (
                                         <div className="my-6 rounded-xl bg-[#353333] px-4 py-3 text-center">
                                             <p className="font-plex text-[24px] font-medium text-white">
-                                                Atendimento encaminhado
+                                                {mensagem.mensagem === "Atendimento assumido por um administrador"
+                                                    ? "Atendimento assumido"
+                                                    : "Atendimento encaminhado"}
                                             </p>
 
                                             <p className="font-plex mt-1 text-[20px] font-medium text-gray-300">
-                                                O cliente solicitou atendimento humano.
+                                                {mensagem.mensagem === "Atendimento assumido por um administrador"
+                                                    ? "O atendimento foi assumido por um administrador."
+                                                    : "O cliente solicitou atendimento humano."}
                                             </p>
                                         </div>
                                     ) : (
@@ -147,65 +151,68 @@ function AtendimentoDetalhe() {
                 </div>
 
             </div >
-            {modalAberto && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
-                    <div className="w-full max-w-md rounded-2xl bg-[#353333] p-6 text-white">
+            {
+                modalAberto && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
+                        <div className="w-full max-w-md rounded-2xl bg-[#353333] p-6 text-white">
 
-                        <h2 className="font-instrument text-[24px] font-bold">
-                            Assumir atendimento?
-                        </h2>
+                            <h2 className="font-instrument text-[24px] font-bold">
+                                Assumir atendimento?
+                            </h2>
 
-                        <p className="font-inter mt-3 text-[16px] font-normal text-gray-300">
-                            Você deseja assumir o atendimento deste cliente?
-                        </p>
+                            <p className="font-inter mt-3 text-[16px] font-normal text-gray-300">
+                                Você deseja assumir o atendimento deste cliente?
+                            </p>
 
-                        <div className="mt-6 flex justify-end gap-3">
-                            <button
-                                type="button"
-                                onClick={() => setModalAberto(false)}
-                                className="font-inter rounded-xl px-5 py-2 text-[24px] font-bold text-gray-300 hover:text-white"
-                            >
-                                Cancelar
-                            </button>
+                            <div className="mt-6 flex justify-end gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setModalAberto(false)}
+                                    className="font-inter rounded-xl px-5 py-2 text-[24px] font-bold text-gray-300 hover:text-white"
+                                >
+                                    Cancelar
+                                </button>
 
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setStatus("EM ATENDIMENTO")
-                                    setConversa((conversaAtual) => {
-                                        const jaExisteMsgDoSistema = conversaAtual.some(
-                                            (mensagem) => mensagem.remetente === "sistema"
-                                        )
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setConversa((conversaAtual) => {
+                                            const jaExisteMsgAssumido = conversaAtual.some(
+                                                (mensagem) =>
+                                                    mensagem.remetente === "sistema" &&
+                                                    mensagem.mensagem === "Atendimento assumido por um administrador"
+                                            )
 
-                                        if (jaExisteMsgDoSistema) {
-                                            return conversaAtual;
-                                        }
+                                            if (jaExisteMsgAssumido) {
+                                                return conversaAtual
+                                            }
 
-                                        return [
-                                            ...conversaAtual,
-                                            {
-                                                id: Date.now(),
-                                                remetente: "sistema",
-                                                mensagem: "Atendimento assumido por um admnistrador.",
-                                                horario: new Date().toLocaleTimeString([], {
-                                                    hour: "2-digit",
-                                                    minute: "2-digit",
-                                                }),
-                                            },
-                                        ]
-                                    }
-                                    )
-                                    setModalAberto(false)
-                                }}
-                                className="font-plex rounded-xl bg-[#AD1818] px-6 py-3 text-[20px] font-bold text-white hover:bg-[#780606]"
-                            >
-                                Assumir atendimento
-                            </button>
+                                            return [
+                                                ...conversaAtual,
+                                                {
+                                                    id: Date.now(),
+                                                    remetente: "sistema",
+                                                    mensagem: "Atendimento assumido por um administrador",
+                                                    horario: new Date().toLocaleTimeString([], {
+                                                        hour: "2-digit",
+                                                        minute: "2-digit",
+                                                    }),
+                                                },
+                                            ]
+                                        })
+
+                                        setModalAberto(false)
+                                    }}
+                                    className="font-plex rounded-xl bg-[#AD1818] px-6 py-3 text-[20px] font-bold text-white hover:bg-[#780606]"
+                                >
+                                    Assumir atendimento
+                                </button>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
-            )}
+                )
+            }
         </main >
     )
 }
