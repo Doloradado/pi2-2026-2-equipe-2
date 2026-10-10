@@ -46,6 +46,7 @@ namespace ChatbotBackend.Data
                     SessaoId = sessoes[i].Id,
                     IdMensagemWhatsapp = $"wamid.HBgL_{Guid.NewGuid().ToString().Substring(0, 8)}",
                     Remetente = "USUARIO",
+                    Conteudo = $"Mensagem de teste do cliente {i + 1}",
                     TipoMidia = "TEXTO"
                 });
             }

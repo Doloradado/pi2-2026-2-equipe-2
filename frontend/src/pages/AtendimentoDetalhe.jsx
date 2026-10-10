@@ -1,219 +1,241 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import BaseHeader from "../components/BaseHeader";
-import BaseBackButton from "../components/BaseBackButton"
-import {
-    getAtendimentoById,
-    getConversaByAtendimentoId,
-} from "../services/api"
 
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import BaseHeader from "../components/BaseHeader";
+import BaseBackButton from "../components/BaseBackButton";
+
+import { getMensagens } from "../services/api";
 
 function AtendimentoDetalhe() {
-    const { id } = useParams()
+  const { id } = useParams();
 
-    const [atendimento, setAtendimento] = useState(null)
-    const [conversa, setConversa] = useState([])
-    const [carregando, setCarregando] = useState(true)
-    const [modalAberto, setModalAberto] = useState(false)
-    useEffect(() => {
-        async function CarregarDados() {
-            try {
-                const atendimentoEncontrado = await getAtendimentoById(id)
+  const [conversa, setConversa] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState("");
+  const [modalAberto, setModalAberto] = useState(false);
 
-                if (!atendimentoEncontrado) {
-                    setAtendimento(null)
-                    return
-                }
+  useEffect(() => {
+    let ativo = true;
 
-                const conversaEncontrada = await getConversaByAtendimentoId(id)
+    async function carregarDados() {
+      try {
+        setCarregando(true);
+        setErro("");
 
-                setAtendimento(atendimentoEncontrado)
-                setConversa(conversaEncontrada)
-            } catch (erro) {
-                console.error("Erro ao carregar atendimento:", erro)
-                setAtendimento(null)
-            } finally {
-                setCarregando(false)
-            }
+        const mensagens = await getMensagens(id);
+
+        if (ativo) {
+          setConversa(Array.isArray(mensagens) ? mensagens : []);
         }
-
-        CarregarDados()
-    }, [id])
-
-    if (carregando) {
-        return <p>Carregando...</p>
+      } catch {
+        if (ativo) {
+          setErro("Não foi possível carregar o histórico da conversa.");
+        }
+      } finally {
+        if (ativo) {
+          setCarregando(false);
+        }
+      }
     }
-    if (!atendimento) {
-        return <p>Atendimento não encontrado.</p>
+
+    carregarDados();
+
+    return () => {
+      ativo = false;
+    };
+  }, [id]);
+
+  function formatarData(data) {
+    if (!data) return "";
+
+    const dataConvertida = new Date(data);
+
+    if (Number.isNaN(dataConvertida.getTime())) {
+      return "";
     }
 
+    return dataConvertida.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  function assumirAtendimento() {
+    setModalAberto(false);
+    setErro(
+      "A função de assumir atendimento ainda não está disponível no backend.",
+    );
+  }
+
+  if (carregando) {
     return (
-        <main className="min-h-screen bg-[#252121] text-white">
-            <BaseHeader />
+      <main className="min-h-screen bg-[#252121] text-white">
+        <BaseHeader />
+        <p className="px-6 pt-[180px]">Carregando histórico...</p>
+      </main>
+    );
+  }
 
-            <div className="mx-auto max-w-6xl p-6 pt-[180px] md:pt-31">
-                <BaseBackButton />
+  return (
+    <main className="min-h-screen bg-[#252121] text-white">
+      <BaseHeader />
 
-                <header className="mb-6">
-                    <h1 className="font-jomhuria text-[40px] font-normal leading-none md:text-[64px]">
-                        Atendimento de {atendimento.cliente}
-                    </h1>
+      <div className="mx-auto max-w-6xl p-6 pt-[180px] md:pt-31">
+        <BaseBackButton />
 
-                    <p className="font-plex mt-1 text-gray-400">
-                        <span className="text-[24px] font-bold">
-                            whatsapp:
-                        </span>{" "}
-                        <span className="text-[20px] font-medium">
-                            {atendimento.telefone}
-                        </span>
-                    </p>
-                </header>
+        <header className="mb-6">
+          <h1 className="font-jomhuria text-[40px] font-normal leading-none md:text-[64px]">
+            Atendimento
+          </h1>
 
-                <section className="grid grid-cols-1 items-start gap-6 md:grid-cols-2">
+          <p className="font-plex mt-1 text-gray-400">
+            <span className="text-[20px] font-medium">Sessão: {id}</span>
+          </p>
+        </header>
 
-                    <div className="rounded-2xl bg-[rgba(0,0,0,0.42)] p-6 text-white">
-                        <h2 className="font-plex mb-4 text-[24px] font-bold">
-                            Resumo do atendimento
-                        </h2>
+        {erro && (
+          <p className="mb-6 text-red-400" role="alert">
+            {erro}
+          </p>
+        )}
 
-                        <p className="font-plex text-[20px] font-normal text-gray-300">
-                            {atendimento.resumo}
-                        </p>
-                    </div>
+        <section className="grid grid-cols-1 items-start gap-6 md:grid-cols-2">
+          <div className="rounded-2xl bg-[rgba(0,0,0,0.42)] p-6 text-white">
+            <h2 className="font-plex mb-4 text-[24px] font-bold">
+              Resumo do atendimento
+            </h2>
 
-                    <div className="rounded-2xl bg-[rgba(0,0,0,0.42)] p-6 text-white">
-                        <h2 className="font-plex mb-4 text-[32px] font-bold">
-                            Histórico da conversa
-                        </h2>
+            <p className="font-plex text-[20px] font-normal text-gray-300">
+              O resumo ainda não está disponível pela API atual.
+            </p>
+          </div>
 
-                        <div className="space-y-4">
-                            {conversa.map((mensagem) => (
-                                <div
-                                    key={mensagem.id}
-                                    className={`flex flex-col ${mensagem.remetente === "chatbot"
-                                        ? "items-end"
-                                        : mensagem.remetente === "sistema"
-                                            ? "items-center"
-                                            : "items-start"
-                                        }`}
-                                >
-                                    {mensagem.remetente === "sistema" ? (
-                                        <div className="my-6 rounded-xl bg-[#353333] px-4 py-3 text-center">
-                                            <p className="font-plex text-[24px] font-medium text-white">
-                                                {mensagem.mensagem === "Atendimento assumido por um administrador"
-                                                    ? "Atendimento assumido"
-                                                    : "Atendimento encaminhado"}
-                                            </p>
+          <div className="rounded-2xl bg-[rgba(0,0,0,0.42)] p-6 text-white">
+            <h2 className="font-plex mb-4 text-[32px] font-bold">
+              Histórico da conversa
+            </h2>
 
-                                            <p className="font-plex mt-1 text-[20px] font-medium text-gray-300">
-                                                {mensagem.mensagem === "Atendimento assumido por um administrador"
-                                                    ? "O atendimento foi assumido por um administrador."
-                                                    : "O cliente solicitou atendimento humano."}
-                                            </p>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <p className="font-plex mb-1 text-[20px] font-medium uppercase text-gray-400">
-                                                {mensagem.remetente}
-                                            </p>
+            {conversa.length === 0 ? (
+              <p className="text-gray-400">
+                Nenhuma mensagem encontrada nesta sessão.
+              </p>
+            ) : (
+              <div className="space-y-4">
+                {conversa.map((mensagem, indice) => {
+                  const remetente = (mensagem.remetente ?? "").toUpperCase();
 
-                                            <div
-                                                className={`max-w-[75%] rounded-xl p-4 ${mensagem.remetente === "cliente"
-                                                    ? "bg-[#114BB8] text-white"
-                                                    : "bg-[#0D6720] text-white"
-                                                    }`}
-                                            >
-                                                <p className="font-plex text-[20px] font-medium">
-                                                    {mensagem.mensagem}
-                                                </p>
+                  const mensagemCliente =
+                    remetente === "CLIENTE" || remetente === "USUARIO";
 
-                                                <span className="mt-2 block text-right text-xs text-gray-300">
-                                                    {mensagem.horario}
-                                                </span>
-                                            </div>
-                                        </>
-                                    )}
+                  const mensagemSistema = remetente === "SISTEMA";
 
-                                </div>
-                            ))}
+                  const conteudo =
+                    mensagem.conteudo ?? "Conteúdo da mensagem indisponível.";
+
+                  return (
+                    <div
+                      key={
+                        mensagem.id ??
+                        mensagem.idMensagemWhatsapp ??
+                        `${id}-${indice}`
+                      }
+                      className={`flex flex-col ${
+                        mensagemSistema
+                          ? "items-center"
+                          : mensagemCliente
+                            ? "items-start"
+                            : "items-end"
+                      }`}
+                    >
+                      {mensagemSistema ? (
+                        <div className="my-4 rounded-xl bg-[#353333] px-4 py-3 text-center">
+                          <p className="font-plex text-[18px] font-medium">
+                            {conteudo}
+                          </p>
+
+                          <span className="mt-2 block text-xs text-gray-400">
+                            {formatarData(mensagem.dataEnvio)}
+                          </span>
                         </div>
-                    </div>
+                      ) : (
+                        <>
+                          <p className="font-plex mb-1 text-[16px] font-medium uppercase text-gray-400">
+                            {mensagem.remetente}
+                          </p>
 
-                </section>
-                <div className="mt-6 flex justify-end">
-
-                    <button
-                        type="button"
-                        onClick={() => setModalAberto(true)}
-                        className="font-plex rounded-xl bg-[#AD1818] px-6 py-3 text-[20px] font-semibold text-white hover:bg-[#780606]">
-                        Assumir atendimento
-                    </button>
-                </div>
-
-            </div >
-            {
-                modalAberto && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
-                        <div className="w-full max-w-md rounded-2xl bg-[#353333] p-6 text-white">
-
-                            <h2 className="font-instrument text-[24px] font-bold">
-                                Assumir atendimento?
-                            </h2>
-
-                            <p className="font-inter mt-3 text-[16px] font-normal text-gray-300">
-                                Você deseja assumir o atendimento deste cliente?
+                          <div
+                            className={`max-w-[90%] rounded-xl p-4 ${
+                              mensagemCliente
+                                ? "bg-[#114BB8] text-white"
+                                : "bg-[#0D6720] text-white"
+                            }`}
+                          >
+                            <p className="font-plex text-[18px] font-medium break-words">
+                              {conteudo}
                             </p>
 
-                            <div className="mt-6 flex justify-end gap-3">
-                                <button
-                                    type="button"
-                                    onClick={() => setModalAberto(false)}
-                                    className="font-inter rounded-xl px-5 py-2 text-[24px] font-bold text-gray-300 hover:text-white"
-                                >
-                                    Cancelar
-                                </button>
-
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setConversa((conversaAtual) => {
-                                            const jaExisteMsgAssumido = conversaAtual.some(
-                                                (mensagem) =>
-                                                    mensagem.remetente === "sistema" &&
-                                                    mensagem.mensagem === "Atendimento assumido por um administrador"
-                                            )
-
-                                            if (jaExisteMsgAssumido) {
-                                                return conversaAtual
-                                            }
-
-                                            return [
-                                                ...conversaAtual,
-                                                {
-                                                    id: Date.now(),
-                                                    remetente: "sistema",
-                                                    mensagem: "Atendimento assumido por um administrador",
-                                                    horario: new Date().toLocaleTimeString([], {
-                                                        hour: "2-digit",
-                                                        minute: "2-digit",
-                                                    }),
-                                                },
-                                            ]
-                                        })
-
-                                        setModalAberto(false)
-                                    }}
-                                    className="font-plex rounded-xl bg-[#AD1818] px-6 py-3 text-[20px] font-bold text-white hover:bg-[#780606]"
-                                >
-                                    Assumir atendimento
-                                </button>
-                            </div>
-
-                        </div>
+                            <span className="mt-2 block text-right text-xs text-gray-300">
+                              {formatarData(mensagem.dataEnvio)}
+                            </span>
+                          </div>
+                        </>
+                      )}
                     </div>
-                )
-            }
-        </main >
-    )
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+
+        <div className="mt-6 flex justify-end">
+          <button
+            type="button"
+            onClick={() => setModalAberto(true)}
+            className="font-plex rounded-xl bg-[#AD1818] px-6 py-3 text-[20px] font-semibold text-white hover:bg-[#780606]"
+          >
+            Assumir atendimento
+          </button>
+        </div>
+      </div>
+
+      {modalAberto && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
+          <div className="w-full max-w-md rounded-2xl bg-[#353333] p-6 text-white">
+            <h2 className="font-instrument text-[24px] font-bold">
+              Assumir atendimento?
+            </h2>
+
+            <p className="font-inter mt-3 text-[16px] text-gray-300">
+              Você deseja assumir o atendimento desta sessão?
+            </p>
+
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setModalAberto(false)}
+                className="font-inter rounded-xl px-5 py-2 text-[20px] font-bold text-gray-300 hover:text-white"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                onClick={assumirAtendimento}
+                className="font-plex rounded-xl bg-[#AD1818] px-6 py-3 text-[18px] font-bold text-white hover:bg-[#780606]"
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </main>
+  );
 }
-export default AtendimentoDetalhe
+
+export default AtendimentoDetalhe;
