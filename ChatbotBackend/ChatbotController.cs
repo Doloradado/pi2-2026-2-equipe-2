@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChatbotBackend.Data;
+using ChatbotBackend.Services;
+using Microsoft.AspNetCore.Mvc;
 using ChatbotBackend.Models;
 using System;
 using System.Threading.Tasks;
@@ -13,10 +14,14 @@ namespace ChatbotBackend.Controllers
     public class ChatbotController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly GeminiService _geminiService;
 
-        public ChatbotController(AppDbContext context)
+        public ChatbotController(
+            AppDbContext context,
+            GeminiService geminiService)
         {
             _context = context;
+            _geminiService = geminiService;
         }
 
         [HttpGet("clientes")]
@@ -93,5 +98,50 @@ namespace ChatbotBackend.Controllers
             return Ok(mensagem);
         }
 
+        [HttpPost("enviar")]
+        public async Task<IActionResult> EnviarMensagem(
+            [FromBody] EnviarMensagemGeminiRequest? request)
+        {
+            if (request == null ||
+                string.IsNullOrWhiteSpace(request.Mensagem))
+            {
+                return BadRequest(new
+                {
+                    Codigo = 400,
+                    Erro = "Mensagem inválida",
+                    Detalhe = "O campo 'mensagem' é obrigatório e não pode estar vazio."
+                });
+            }
+
+            try
+            {
+                var respostaIa =
+                    await _geminiService.EnviarMensagemAsync(
+                        request.Mensagem);
+
+                return Ok(new
+                {
+                    status = "sucesso",
+                    resposta = respostaIa,
+                    intencao_identificada = "atendimento_geral",
+                    dataHora = DateTime.UtcNow
+                });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    Codigo = 500,
+                    Erro = "Erro ao processar a mensagem",
+                    Detalhe = "Não foi possível comunicar com o serviço Gemini."
+                });
+            }
+        }
+
+    }
+
+    public class EnviarMensagemGeminiRequest
+    {
+        public string Mensagem { get; set; } = string.Empty;
     }
 }

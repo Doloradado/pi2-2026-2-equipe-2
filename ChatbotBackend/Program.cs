@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using ChatbotBackend.Data;
+using ChatbotBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -14,7 +14,7 @@ builder.Services.AddControllers()
             System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
-
+builder.Services.AddHttpClient<GeminiService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -55,7 +55,17 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    SeedData.Initialize(context);
+
+    try
+    {
+        context.Database.Migrate();
+
+        SeedData.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}");
+    }
 }
 
 app.Run();
