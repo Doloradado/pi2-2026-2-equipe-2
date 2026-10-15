@@ -15,34 +15,53 @@ namespace ChatbotBackend.Controllers
     {
         private readonly AppDbContext _context;
         private readonly GeminiService _geminiService;
+        private readonly IClienteService _clienteService;
 
         public ChatbotController(
             AppDbContext context,
-            GeminiService geminiService)
+            GeminiService geminiService,
+            IClienteService clienteService)
         {
             _context = context;
             _geminiService = geminiService;
+            _clienteService = clienteService;
         }
+
+        // --- ROTAS DE CLIENTES (Consumindo IClienteService) ---
 
         [HttpGet("clientes")]
         public async Task<IActionResult> GetClientes()
         {
-            var clientes = await _context.Clientes.ToListAsync();
+            var clientes = await _clienteService.ObterTodosAsync();
             return Ok(clientes);
         }
 
         [HttpGet("clientes/{id}")]
         public async Task<IActionResult> GetClientePorId(Guid id)
         {
-            var cliente = await _context.Clientes
-                .Include(c => c.Sessoes)
-                .FirstOrDefaultAsync(c => c.Id == id);
+            var cliente = await _clienteService.ObterPorIdAsync(id);
 
             if (cliente == null)
                 return NotFound(new { mensagem = "Cliente não encontrado." });
 
             return Ok(cliente);
         }
+
+        [HttpPost("clientes")]
+        public async Task<IActionResult> CriarCliente([FromBody] Cliente cliente)
+        {
+            try
+            {
+                var novoCliente = await _clienteService.CriarAsync(cliente);
+                return CreatedAtAction(nameof(GetClientePorId), new { id = novoCliente.Id }, novoCliente);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { mensagem = ex.Message });
+            }
+        }
+
+        // --- DEMAIS ROTAS DA APLICAÇÃO ---
 
         [HttpGet("sessoes/{sessaoId}/mensagens")]
         public async Task<IActionResult> GetMensagensPorSessao(Guid sessaoId)
@@ -73,7 +92,6 @@ namespace ChatbotBackend.Controllers
 
             return CreatedAtAction(nameof(GetClientePorId), new { id = clienteId }, novaSessao);
         }
-
 
         [HttpPost("mensagem")]
         public async Task<IActionResult> RegistrarMensagem([FromBody] HistoricoMensagem mensagem)
@@ -137,7 +155,6 @@ namespace ChatbotBackend.Controllers
                 });
             }
         }
-
     }
 
     public class EnviarMensagemGeminiRequest
