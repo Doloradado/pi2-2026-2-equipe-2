@@ -16,6 +16,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddHttpClient<GeminiService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<ISessaoService, SessaoService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 

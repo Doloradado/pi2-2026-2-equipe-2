@@ -16,16 +16,21 @@ namespace ChatbotBackend.Controllers
         private readonly AppDbContext _context;
         private readonly GeminiService _geminiService;
         private readonly IClienteService _clienteService;
+        private readonly ISessaoService _sessaoService;
 
         public ChatbotController(
             AppDbContext context,
             GeminiService geminiService,
-            IClienteService clienteService)
+            IClienteService clienteService, // CORREÇÃO: Vírgula adicionada aqui
+            ISessaoService sessaoService)
         {
             _context = context;
             _geminiService = geminiService;
             _clienteService = clienteService;
+            _sessaoService = sessaoService;
         }
+
+        // --- ROTAS DE CLIENTES ---
 
         [HttpGet("clientes")]
         public async Task<IActionResult> GetClientes()
@@ -59,16 +64,28 @@ namespace ChatbotBackend.Controllers
             }
         }
 
+        // =================================================================
+        // --- ROTAS DE SESSÕES E HISTÓRICO (Implementação da Issue #78) ---
+        // =================================================================
+
+        [HttpGet("sessoes")]
+        public async Task<IActionResult> GetSessoes()
+        {
+            var sessoes = await _sessaoService.GetSessoesAsync();
+            return Ok(sessoes);
+        }
+
         [HttpGet("sessoes/{sessaoId}/mensagens")]
         public async Task<IActionResult> GetMensagensPorSessao(Guid sessaoId)
         {
-            var mensagens = await _context.HistoricoMensagens
-                .Where(m => m.SessaoId == sessaoId)
-                .OrderBy(m => m.DataEnvio)
-                .ToListAsync();
-
+            // Agora a rota consome o serviço e os DTOs em vez de acessar o _context diretamente
+            var mensagens = await _sessaoService.GetMensagensDaSessaoAsync(sessaoId);
             return Ok(mensagens);
         }
+
+        // =================================================================
+        // --- OUTRAS ROTAS EXISTENTES MANTIDAS ---
+        // =================================================================
 
         [HttpPost("sessao")]
         public async Task<IActionResult> CriarSessao([FromBody] Guid clienteId)
@@ -98,7 +115,7 @@ namespace ChatbotBackend.Controllers
             if (!sessaoExiste)
                 return NotFound(new { mensagem = "Sessão de atendimento não encontrada." });
 
-            if (string.IsNullOrWhiteSpace(mensagem.Conteudo))
+            if (string.IsNullOrWhiteSpace(mensagem.Conteudo)) // Supondo que 'Conteudo' exista na sua Model
                 return BadRequest(new { mensagem = "O conteúdo da mensagem não pode estar vazio." });
 
             if (string.IsNullOrEmpty(mensagem.IdMensagemWhatsapp))
