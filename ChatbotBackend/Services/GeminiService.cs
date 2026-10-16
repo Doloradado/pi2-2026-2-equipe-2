@@ -14,19 +14,16 @@ public class GeminiService
     {
         var rawKey = configuration["Gemini:ApiKey"];
         
-        // O .Trim() é o grande segredo aqui: ele remove qualquer espaço invisível ou quebra de linha vinda do Docker
         _apiKey = rawKey?.Trim() 
             ?? throw new ArgumentNullException("A API Key do Gemini não foi configurada.");
             
         _httpClient = httpClient;
         
-        // Garante que o C# não envie nenhum cabeçalho de autenticação Bearer acidentalmente
         _httpClient.DefaultRequestHeaders.Authorization = null;
     }
 
     public async Task<string> EnviarMensagemAsync(string mensagem)
     {
-        // Voltamos para o modelo 1.5-flash correto e passamos a chave limpa diretamente na URL
        var url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={_apiKey}";
 
         var requestBody = new
@@ -40,7 +37,6 @@ public class GeminiService
         var jsonContent = JsonSerializer.Serialize(requestBody);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        // Fazemos o POST simples e direto
         var response = await _httpClient.PostAsync(url, content);
         var responseString = await response.Content.ReadAsStringAsync();
 

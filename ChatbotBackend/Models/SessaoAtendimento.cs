@@ -31,7 +31,6 @@ namespace ChatbotBackend.Models
         [ForeignKey("ClienteId")]
         public virtual Cliente? Cliente { get; set; }
 
-        // Relacionamento (1:N com Historico de Mensagens)
         public virtual ICollection<HistoricoMensagem> Mensagens { get; set; } = new List<HistoricoMensagem>();
     }
 }

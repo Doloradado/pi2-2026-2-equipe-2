@@ -27,8 +27,6 @@ namespace ChatbotBackend.Controllers
             _clienteService = clienteService;
         }
 
-        // --- ROTAS DE CLIENTES (Consumindo IClienteService) ---
-
         [HttpGet("clientes")]
         public async Task<IActionResult> GetClientes()
         {
@@ -60,8 +58,6 @@ namespace ChatbotBackend.Controllers
                 return BadRequest(new { mensagem = ex.Message });
             }
         }
-
-        // --- DEMAIS ROTAS DA APLICAÇÃO ---
 
         [HttpGet("sessoes/{sessaoId}/mensagens")]
         public async Task<IActionResult> GetMensagensPorSessao(Guid sessaoId)
