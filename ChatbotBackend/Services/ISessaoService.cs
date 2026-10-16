@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ChatbotBackend.DTOs;
+using ChatbotBackend.Models;
 
 namespace ChatbotBackend.Services
 {
@@ -9,5 +10,6 @@ namespace ChatbotBackend.Services
     {
         Task<IEnumerable<SessaoResponseDTO>> GetSessoesAsync();
         Task<IEnumerable<MensagemResponseDTO>> GetMensagensDaSessaoAsync(Guid idSessao);
+        Task<HistoricoMensagem> RegistrarMensagemAsync(HistoricoMensagem mensagem);
     }
 }

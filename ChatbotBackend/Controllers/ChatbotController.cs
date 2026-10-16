@@ -21,7 +21,7 @@ namespace ChatbotBackend.Controllers
         public ChatbotController(
             AppDbContext context,
             GeminiService geminiService,
-            IClienteService clienteService, // CORREÇÃO: Vírgula adicionada aqui
+            IClienteService clienteService,
             ISessaoService sessaoService)
         {
             _context = context;
@@ -65,7 +65,7 @@ namespace ChatbotBackend.Controllers
         }
 
         // =================================================================
-        // --- ROTAS DE SESSÕES E HISTÓRICO (Implementação da Issue #78) ---
+        // --- ROTAS DE SESSÕES E HISTÓRICO ---
         // =================================================================
 
         [HttpGet("sessoes")]
@@ -78,13 +78,12 @@ namespace ChatbotBackend.Controllers
         [HttpGet("sessoes/{sessaoId}/mensagens")]
         public async Task<IActionResult> GetMensagensPorSessao(Guid sessaoId)
         {
-            // Agora a rota consome o serviço e os DTOs em vez de acessar o _context diretamente
             var mensagens = await _sessaoService.GetMensagensDaSessaoAsync(sessaoId);
             return Ok(mensagens);
         }
 
         // =================================================================
-        // --- OUTRAS ROTAS EXISTENTES MANTIDAS ---
+        // --- OUTRAS ROTAS ---
         // =================================================================
 
         [HttpPost("sessao")]
@@ -106,27 +105,28 @@ namespace ChatbotBackend.Controllers
             return CreatedAtAction(nameof(GetClientePorId), new { id = clienteId }, novaSessao);
         }
 
+        // =================================================================
+        // ROTA ATUALIZADA - REGRAS DE NEGÓCIO (Issue #79)
+        // =================================================================
         [HttpPost("mensagem")]
         public async Task<IActionResult> RegistrarMensagem([FromBody] HistoricoMensagem mensagem)
         {
-            var sessaoExiste = await _context.SessoesAtendimento
-                .AnyAsync(s => s.Id == mensagem.SessaoId);
-
-            if (!sessaoExiste)
-                return NotFound(new { mensagem = "Sessão de atendimento não encontrada." });
-
-            if (string.IsNullOrWhiteSpace(mensagem.Conteudo)) // Supondo que 'Conteudo' exista na sua Model
-                return BadRequest(new { mensagem = "O conteúdo da mensagem não pode estar vazio." });
-
-            if (string.IsNullOrEmpty(mensagem.IdMensagemWhatsapp))
+            try
             {
-                mensagem.IdMensagemWhatsapp = $"wamid.HBgL_{Guid.NewGuid().ToString().Substring(0, 8)}";
+                // A controller agora apenas chama o serviço e repassa o resultado
+                var novaMensagem = await _sessaoService.RegistrarMensagemAsync(mensagem);
+                return Ok(novaMensagem);
             }
-
-            _context.HistoricoMensagens.Add(mensagem);
-            await _context.SaveChangesAsync();
-
-            return Ok(mensagem);
+            catch (InvalidOperationException ex)
+            {
+                // Cai aqui se a RN-01 falhar (Sessão não encontrada)
+                return NotFound(new { mensagem = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                // Cai aqui se a RN-02 falhar (Mensagem vazia)
+                return BadRequest(new { mensagem = ex.Message });
+            }
         }
 
         [HttpPost("enviar")]

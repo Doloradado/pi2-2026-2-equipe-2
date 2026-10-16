@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ChatbotBackend.Data;
 using ChatbotBackend.DTOs;
+using ChatbotBackend.Models;
 
 namespace ChatbotBackend.Services
 {
@@ -48,6 +49,38 @@ namespace ChatbotBackend.Services
                 .ToListAsync();
 
             return mensagens;
+        }
+
+        // ====================================================================
+        // NOVO MÉTODO - Implementação das Regras de Negócio (Issue #79)
+        // ====================================================================
+        public async Task<HistoricoMensagem> RegistrarMensagemAsync(HistoricoMensagem mensagem)
+        {
+            // Aplica RN-01: Validação de Existência da Sessão
+            var sessaoExiste = await _context.SessoesAtendimento
+                .AnyAsync(s => s.Id == mensagem.SessaoId);
+                
+            if (!sessaoExiste)
+            {
+                throw new InvalidOperationException("Sessão de atendimento não encontrada.");
+            }
+
+            // Aplica RN-02: Bloqueio de Mensagem Vazia
+            if (string.IsNullOrWhiteSpace(mensagem.Conteudo))
+            {
+                throw new ArgumentException("O conteúdo da mensagem não pode estar vazio.");
+            }
+
+            // Aplica RN-03: Formatação de Identificação do WhatsApp
+            if (string.IsNullOrEmpty(mensagem.IdMensagemWhatsapp))
+            {
+                mensagem.IdMensagemWhatsapp = $"wamid.HBgL_{Guid.NewGuid().ToString().Substring(0, 8)}";
+            }
+
+            _context.HistoricoMensagens.Add(mensagem);
+            await _context.SaveChangesAsync();
+            
+            return mensagem;
         }
     }
 }
