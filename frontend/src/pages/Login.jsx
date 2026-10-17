@@ -1,9 +1,8 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Route, useNavigate } from "react-router-dom"
 
 import BaseButton from "../components/BaseButton"
 import BaseInput from "../components/BaseInput"
-
 function Login() {
   const navigate = useNavigate()
 
@@ -70,13 +69,11 @@ function Login() {
         onClick={handleLogin}
       />
 
-      <button
-        type="button"
-        className="text-[#D11919] font-semibold hover:text-[#FA2F2F] transition"
-      >
-        Esqueci minha senha
-      </button>
-
+      <BaseButton
+        texto="Esqueci minha senha"
+        variante="sembg"
+        onClick={() => navigate("/esqsenha")}
+      />
     </div>
   )
 }
