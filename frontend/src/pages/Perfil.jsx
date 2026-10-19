@@ -4,14 +4,100 @@ import BaseBackButton from "../components/BaseBackButton"
 
 function Perfil() {
     const [modalEmailAberto, setModalEmailAberto] = useState(false)
-    const [email, setEmail] = useState("wilson@email.com")
+    const email = "wilson@email.com"
     const [senha, setSenha] = useState("")
     const [novoEmail, setNovoEmail] = useState("")
 
     const [modalTelefoneAberto, setModalTelefoneAberto] = useState(false)
-    const [telefone, setTelefone] = useState("(88) 9XXXX-XXXX")
+    const telefone = "(88) 9XXXX-XXXX"
     const [novoTelefone, setNovoTelefone] = useState("")
 
+    const [errosEmail, setErrosEmail] = useState({
+        novoEmail: "",
+        senha: "",
+    })
+    const [errosTelefone, setErrosTelefone] = useState({
+        novoTelefone: "",
+        senha: "",
+    })
+    const [mensagemEmail, setMensagemEmail] = useState("")
+    const [mensagemTelefone, setMensagemTelefone] = useState("")
+    function formatarTelefone(valor) {
+        const digitos = valor.replace(/\D/g, "").slice(0, 11)
+
+        if (digitos.length === 0) {
+            return ""
+        }
+
+        if (digitos.length === 1) {
+            return `(${digitos}`
+        }
+
+        const ddd = digitos.slice(0, 2)
+        const numero = digitos.slice(2)
+
+        if (numero.length === 0) {
+            return `(${ddd})`
+        }
+
+        const celular = numero.startsWith("9")
+        const limiteAntesDoHifen = celular ? 5 : 4
+
+        if (numero.length <= limiteAntesDoHifen) {
+            return `(${ddd}) ${numero}`
+        }
+
+        return `(${ddd}) ${numero.slice(0, limiteAntesDoHifen)}-${numero.slice(limiteAntesDoHifen)}`
+    }
+    function validarFormularioEmail() {
+        const novosErros = {
+            novoEmail: "",
+            senha: "",
+        }
+
+
+        const emailNormalizado = novoEmail.trim()
+
+        if (!emailNormalizado) {
+            novosErros.novoEmail = "Informe o novo e-mail."
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailNormalizado)) {
+            novosErros.novoEmail = "Digite um e-mail válido."
+        }
+
+        if (!senha.trim()) {
+            novosErros.senha = "Informe sua senha."
+        }
+
+        setErrosEmail(novosErros)
+
+        return Object.values(novosErros).every((erro) => erro === "")
+    }
+    function validarFormularioTelefone() {
+        const novosErros = {
+            novoTelefone: "",
+            senha: "",
+        }
+
+        const telefoneNormalizado = novoTelefone.replace(/\D/g, "")
+
+        if (!telefoneNormalizado) {
+            novosErros.novoTelefone = "Informe o novo telefone."
+        } else if (
+            telefoneNormalizado.length !== 10 &&
+            telefoneNormalizado.length !== 11
+        ) {
+            novosErros.novoTelefone =
+                "Digite um telefone com DDD e 10 ou 11 dígitos."
+        }
+
+        if (!senha.trim()) {
+            novosErros.senha = "Informe sua senha."
+        }
+
+        setErrosTelefone(novosErros)
+
+        return Object.values(novosErros).every((erro) => erro === "")
+    }
     return (
         <main className="min-h-screen bg-[#252121] text-white">
             <BaseHeader />
@@ -84,25 +170,80 @@ function Perfil() {
                                 type="email"
                                 placeholder="Digite o novo email"
                                 value={novoEmail}
-                                onChange={(e) => setNovoEmail(e.target.value)}
+                                onChange={(e) => {
+                                    setNovoEmail(e.target.value)
+
+                                    setErrosEmail((errosAtuais) => ({
+                                        ...errosAtuais,
+                                        novoEmail: "",
+                                    }))
+                                    setMensagemEmail("")
+                                }}
+                                aria-invalid={Boolean(errosEmail.novoEmail)}
+                                aria-describedby={
+                                    errosEmail.novoEmail ? "erro-novo-email" : undefined
+                                }
                                 className="font-inter rounded-xl bg-[#EDE6E6] px-4 py-3 text-[16px] font-normal text-black outline-none"
                             />
 
+                            {errosEmail.novoEmail && (
+                                <p
+                                    id="erro-novo-email"
+                                    role="alert"
+                                    className="font-inter text-sm text-red-400"
+                                >
+                                    {errosEmail.novoEmail}
+                                </p>
+                            )}
                             <input
                                 type="password"
                                 placeholder="Digite sua senha"
                                 value={senha}
-                                onChange={(e) => setSenha(e.target.value)}
+                                onChange={(e) => {
+                                    setSenha(e.target.value)
+
+                                    setErrosEmail((errosAtuais) => ({
+                                        ...errosAtuais,
+                                        senha: "",
+                                    }))
+                                    setMensagemEmail("")
+                                }}
+                                aria-invalid={Boolean(errosEmail.senha)}
+                                aria-describedby={
+                                    errosEmail.senha ? "erro-senha-email" : undefined
+                                }
                                 className="font-plex rounded-xl bg-[#EDE6E6] px-4 py-3 text-[16px] font-normal text-black outline-none"
                             />
-                        </div>
 
+                            {errosEmail.senha && (
+                                <p
+                                    id="erro-senha-email"
+                                    role="alert"
+                                    className="font-inter text-sm text-red-400"
+                                >
+                                    {errosEmail.senha}
+                                </p>
+                            )}
+                        </div>
+                        {mensagemEmail && (
+                            <p
+                                role="status"
+                                className="font-inter text-sm text-amber-300"
+                            >
+                                {mensagemEmail}
+                            </p>
+                        )}
                         <div className="mt-6 flex justify-end gap-3">
                             <button
                                 type="button"
                                 onClick={() => {
-                                    setSenha("")
+                                    setMensagemEmail("")
                                     setNovoEmail("")
+                                    setSenha("")
+                                    setErrosEmail({
+                                        novoEmail: "",
+                                        senha: "",
+                                    })
                                     setModalEmailAberto(false)
                                 }}
                                 className="font-inter rounded-xl px-5 py-2 text-[24px] font-bold text-gray-300 hover:text-[#AD1818]"
@@ -113,20 +254,15 @@ function Perfil() {
                             <button
                                 type="button"
                                 onClick={() => {
-                                    if (!novoEmail || !senha) {
-                                        alert("Preencha os campos adequadamente!!")
+                                    setMensagemEmail("")
+
+                                    if (!validarFormularioEmail()) {
                                         return
                                     }
 
-                                    if (!novoEmail.includes("@")) {
-                                        alert("digite um email válido")
-                                        return
-                                    }
-
-                                    setEmail(novoEmail)
-                                    setNovoEmail("")
-                                    setSenha("")
-                                    setModalEmailAberto(false)
+                                    setMensagemEmail(
+                                        "Os campos são válidos, mas a alteração ainda depende da integração com o servidor."
+                                    )
                                 }}
                                 className="font-inter rounded-xl bg-[#AD1818] px-6 py-3 text-[20px] font-bold text-white hover:bg-[#780606]"
                             >
@@ -152,27 +288,86 @@ function Perfil() {
                                 placeholder="Digite o novo telefone"
                                 value={novoTelefone}
                                 onChange={(e) => {
-                                    const valor = e.target.value.replace(/[^0-9()-]/g, "")
-                                    setNovoTelefone(valor)
+                                    setNovoTelefone(formatarTelefone(e.target.value))
+
+                                    setErrosTelefone((errosAtuais) => ({
+                                        ...errosAtuais,
+                                        novoTelefone: "",
+                                    }))
+
+                                    setMensagemTelefone("")
                                 }}
+                                aria-invalid={Boolean(errosTelefone.novoTelefone)}
+                                aria-describedby={
+                                    errosTelefone.novoTelefone
+                                        ? "erro-novo-telefone"
+                                        : undefined
+                                }
                                 className="font-inter rounded-xl bg-[#EDE6E6] px-4 py-3 text-[16px] font-normal text-black outline-none"
                             />
+
+                            {errosTelefone.novoTelefone && (
+                                <p
+                                    id="erro-novo-telefone"
+                                    role="alert"
+                                    className="font-inter text-sm text-red-400"
+                                >
+                                    {errosTelefone.novoTelefone}
+                                </p>
+                            )}
 
                             <input
                                 type="password"
                                 value={senha}
-                                onChange={(e) => setSenha(e.target.value)}
+                                onChange={(e) => {
+                                    setSenha(e.target.value)
+
+                                    setErrosTelefone((errosAtuais) => ({
+                                        ...errosAtuais,
+                                        senha: "",
+                                    }))
+
+                                    setMensagemTelefone("")
+                                }}
                                 placeholder="Digite sua senha"
+                                aria-invalid={Boolean(errosTelefone.senha)}
+                                aria-describedby={
+                                    errosTelefone.senha
+                                        ? "erro-senha-telefone"
+                                        : undefined
+                                }
                                 className="font-plex rounded-xl bg-[#EDE6E6] px-4 py-3 text-[16px] font-normal text-black outline-none"
                             />
-                        </div>
 
+                            {errosTelefone.senha && (
+                                <p
+                                    id="erro-senha-telefone"
+                                    role="alert"
+                                    className="font-inter text-sm text-red-400"
+                                >
+                                    {errosTelefone.senha}
+                                </p>
+                            )}
+                        </div>
+                        {mensagemTelefone && (
+                            <p
+                                role="status"
+                                className="font-inter text-sm text-amber-300"
+                            >
+                                {mensagemTelefone}
+                            </p>
+                        )}
                         <div className="mt-6 flex justify-end gap-3">
                             <button
                                 type="button"
                                 onClick={() => {
                                     setSenha("")
                                     setNovoTelefone("")
+                                    setErrosTelefone({
+                                        novoTelefone: "",
+                                        senha: "",
+                                    })
+                                    setMensagemTelefone("")
                                     setModalTelefoneAberto(false)
                                 }}
                                 className="font-inter rounded-xl px-5 py-2 text-[24px] font-bold text-gray-300 hover:text-[#AD1818]"
@@ -183,22 +378,15 @@ function Perfil() {
                             <button
                                 type="button"
                                 onClick={() => {
-                                    if (!novoTelefone || !senha) {
-                                        alert("Preencha os campos adequadamente")
+                                    setMensagemTelefone("")
+
+                                    if (!validarFormularioTelefone()) {
                                         return
                                     }
 
-                                    const numeros = novoTelefone.replace(/\D/g, "")
-
-                                    if (numeros.length < 10 || numeros.length > 11) {
-                                        alert("Digite um telefone válido!!")
-                                        return
-                                    }
-
-                                    setTelefone(novoTelefone)
-                                    setNovoTelefone("")
-                                    setSenha("")
-                                    setModalTelefoneAberto(false)
+                                    setMensagemTelefone(
+                                        "Os campos são válidos, mas a alteração ainda depende da integração com o servidor."
+                                    )
                                 }}
                                 className="font-inter rounded-xl bg-[#AD1818] px-6 py-3 text-[20px] font-bold text-white hover:bg-[#780606]"
                             >
