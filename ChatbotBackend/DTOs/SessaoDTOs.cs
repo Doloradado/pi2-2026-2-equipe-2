@@ -13,12 +13,15 @@ namespace ChatbotBackend.DTOs
         public string? ResumoTags { get; set; }
     }
 
+
     public class MensagemResponseDTO
     {
         public Guid Id { get; set; }
         public string IdMensagemWhatsapp { get; set; } = string.Empty;
         public string Remetente { get; set; } = string.Empty;
+        public string? Conteudo { get; set; }
         public string? TipoMidia { get; set; }
         public DateTime DataEnvio { get; set; }
     }
+
 }

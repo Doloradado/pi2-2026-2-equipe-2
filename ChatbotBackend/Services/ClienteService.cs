@@ -17,6 +17,7 @@ namespace ChatbotBackend.Services
         public async Task<IEnumerable<Cliente>> ObterTodosAsync()
         {
             return await _context.Clientes
+                .Include(c => c.Sessoes)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -24,6 +25,7 @@ namespace ChatbotBackend.Services
         public async Task<Cliente?> ObterPorIdAsync(Guid id)
         {
             return await _context.Clientes
+                .Include(c => c.Sessoes)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
@@ -50,7 +52,7 @@ namespace ChatbotBackend.Services
                 {
                     throw new InvalidOperationException("Já existe um cliente cadastrado com este telefone.");
                 }
-                
+
                 // Código 23503: Foreign Key Violation (ex: ID relacional inexistente)
                 if (pgEx.SqlState == "23503")
                 {

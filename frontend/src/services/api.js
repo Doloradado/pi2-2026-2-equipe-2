@@ -1,6 +1,5 @@
 const API_URL = "http://localhost:8080/api/Chatbot";
 
-
 export async function getClientes() {
   const response = await fetch(`${API_URL}/clientes`);
 
@@ -11,7 +10,6 @@ export async function getClientes() {
   return await response.json();
 }
 
-
 export async function getClientePorId(clienteId) {
   const response = await fetch(`${API_URL}/clientes/${clienteId}`);
 
@@ -21,7 +19,6 @@ export async function getClientePorId(clienteId) {
 
   return await response.json();
 }
-
 
 export async function criarSessao(clienteId) {
   const response = await fetch(`${API_URL}/sessao`, {
@@ -38,7 +35,6 @@ export async function criarSessao(clienteId) {
 
   return await response.json();
 }
-
 
 export async function enviarMensagem(
   sessaoId,
@@ -65,7 +61,6 @@ export async function enviarMensagem(
 
   return await response.json();
 }
-
 
 export async function getMensagens(sessaoId) {
   const response = await fetch(`${API_URL}/sessoes/${sessaoId}/mensagens`);

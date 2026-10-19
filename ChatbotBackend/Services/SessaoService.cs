@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace ChatbotBackend.Services
                     Id = m.Id,
                     IdMensagemWhatsapp = m.IdMensagemWhatsapp,
                     Remetente = m.Remetente,
+                    Conteudo = m.Conteudo,
                     TipoMidia = m.TipoMidia,
                     DataEnvio = m.DataEnvio
                 })
@@ -55,7 +57,7 @@ namespace ChatbotBackend.Services
         {
             var sessaoExiste = await _context.SessoesAtendimento
                 .AnyAsync(s => s.Id == mensagem.SessaoId);
-                
+
             if (!sessaoExiste)
             {
                 throw new InvalidOperationException("Sessão de atendimento não encontrada.");
@@ -73,7 +75,7 @@ namespace ChatbotBackend.Services
 
             _context.HistoricoMensagens.Add(mensagem);
             await _context.SaveChangesAsync();
-            
+
             return mensagem;
         }
 
