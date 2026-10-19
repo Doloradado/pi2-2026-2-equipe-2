@@ -81,10 +81,49 @@ namespace ChatbotBackend.Controllers
             var mensagens = await _sessaoService.GetMensagensDaSessaoAsync(sessaoId);
             return Ok(mensagens);
         }
+        // =================================================================
+        // --- AS 4 NOVAS ROTAS SOLICITADAS ---
+        // =================================================================
 
-        // =================================================================
+        [HttpGet("sessoes/{id}")]
+        public async Task<IActionResult> GetSessaoPorId(Guid id)
+        {
+            var sessao = await _sessaoService.GetSessaoPorIdAsync(id);
+            if (sessao == null) return NotFound(new { mensagem = "Sessão não encontrada." });
+            return Ok(sessao);
+        }
+
+        [HttpPut("sessoes/{id}/status")]
+        public async Task<IActionResult> AtualizarStatusSessao(Guid id, [FromBody] AtualizarStatusRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Status)) 
+                return BadRequest(new { mensagem = "O campo Status é obrigatório." });
+
+            var sucesso = await _sessaoService.AtualizarStatusSessaoAsync(id, request.Status);
+            if (!sucesso) return NotFound(new { mensagem = "Sessão não encontrada." });
+            
+            return Ok(new { mensagem = "Status da sessão atualizado com sucesso." });
+        }
+
+        [HttpDelete("sessoes/{id}")]
+        public async Task<IActionResult> DeletarSessao(Guid id)
+        {
+            var sucesso = await _sessaoService.DeletarSessaoAsync(id);
+            if (!sucesso) return NotFound(new { mensagem = "Sessão não encontrada." });
+            
+            return Ok(new { mensagem = "Sessão removida com sucesso." });
+        }
+
+        [HttpDelete("mensagens/{id}")]
+        public async Task<IActionResult> DeletarMensagem(Guid id)
+        {
+            var sucesso = await _sessaoService.DeletarMensagemAsync(id);
+            if (!sucesso) return NotFound(new { mensagem = "Mensagem não encontrada." });
+            
+            return Ok(new { mensagem = "Mensagem removida com sucesso." });
+        }
+
         // --- OUTRAS ROTAS ---
-        // =================================================================
 
         [HttpPost("sessao")]
         public async Task<IActionResult> CriarSessao([FromBody] Guid clienteId)
@@ -173,5 +212,10 @@ namespace ChatbotBackend.Controllers
     public class EnviarMensagemGeminiRequest
     {
         public string Mensagem { get; set; } = string.Empty;
+    }
+
+    public class AtualizarStatusRequest
+    {
+        public string Status { get; set; } = string.Empty;
     }
 }

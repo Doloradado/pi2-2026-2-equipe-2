@@ -51,12 +51,8 @@ namespace ChatbotBackend.Services
             return mensagens;
         }
 
-        // ====================================================================
-        // NOVO MÉTODO - Implementação das Regras de Negócio (Issue #79)
-        // ====================================================================
         public async Task<HistoricoMensagem> RegistrarMensagemAsync(HistoricoMensagem mensagem)
         {
-            // Aplica RN-01: Validação de Existência da Sessão
             var sessaoExiste = await _context.SessoesAtendimento
                 .AnyAsync(s => s.Id == mensagem.SessaoId);
                 
@@ -65,13 +61,11 @@ namespace ChatbotBackend.Services
                 throw new InvalidOperationException("Sessão de atendimento não encontrada.");
             }
 
-            // Aplica RN-02: Bloqueio de Mensagem Vazia
             if (string.IsNullOrWhiteSpace(mensagem.Conteudo))
             {
                 throw new ArgumentException("O conteúdo da mensagem não pode estar vazio.");
             }
 
-            // Aplica RN-03: Formatação de Identificação do WhatsApp
             if (string.IsNullOrEmpty(mensagem.IdMensagemWhatsapp))
             {
                 mensagem.IdMensagemWhatsapp = $"wamid.HBgL_{Guid.NewGuid().ToString().Substring(0, 8)}";
@@ -81,6 +75,62 @@ namespace ChatbotBackend.Services
             await _context.SaveChangesAsync();
             
             return mensagem;
+        }
+
+        // ====================================================================
+        // NOVOS MÉTODOS - Complemento do CRUD de Sessões e Histórico
+        // ====================================================================
+
+        public async Task<SessaoResponseDTO> GetSessaoPorIdAsync(Guid id)
+        {
+            var sessao = await _context.SessoesAtendimento.FindAsync(id);
+            if (sessao == null) return null;
+
+            return new SessaoResponseDTO
+            {
+                Id = sessao.Id,
+                ClienteId = sessao.ClienteId,
+                Status = sessao.Status,
+                DataInicio = sessao.DataInicio,
+                DataFim = sessao.DataFim,
+                ResumoTags = sessao.ResumoTags
+            };
+        }
+
+        public async Task<bool> AtualizarStatusSessaoAsync(Guid id, string novoStatus)
+        {
+            var sessao = await _context.SessoesAtendimento.FindAsync(id);
+            if (sessao == null) return false;
+
+            sessao.Status = novoStatus;
+            
+            if (novoStatus.ToUpper() == "FINALIZADA")
+            {
+                sessao.DataFim = DateTime.UtcNow;
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeletarSessaoAsync(Guid id)
+        {
+            var sessao = await _context.SessoesAtendimento.FindAsync(id);
+            if (sessao == null) return false;
+
+            _context.SessoesAtendimento.Remove(sessao);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeletarMensagemAsync(Guid id)
+        {
+            var mensagem = await _context.HistoricoMensagens.FindAsync(id);
+            if (mensagem == null) return false;
+
+            _context.HistoricoMensagens.Remove(mensagem);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
