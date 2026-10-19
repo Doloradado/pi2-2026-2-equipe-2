@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -63,29 +62,19 @@ function Dashboard() {
   }
 
   async function abrirAtendimento(cliente) {
-    console.log("Abrindo atendimento do cliente:", cliente.id);
-
     try {
       const dados = await getClientePorId(cliente.id);
-
-      console.log("Dados do cliente:", dados);
-      console.log("Sessões do cliente:", dados.sessoes);
-
       const sessoes = dados.sessoes ?? [];
 
       if (sessoes.length > 0) {
         const sessaoAtual = sessoes[sessoes.length - 1];
 
-        console.log("Sessão selecionada:", sessaoAtual.id);
-
         navigate(`/atendimento/${sessaoAtual.id}`);
         return;
       }
 
-      console.warn("Cliente sem sessões de atendimento:", cliente.id);
-
       setErro(
-        `O cliente ${cliente.nome} ainda não possui sessões de atendimento.`
+        `O cliente ${cliente.nome} ainda não possui sessões de atendimento.`,
       );
     } catch (error) {
       console.error("Erro ao consultar o cliente:", error);
@@ -95,22 +84,40 @@ function Dashboard() {
   }
 
   const totalNovos = clientes.filter(
-    (cliente) => !cliente.sessoes?.length
+    (cliente) => !cliente.sessoes?.length,
   ).length;
 
   const totalEmAtendimento = clientes.filter((cliente) =>
-    cliente.sessoes?.some(
-      (sessao) => sessao.status === "EM_ANDAMENTO"
-    )
+    cliente.sessoes?.some((sessao) => sessao.status === "EM_ANDAMENTO"),
   ).length;
 
   const totalAguardando = clientes.filter((cliente) =>
-    cliente.sessoes?.some(
-      (sessao) => sessao.status === "AGUARDANDO_RETORNO"
-    )
+    cliente.sessoes?.some((sessao) => sessao.status === "AGUARDANDO_RETORNO"),
   ).length;
 
   const totalHoje = clientes.length;
+
+  function obterStatusCliente(cliente) {
+    const sessoes = cliente.sessoes ?? [];
+
+    if (sessoes.length === 0) {
+      return "NOVO";
+    }
+
+    if (sessoes.some((sessao) => sessao.status === "EM_ANDAMENTO")) {
+      return "EM ATENDIMENTO";
+    }
+
+    if (sessoes.some((sessao) => sessao.status === "AGUARDANDO_RETORNO")) {
+      return "AGUARDANDO RETORNO";
+    }
+
+    if (sessoes.every((sessao) => sessao.status === "FINALIZADA")) {
+      return "FINALIZADO";
+    }
+
+    return "NOVO";
+  }
 
   return (
     <div className="min-h-screen bg-[#252121]">
@@ -154,31 +161,21 @@ function Dashboard() {
             {carregando ? (
               <p className="text-white">Carregando clientes...</p>
             ) : clientes.length === 0 && !erro ? (
-              <p className="text-[#9E9A9A]">
-                Nenhum cliente cadastrado.
-              </p>
+              <p className="text-[#9E9A9A]">Nenhum cliente cadastrado.</p>
             ) : (
               clientes.map((cliente) => (
                 <BaseClientCard
                   key={cliente.id}
                   nome={cliente.nome}
                   data={cliente.dataCadastro}
-                  status={
-                    cliente.sessoes?.some(
-                      (sessao) => sessao.status === "EM_ANDAMENTO"
-                    )
-                      ? "EM ATENDIMENTO"
-                      : cliente.sessoes?.length
-                        ? "AGUARDANDO RETORNO"
-                        : "NOVO"
-                  }
+                  status={obterStatusCliente(cliente)}
                   onVerRespostas={() => abrirAtendimento(cliente)}
                   onWhatsApp={() => {
                     if (cliente.telefoneWhatsapp) {
                       window.open(
                         `https://wa.me/${cliente.telefoneWhatsapp.replace(/\D/g, "")}`,
                         "_blank",
-                        "noopener,noreferrer"
+                        "noopener,noreferrer",
                       );
                     }
                   }}
@@ -195,10 +192,7 @@ function Dashboard() {
           <div className="bg-[#353333] rounded-xl w-96 p-8 flex flex-col items-center">
             <h2 className="text-white text-xl font-semibold text-center">
               Deseja excluir{" "}
-              <span className="font-semibold">
-                {clienteParaExcluir.nome}
-              </span>
-              ?
+              <span className="font-semibold">{clienteParaExcluir.nome}</span>?
             </h2>
 
             <p className="text-[#9E9A9A] text-sm text-center mt-3">
