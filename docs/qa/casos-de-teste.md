@@ -1384,6 +1384,144 @@ permitir a continuidade do atendimento.
 
 ---
 
+## RN001 — Identificação pelo WhatsApp
+
+### CT-061 — Identificar cliente pelo número de WhatsApp cadastrado
+
+**Requisito:** RF001 — Identificação do cliente  
+**Regra de negócio:** RN001 — Identificação pelo WhatsApp  
+**Prioridade:** Alta  
+**Tipo:** Funcional  
+
+**Pré-condições:**
+- O cliente deve estar previamente cadastrado no sistema.
+- O número de WhatsApp utilizado deve estar associado ao cliente cadastrado.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot utilizando um número de WhatsApp cadastrado.
+2. Enviar uma mensagem ao chatbot.
+3. Aguardar o processamento da identificação.
+
+**Resultado esperado:**
+O chatbot deve reconhecer o número de WhatsApp, identificar corretamente o cliente cadastrado e iniciar o atendimento.
+
+**Status:** Não executado
+
+---
+
+## RN002 — Proteção das informações financeiras
+
+### CT-062 — Impedir acesso a informações financeiras sem validação adequada
+
+**Requisito:** RF005 — Consulta de informações do cliente; RF016 — Validação adicional de identidade  
+**Regra de negócio:** RN002 — Proteção das informações financeiras  
+**Prioridade:** Alta  
+**Tipo:** Funcional / Segurança  
+
+**Pré-condições:**
+- O cliente deve possuir informações financeiras cadastradas no sistema.
+- A solicitação deve exigir validação de identidade.
+- O cliente não deve ter concluído a validação necessária.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot.
+2. Solicitar informações relacionadas à situação financeira do cliente.
+3. Aguardar o processamento da solicitação.
+4. Verificar se as informações foram disponibilizadas antes da validação.
+
+**Resultado esperado:**
+O chatbot não deve apresentar informações financeiras antes da identificação e autorização adequadas. Quando necessário, deve solicitar os dados de validação antes de disponibilizar as informações.
+
+**Status:** Não executado
+
+---
+
+## RN003 — Fonte de verdade das marcações
+
+### CT-063 — Impedir confirmação de agendamento não registrado
+
+**Requisito:** RF014 — Consulta dos dados transacionais  
+**Regra de negócio:** RN003 — Fonte de verdade das marcações  
+**Prioridade:** Alta  
+**Tipo:** Funcional / Integração  
+
+**Pré-condições:**
+- O sistema deve possuir integração com a Web API e o banco de dados PostgreSQL.
+- O fluxo de agendamento deve estar disponível.
+- Deve ser possível simular uma falha no registro do agendamento.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot.
+2. Solicitar o agendamento de uma sessão.
+3. Simular uma falha no registro do agendamento no banco de dados.
+4. Aguardar a resposta do chatbot.
+5. Verificar se a operação foi registrada no banco de dados.
+
+**Resultado esperado:**
+O chatbot não deve confirmar o agendamento quando a operação não tiver sido registrada com sucesso no PostgreSQL por meio da Web API.
+
+**Status:** Não executado
+
+---
+
+## RN004 — Atendimento fora do escopo
+
+### CT-064 — Tratar solicitação fora do escopo de atendimento
+
+**Requisito:** RF002 — Atendimento automático; RF007 — Tratamento de mensagens fora do assunto; RF011 — Definição do escopo de atendimento  
+**Regra de negócio:** RN004 — Atendimento fora do escopo  
+**Prioridade:** Alta  
+**Tipo:** Funcional  
+
+**Pré-condições:**
+- O cliente deve ter iniciado um atendimento com o chatbot.
+- A solicitação enviada deve estar fora do escopo definido para o sistema.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot.
+2. Enviar uma solicitação relacionada ao diagnóstico de uma lesão ou dor.
+3. Aguardar o processamento da mensagem.
+4. Verificar a resposta apresentada pelo chatbot.
+
+**Resultado esperado:**
+O chatbot deve informar que a solicitação está fora do escopo de atendimento e não deve fornecer diagnósticos ou orientações profissionais não contempladas pelo serviço. Quando aplicável, deve orientar o cliente a procurar atendimento adequado ou atendimento humano.
+
+**Status:** Não executado
+
+---
+
+## RN005 — Transferência para atendimento humano
+
+### CT-065 — Preservar histórico e interromper respostas automáticas após transferência
+
+**Requisito:** RF002 — Atendimento automático; RF009 — Transferência para atendimento humano; RF023 — Assumir atendimento; RF024 — Registro de solicitação sem administrador disponível  
+**Regra de negócio:** RN005 — Transferência para atendimento humano  
+**Prioridade:** Alta  
+**Tipo:** Funcional / Integração  
+
+**Pré-condições:**
+- O cliente deve estar em atendimento com o chatbot.
+- Deve existir um histórico de mensagens registradas.
+- O sistema deve permitir a transferência para atendimento humano.
+- Deve existir um administrador disponível para assumir o atendimento.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot.
+2. Trocar mensagens durante o atendimento.
+3. Solicitar a transferência para atendimento humano.
+4. Aguardar o encaminhamento da solicitação.
+5. Acessar o atendimento como administrador e assumir a conversa.
+6. Verificar se o histórico anterior permanece disponível.
+7. Enviar uma nova mensagem como cliente.
+8. Verificar se o chatbot continua respondendo automaticamente.
+
+**Resultado esperado:**
+O sistema deve transferir o atendimento para o administrador, preservar o histórico da conversa e interromper as respostas automáticas do chatbot enquanto o atendimento estiver sob responsabilidade do administrador.
+
+**Status:** Não executado
+
+---
+
 # Considerações Finais
 
 Os casos de teste apresentados neste documento foram elaborados com base
