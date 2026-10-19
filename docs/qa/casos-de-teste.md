@@ -1,7 +1,15 @@
+
 # Casos de Teste
 
-Este documento apresenta os casos de teste elaborados com base nos
-requisitos funcionais do sistema.
+Este documento apresenta os casos de teste elaborados com base nos requisitos funcionais, requisitos não funcionais e regras de negócio do sistema.
+
+Os casos CT-001 a CT-049 foram elaborados para validação dos requisitos funcionais e não funcionais. Os casos CT-050 a CT-054 foram acrescentados na Sprint 3, considerando as regras de negócio definidas no Documento de Requisitos.
+
+A execução dos testes será realizada conforme as funcionalidades forem implementadas e disponibilizadas para validação no ambiente de desenvolvimento.
+
+---
+
+# Casos de Teste — Requisitos Funcionais
 
 ## RF001 — Identificação do Cliente
 
@@ -42,8 +50,7 @@ O chatbot deve reconhecer o número de WhatsApp, identificar corretamente o clie
 3. Aguardar o processamento da identificação.
 
 **Resultado esperado:**
-O chatbot deve identificar que o número de WhatsApp não está cadastrado
-e solicitar informações adicionais para identificação do cliente.
+O chatbot deve identificar que o número de WhatsApp não está cadastrado e solicitar informações adicionais para identificação do cliente.
 
 **Status:** Não executado
 
@@ -65,8 +72,7 @@ e solicitar informações adicionais para identificação do cliente.
 3. Informar dados de identificação inválidos.
 
 **Resultado esperado:**
-O chatbot deve identificar que as informações fornecidas são inválidas
-e solicitar a correção dos dados.
+O chatbot deve identificar que as informações fornecidas são inválidas e solicitar a correção dos dados.
 
 **Status:** Não executado
 
@@ -111,8 +117,7 @@ O chatbot não deve disponibilizar informações pertencentes a outro cliente.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot deve processar a solicitação e fornecer automaticamente uma
-resposta adequada ao cliente.
+O chatbot deve processar a solicitação e fornecer automaticamente uma resposta adequada ao cliente.
 
 **Status:** Não executado
 
@@ -132,8 +137,7 @@ resposta adequada ao cliente.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot deve informar que não compreendeu a solicitação e pedir ao
-cliente que reformule a mensagem.
+O chatbot deve informar que não compreendeu a solicitação e pedir ao cliente que reformule a mensagem.
 
 **Status:** Não executado
 
@@ -154,8 +158,7 @@ cliente que reformule a mensagem.
 2. Aguardar o processamento da solicitação.
 
 **Resultado esperado:**
-O chatbot deve identificar a necessidade de atendimento humano e
-encaminhar a solicitação ao administrador responsável.
+O chatbot deve identificar a necessidade de atendimento humano e encaminhar a solicitação ao administrador responsável.
 
 **Status:** Não executado
 
@@ -177,8 +180,7 @@ encaminhar a solicitação ao administrador responsável.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot deve identificar corretamente a intenção presente na mensagem
-e direcionar o atendimento de acordo com ela.
+O chatbot deve identificar corretamente a intenção presente na mensagem e direcionar o atendimento de acordo com ela.
 
 **Status:** Não executado
 
@@ -201,8 +203,7 @@ e direcionar o atendimento de acordo com ela.
 4. Verificar a intenção identificada novamente.
 
 **Resultado esperado:**
-O chatbot deve reconhecer que as diferentes mensagens representam a
-mesma intenção e direcionar ambas para o mesmo tipo de atendimento.
+O chatbot deve reconhecer que as diferentes mensagens representam a mesma intenção e direcionar ambas para o mesmo tipo de atendimento.
 
 **Status:** Não executado
 
@@ -222,8 +223,7 @@ mesma intenção e direcionar ambas para o mesmo tipo de atendimento.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot deve identificar a ambiguidade e solicitar informações
-adicionais ao cliente para determinar corretamente sua intenção.
+O chatbot deve identificar a ambiguidade e solicitar informações adicionais ao cliente para determinar corretamente sua intenção.
 
 **Status:** Não executado
 
@@ -246,8 +246,7 @@ adicionais ao cliente para determinar corretamente sua intenção.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot deve reconhecer a pergunta e fornecer a resposta correspondente
-cadastrada no sistema.
+O chatbot deve reconhecer a pergunta e fornecer a resposta correspondente cadastrada no sistema.
 
 **Status:** Não executado
 
@@ -268,8 +267,7 @@ cadastrada no sistema.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot deve identificar a pergunta frequente mesmo quando formulada
-de maneira diferente e fornecer a resposta correspondente.
+O chatbot deve identificar a pergunta frequente mesmo quando formulada de maneira diferente e fornecer a resposta correspondente.
 
 **Status:** Não executado
 
@@ -290,8 +288,7 @@ de maneira diferente e fornecer a resposta correspondente.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot não deve fornecer uma resposta de FAQ incorreta para a pergunta
-e deve continuar o atendimento conforme o fluxo definido pelo sistema.
+O chatbot não deve fornecer uma resposta de FAQ incorreta para a pergunta e deve continuar o atendimento conforme o fluxo definido pelo sistema.
 
 **Status:** Não executado
 
@@ -315,8 +312,7 @@ e deve continuar o atendimento conforme o fluxo definido pelo sistema.
 3. Aguardar o processamento da solicitação.
 
 **Resultado esperado:**
-O chatbot deve fornecer corretamente as informações cadastradas
-associadas ao cliente identificado.
+O chatbot deve fornecer corretamente as informações cadastradas associadas ao cliente identificado.
 
 **Status:** Não executado
 
@@ -359,8 +355,7 @@ O chatbot não deve fornecer informações pertencentes a outro cliente.
 2. Aguardar o processamento da solicitação.
 
 **Resultado esperado:**
-O chatbot não deve apresentar informações inexistentes ou pertencentes
-a outro cliente.
+O chatbot não deve apresentar informações inexistentes ou pertencentes a outro cliente.
 
 **Status:** Não executado
 
@@ -383,8 +378,7 @@ a outro cliente.
 2. Aguardar o processamento do áudio.
 
 **Resultado esperado:**
-O chatbot deve transcrever corretamente o conteúdo da mensagem de áudio
-e utilizá-lo no fluxo de atendimento.
+O chatbot deve transcrever corretamente o conteúdo da mensagem de áudio e utilizá-lo no fluxo de atendimento.
 
 **Status:** Não executado
 
@@ -405,8 +399,7 @@ e utilizá-lo no fluxo de atendimento.
 2. Aguardar o processamento do áudio.
 
 **Resultado esperado:**
-O chatbot deve identificar que não foi possível compreender ou transcrever
-adequadamente o áudio e solicitar ao cliente uma nova mensagem.
+O chatbot deve identificar que não foi possível compreender ou transcrever adequadamente o áudio e solicitar ao cliente uma nova mensagem.
 
 **Status:** Não executado
 
@@ -427,8 +420,7 @@ adequadamente o áudio e solicitar ao cliente uma nova mensagem.
 2. Aguardar o processamento.
 
 **Resultado esperado:**
-O chatbot deve tratar a falha sem interromper o atendimento e informar
-que não foi possível processar o áudio.
+O chatbot deve tratar a falha sem interromper o atendimento e informar que não foi possível processar o áudio.
 
 **Status:** Não executado
 
@@ -450,8 +442,7 @@ que não foi possível processar o áudio.
 2. Aguardar o processamento da mensagem.
 
 **Resultado esperado:**
-O chatbot deve identificar que a mensagem está fora do escopo de
-atendimento e informar adequadamente o cliente.
+O chatbot deve identificar que a mensagem está fora do escopo de atendimento e informar adequadamente o cliente.
 
 **Status:** Não executado
 
@@ -471,8 +462,7 @@ atendimento e informar adequadamente o cliente.
 2. Aguardar a resposta do chatbot.
 
 **Resultado esperado:**
-O chatbot não deve inventar ou fornecer informações não disponíveis no
-sistema para responder à solicitação.
+O chatbot não deve inventar ou fornecer informações não disponíveis no sistema para responder à solicitação.
 
 **Status:** Não executado
 
@@ -496,8 +486,7 @@ sistema para responder à solicitação.
 3. Solicitar ou acionar a geração do resumo da conversa.
 
 **Resultado esperado:**
-O sistema deve gerar um resumo contendo as principais informações
-da conversa realizada com o cliente.
+O sistema deve gerar um resumo contendo as principais informações da conversa realizada com o cliente.
 
 **Status:** Não executado
 
@@ -518,8 +507,7 @@ da conversa realizada com o cliente.
 3. Comparar o resumo gerado com as informações fornecidas durante o atendimento.
 
 **Resultado esperado:**
-O resumo deve apresentar as principais informações fornecidas durante
-a conversa, preservando o contexto necessário para a continuidade do atendimento.
+O resumo deve apresentar as principais informações fornecidas durante a conversa, preservando o contexto necessário para a continuidade do atendimento.
 
 **Status:** Não executado
 
@@ -566,8 +554,7 @@ O chatbot deve encaminhar o atendimento para um responsável humano.
 4. Verificar as informações disponibilizadas ao responsável pelo atendimento.
 
 **Resultado esperado:**
-O histórico da conversa realizada com o chatbot deve ser mantido e
-disponibilizado para a continuidade do atendimento humano.
+O histórico da conversa realizada com o chatbot deve ser mantido e disponibilizado para a continuidade do atendimento humano.
 
 **Status:** Não executado
 
@@ -591,8 +578,7 @@ disponibilizado para a continuidade do atendimento humano.
 4. Verificar o registro da conversa no sistema.
 
 **Resultado esperado:**
-O sistema deve registrar a conversa realizada com o cliente,
-mantendo as informações do atendimento.
+O sistema deve registrar a conversa realizada com o cliente, mantendo as informações do atendimento.
 
 **Status:** Não executado
 
@@ -613,8 +599,7 @@ mantendo as informações do atendimento.
 3. Consultar as informações da conversa.
 
 **Resultado esperado:**
-O sistema deve disponibilizar corretamente as informações da conversa
-registrada para consulta.
+O sistema deve disponibilizar corretamente as informações da conversa registrada para consulta.
 
 **Status:** Não executado
 
@@ -640,8 +625,7 @@ registrada para consulta.
 3. Verificar se as informações protegidas foram disponibilizadas.
 
 **Resultado esperado:**
-O sistema deve impedir o acesso não autorizado e não deve disponibilizar
-as informações protegidas.
+O sistema deve impedir o acesso não autorizado e não deve disponibilizar as informações protegidas.
 
 **Status:** Não executado
 
@@ -663,8 +647,7 @@ as informações protegidas.
 3. Verificar o resultado da solicitação.
 
 **Resultado esperado:**
-O sistema deve permitir o acesso às informações para as quais o usuário
-possui autorização.
+O sistema deve permitir o acesso às informações para as quais o usuário possui autorização.
 
 **Status:** Não executado
 
@@ -687,8 +670,7 @@ possui autorização.
 3. Verificar as informações disponibilizadas pelo sistema.
 
 **Resultado esperado:**
-O sistema não deve disponibilizar informações pessoais ou mensagens do
-cliente para usuários não autorizados.
+O sistema não deve disponibilizar informações pessoais ou mensagens do cliente para usuários não autorizados.
 
 **Status:** Não executado
 
@@ -711,8 +693,7 @@ cliente para usuários não autorizados.
 3. Verificar se o atendimento permanece fluido.
 
 **Resultado esperado:**
-O chatbot deve processar a mensagem e fornecer a resposta em tempo
-adequado para manter uma interação fluida.
+O chatbot deve processar a mensagem e fornecer a resposta em tempo adequado para manter uma interação fluida.
 
 **Status:** Não executado
 
@@ -735,8 +716,7 @@ adequado para manter uma interação fluida.
 3. Enviar uma mensagem ao chatbot.
 
 **Resultado esperado:**
-O chatbot deve estar disponível e permitir a realização do atendimento
-durante o período definido para funcionamento.
+O chatbot deve estar disponível e permitir a realização do atendimento durante o período definido para funcionamento.
 
 **Status:** Não executado
 
@@ -760,8 +740,7 @@ durante o período definido para funcionamento.
 4. Consultar as informações registradas durante a conversa.
 
 **Resultado esperado:**
-O chatbot deve executar suas funções de forma consistente, sem perda
-de mensagens, documentos ou informações processadas.
+O chatbot deve executar suas funções de forma consistente, sem perda de mensagens, documentos ou informações processadas.
 
 **Status:** Não executado
 
@@ -784,8 +763,7 @@ de mensagens, documentos ou informações processadas.
 3. Avaliar se a resposta é clara, objetiva e compreensível.
 
 **Resultado esperado:**
-A resposta fornecida pelo chatbot deve ser clara, objetiva e
-compreensível para o cliente.
+A resposta fornecida pelo chatbot deve ser clara, objetiva e compreensível para o cliente.
 
 **Status:** Não executado
 
@@ -809,8 +787,7 @@ compreensível para o cliente.
 4. Comparar o processamento das mensagens.
 
 **Resultado esperado:**
-O chatbot deve compreender diferentes formas de escrita que expressem
-a mesma solicitação.
+O chatbot deve compreender diferentes formas de escrita que expressem a mesma solicitação.
 
 **Status:** Não executado
 
@@ -833,8 +810,7 @@ a mesma solicitação.
 3. Verificar o recebimento da resposta pelo WhatsApp.
 
 **Resultado esperado:**
-O chatbot deve receber a mensagem e enviar sua resposta por meio do
-WhatsApp.
+O chatbot deve receber a mensagem e enviar sua resposta por meio do WhatsApp.
 
 **Status:** Não executado
 
@@ -855,8 +831,7 @@ WhatsApp.
 3. Verificar o recebimento da resposta.
 
 **Resultado esperado:**
-O chatbot deve receber e processar a mensagem de áudio enviada por
-meio do WhatsApp.
+O chatbot deve receber e processar a mensagem de áudio enviada por meio do WhatsApp.
 
 **Status:** Não executado
 
@@ -879,8 +854,7 @@ meio do WhatsApp.
 3. Verificar a resposta apresentada ao cliente.
 
 **Resultado esperado:**
-O chatbot deve identificar a falha e informar adequadamente o cliente
-sobre o problema ocorrido.
+O chatbot deve identificar a falha e informar adequadamente o cliente sobre o problema ocorrido.
 
 **Status:** Não executado
 
@@ -904,8 +878,7 @@ sobre o problema ocorrido.
 4. Consultar o registro da interação.
 
 **Resultado esperado:**
-O registro da interação deve conter informações sobre cliente, data,
-horário, mensagem, resposta e tipo de atendimento.
+O registro da interação deve conter informações sobre cliente, data, horário, mensagem, resposta e tipo de atendimento.
 
 **Status:** Não executado
 
@@ -930,8 +903,7 @@ horário, mensagem, resposta e tipo de atendimento.
 4. Comparar o comportamento com as condições normais.
 
 **Resultado esperado:**
-O chatbot deve suportar o aumento do número de mensagens sem apresentar
-degradação significativa de desempenho.
+O chatbot deve suportar o aumento do número de mensagens sem apresentar degradação significativa de desempenho.
 
 **Status:** Não executado
 
@@ -955,8 +927,7 @@ degradação significativa de desempenho.
 4. Avaliar se novas funcionalidades podem ser incorporadas sem alterações desnecessárias em componentes não relacionados.
 
 **Resultado esperado:**
-A estrutura do sistema deve facilitar correções, manutenção e
-implementação de novas funcionalidades.
+A estrutura do sistema deve facilitar correções, manutenção e implementação de novas funcionalidades.
 
 **Status:** Não executado
 
@@ -981,8 +952,7 @@ implementação de novas funcionalidades.
 4. Verificar o histórico disponibilizado após a transferência.
 
 **Resultado esperado:**
-O histórico da conversa deve ser preservado após a transferência do
-chatbot para o administrador.
+O histórico da conversa deve ser preservado após a transferência do chatbot para o administrador.
 
 **Status:** Não executado
 
@@ -1007,8 +977,7 @@ chatbot para o administrador.
 4. Verificar novamente a resposta.
 
 **Resultado esperado:**
-O sistema deve disponibilizar as informações específicas somente quando
-o cliente estiver devidamente identificado e autorizado.
+O sistema deve disponibilizar as informações específicas somente quando o cliente estiver devidamente identificado e autorizado.
 
 **Status:** Não executado
 
@@ -1032,8 +1001,7 @@ o cliente estiver devidamente identificado e autorizado.
 4. Consultar as informações armazenadas pelo sistema.
 
 **Resultado esperado:**
-As conversas, documentos e demais informações processadas devem ser
-armazenados de forma organizada e segura.
+As conversas, documentos e demais informações processadas devem ser armazenados de forma organizada e segura.
 
 **Status:** Não executado
 
@@ -1056,8 +1024,7 @@ armazenados de forma organizada e segura.
 3. Realizar uma nova tentativa de processamento, quando possível.
 
 **Resultado esperado:**
-O chatbot deve permitir uma nova tentativa após a ocorrência da falha,
-quando isso for possível.
+O chatbot deve permitir uma nova tentativa após a ocorrência da falha, quando isso for possível.
 
 **Status:** Não executado
 
@@ -1078,8 +1045,7 @@ quando isso for possível.
 3. Realizar uma nova tentativa de envio, quando possível.
 
 **Resultado esperado:**
-O chatbot deve permitir uma nova tentativa de envio da mensagem após
-a ocorrência da falha, quando isso for possível.
+O chatbot deve permitir uma nova tentativa de envio da mensagem após a ocorrência da falha, quando isso for possível.
 
 **Status:** Não executado
 
@@ -1103,8 +1069,7 @@ a ocorrência da falha, quando isso for possível.
 4. Comparar as informações apresentadas nas respostas.
 
 **Resultado esperado:**
-O chatbot deve fornecer informações consistentes e não deve apresentar
-respostas contraditórias durante o atendimento.
+O chatbot deve fornecer informações consistentes e não deve apresentar respostas contraditórias durante o atendimento.
 
 **Status:** Não executado
 
@@ -1128,8 +1093,7 @@ respostas contraditórias durante o atendimento.
 4. Avaliar a facilidade de compreensão e utilização do fluxo.
 
 **Resultado esperado:**
-A interação deve ser simples e intuitiva, permitindo que o cliente
-compreenda facilmente as orientações fornecidas pelo chatbot.
+A interação deve ser simples e intuitiva, permitindo que o cliente compreenda facilmente as orientações fornecidas pelo chatbot.
 
 **Status:** Não executado
 
@@ -1155,8 +1119,155 @@ compreenda facilmente as orientações fornecidas pelo chatbot.
 5. Verificar o histórico da conversa anterior.
 
 **Resultado esperado:**
-O histórico realizado pelo chatbot deve permanecer disponível para o
-administrador, permitindo a continuidade da conversa.
+O histórico realizado pelo chatbot deve permanecer disponível para o administrador, permitindo a continuidade da conversa.
+
+**Status:** Não executado
+
+---
+
+# Casos de Teste — Regras de Negócio (Sprint 3)
+
+Esta seção apresenta cinco casos de teste adicionais elaborados durante a Sprint 3, considerando as regras de negócio RN001 a RN005 definidas no Documento de Requisitos.
+
+Os casos complementam os testes funcionais e não funcionais já especificados e deverão ser executados conforme as funcionalidades correspondentes forem disponibilizadas para validação.
+
+## RN001 — Identificação pelo WhatsApp
+
+### CT-050 — Identificar cliente pelo número de WhatsApp cadastrado
+
+**Requisito:** RF001 — Identificação do cliente  
+**Regra de negócio:** RN001 — Identificação pelo WhatsApp  
+**Prioridade:** Alta  
+**Tipo:** Funcional  
+
+**Pré-condições:**
+- O cliente deve estar previamente cadastrado no sistema.
+- O número de WhatsApp utilizado deve estar associado ao cadastro do cliente.
+- O chatbot deve estar disponível para atendimento.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot utilizando um número de WhatsApp cadastrado.
+2. Enviar uma mensagem ao chatbot.
+3. Aguardar a identificação inicial do cliente.
+4. Verificar o cadastro associado ao número utilizado.
+
+**Resultado esperado:**
+O sistema deve utilizar o número de WhatsApp como identificador inicial do cliente, reconhecer o cadastro correspondente e iniciar o atendimento sem associar a conversa a outro cliente.
+
+**Status:** Não executado
+
+---
+
+## RN002 — Proteção das informações financeiras
+
+### CT-051 — Solicitar validação antes de apresentar informações financeiras
+
+**Requisito:** RF005 — Consulta de informações do cliente; RF016 — Validação adicional de identidade  
+**Regra de negócio:** RN002 — Proteção das informações financeiras  
+**Prioridade:** Alta  
+**Tipo:** Funcional / Segurança  
+
+**Pré-condições:**
+- Deve existir um cliente cadastrado com informações financeiras disponíveis.
+- O cliente ainda não deve ter concluído a identificação ou autorização necessária para consultar essas informações.
+- O sistema deve possuir um mecanismo de validação de identidade.
+
+**Passos:**
+1. Iniciar um atendimento com o chatbot.
+2. Solicitar uma informação relacionada à situação financeira do cliente.
+3. Verificar o comportamento do sistema antes da conclusão da validação.
+4. Informar os dados necessários para a validação, quando solicitados.
+5. Verificar se a informação é disponibilizada somente após a autorização adequada.
+
+**Resultado esperado:**
+O chatbot não deve apresentar informações financeiras antes da identificação e autorização adequadas. Quando for exigida validação adicional, deve solicitar os dados necessários antes de liberar a informação.
+
+**Status:** Não executado
+
+---
+
+## RN003 — Fonte de verdade das marcações
+
+### CT-052 — Impedir confirmação de agendamento sem registro no banco de dados
+
+**Requisito:** RF014 — Consulta dos dados transacionais  
+**Regra de negócio:** RN003 — Fonte de verdade das marcações  
+**Prioridade:** Alta  
+**Tipo:** Funcional / Integração  
+
+**Pré-condições:**
+- O chatbot deve estar disponível para atendimento.
+- A Web API e o banco PostgreSQL devem estar configurados.
+- Deve existir um fluxo de agendamento, cancelamento ou remarcação disponível para teste.
+- Deve ser possível simular ou identificar uma operação que não tenha sido registrada com sucesso no banco de dados.
+
+**Passos:**
+1. Iniciar um atendimento com o chatbot.
+2. Solicitar um agendamento, cancelamento ou remarcação.
+3. Provocar ou simular uma situação em que a operação não seja registrada com sucesso no PostgreSQL.
+4. Verificar a resposta apresentada pelo chatbot.
+5. Consultar os dados persistidos no banco para confirmar o resultado da operação.
+
+**Resultado esperado:**
+O chatbot não deve confirmar a realização de agendamentos, cancelamentos ou remarcações quando a operação não tiver sido registrada com sucesso na fonte oficial de dados.
+
+**Status:** Não executado
+
+---
+
+## RN004 — Atendimento fora do escopo
+
+### CT-053 — Impedir orientação profissional fora do escopo do chatbot
+
+**Requisito:** RF002 — Atendimento automático; RF007 — Tratamento de mensagens fora do assunto; RF011 — Definição do escopo de atendimento  
+**Regra de negócio:** RN004 — Atendimento fora do escopo  
+**Prioridade:** Alta  
+**Tipo:** Funcional / Segurança  
+
+**Pré-condições:**
+- O chatbot deve estar disponível para atendimento.
+- O escopo de atendimento deve estar definido conforme o Documento de Requisitos.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot.
+2. Enviar uma solicitação relacionada a uma dieta específica.
+3. Verificar a resposta apresentada pelo sistema.
+4. Enviar uma solicitação relacionada ao diagnóstico de uma lesão ou dor.
+5. Verificar se o chatbot reconhece a limitação do atendimento.
+
+**Resultado esperado:**
+O chatbot deve identificar solicitações fora do escopo, informar as limitações do serviço e não apresentar dietas específicas, diagnósticos ou outras orientações profissionais não contempladas como se fossem recomendações oficiais. Quando aplicável, deve orientar o cliente a buscar atendimento adequado ou humano.
+
+**Status:** Não executado
+
+---
+
+## RN005 — Transferência para atendimento humano
+
+### CT-054 — Interromper respostas automáticas após transferência para administrador
+
+**Requisito:** RF002 — Atendimento automático; RF009 — Transferência para atendimento humano; RF023 — Assumir atendimento; RF024 — Registro de solicitação sem administrador disponível  
+**Regra de negócio:** RN005 — Transferência para atendimento humano  
+**Prioridade:** Alta  
+**Tipo:** Funcional / Integração  
+
+**Pré-condições:**
+- Deve existir uma conversa em andamento entre o cliente e o chatbot.
+- O sistema deve permitir a transferência do atendimento para um administrador.
+- Deve existir um administrador disponível para assumir o atendimento.
+
+**Passos:**
+1. Iniciar uma conversa com o chatbot.
+2. Trocar mensagens durante o atendimento.
+3. Solicitar atendimento humano.
+4. Aguardar o encaminhamento da conversa ao administrador.
+5. Assumir o atendimento utilizando o perfil de administrador.
+6. Enviar uma nova mensagem pelo cliente após a transferência.
+7. Verificar se o chatbot continua respondendo automaticamente.
+8. Consultar o histórico disponibilizado ao administrador.
+
+**Resultado esperado:**
+O sistema deve transferir o atendimento para o administrador, preservar o histórico da conversa e interromper as respostas automáticas do chatbot enquanto o atendimento estiver sob responsabilidade do administrador.
 
 **Status:** Não executado
 
@@ -1164,12 +1275,16 @@ administrador, permitindo a continuidade da conversa.
 
 ## Considerações Finais
 
-Os casos de teste apresentados neste documento foram elaborados com base
-nos requisitos funcionais e não funcionais definidos para o sistema.
+Este documento reúne **54 casos de teste**, organizados da seguinte forma:
 
-A execução dos testes será realizada conforme as funcionalidades forem
-implementadas e disponibilizadas para validação durante o desenvolvimento
-do projeto.
+- **CT-001 a CT-027:** 27 casos de teste relacionados aos requisitos funcionais.
+- **CT-028 a CT-049:** 22 casos de teste relacionados aos requisitos não funcionais.
+- **CT-050 a CT-054:** 5 casos de teste adicionais relacionados às regras de negócio, elaborados na Sprint 3.
 
-Os resultados das execuções, evidências e eventuais defeitos encontrados
-serão registrados e acompanhados durante o processo de testes.
+Os cinco casos acrescentados na Sprint 3 contemplam as regras de negócio RN001, RN002, RN003, RN004 e RN005, conforme definidas no Documento de Requisitos atualizado.
+
+Os casos de teste permanecem com status **Não executado**, pois sua elaboração não representa a validação das funcionalidades. A execução depende da disponibilização das implementações correspondentes no ambiente de desenvolvimento.
+
+Conforme as funcionalidades forem disponibilizadas para validação, os casos poderão ser executados, registrando-se os resultados obtidos, evidências e eventuais defeitos encontrados.
+
+Os resultados das execuções serão documentados nos relatórios de QA e acompanhados nas respectivas issues do projeto.
