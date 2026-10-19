@@ -1,1 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;600&family=Jomhuria&display=swap');
+
 @import "tailwindcss";
+
+.font-instrument {
+    font-family: "Instrument Sans", sans-serif;
+}
+
+.font-inter {
+    font-family: "Inter", sans-serif;
+}
+
+.font-jomhuria {
+    font-family: "Jomhuria", cursive;
+}
+
+.font-plex {
+    font-family: "IBM Plex Sans KR", sans-serif;
+}

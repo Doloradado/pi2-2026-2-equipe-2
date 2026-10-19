@@ -3,26 +3,52 @@ using ChatbotBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adiciona os serviços essenciais para a API e o Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configura o Entity Framework para usar o PostgreSQL com a string de conexão do appsettings.json
+builder.Services.AddControllers();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirFrontend", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
-// Configuração do pipeline HTTP e Swagger para desenvolvimento
+app.UseCors("PermitirFrontend");
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(c =>
+    {
+        c.SerializeAsV2 = true;
+    });
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
-// Rota raiz simples para testar se a API está online
 app.MapGet("/", () => "API do Chatbot do Personal Trainer rodando com sucesso! 🚀");
+
+app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    SeedData.Initialize(context);
+}
+
+using var migrationScope = app.Services.CreateScope();
+var db = migrationScope.ServiceProvider.GetRequiredService<AppDbContext>();
+db.Database.Migrate();
 
 app.Run();
