@@ -121,6 +121,8 @@ function Dashboard() {
     return "NOVO";
   }
 
+  const totalClientes = clientes.length;
+
   return (
     <div
     className={`min-h-screen bg-[#252121] ${
