@@ -63,6 +63,8 @@ function Dashboard() {
 
   async function abrirAtendimento(cliente) {
     try {
+      setErro("");
+
       const dados = await getClientePorId(cliente.id);
       const sessoes = dados.sessoes ?? [];
 
@@ -120,71 +122,120 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#252121]">
+    <div
+    className={`min-h-screen bg-[#252121] ${
+        carregando ? "h-screen overflow-hidden" : "overflow-x-hidden"
+    }`}
+>"
       <BaseHeader />
 
-      <main className="pt-[180px] md:pt-40">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 place-items-center gap-6 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+      <main className="pt-40">
+        <div className="flex justify-center gap-12">
           <BaseStatCard
-            valor={String(totalNovos).padStart(2, "0")}
+            valor={String(carregando ? 0 : totalNovos).padStart(2, "0")}
             titulo="Novos Atendimentos"
           />
 
           <BaseStatCard
-            valor={String(totalEmAtendimento).padStart(2, "0")}
+            valor={String(carregando ? 0 : totalEmAtendimento).padStart(2, "0")}
             titulo="Em Atendimento"
           />
 
           <BaseStatCard
-            valor={String(totalAguardando).padStart(2, "0")}
+            valor={String(carregando ? 0 : totalAguardando).padStart(2, "0")}
             titulo="Aguardando retorno"
           />
 
           <BaseStatCard
-            valor={String(totalHoje).padStart(2, "0")}
+            valor={String(carregando ? 0 : totalClientes).padStart(2, "0")}
             titulo="Clientes cadastrados"
           />
         </div>
 
-        <section className="mt-12 w-full px-6 md:px-8 lg:pl-50 lg:pr-50">
-          <h1 className="text-left text-white font-semibold text-[24px]">
-            Clientes Recentes
-          </h1>
+        {carregando ? (
+          <section className="mt-12 w-full pl-50 pr-50">
+            <div className="mt-6 w-full h-50 flex flex-col items-center justify-center">
+              <h1 className="text-left text-white font-semibold text-[30px]">
+                Carregando Atendimentos...
+              </h1>
 
-          {erro && (
-            <p className="mt-4 text-red-400" role="alert">
-              {erro}
-            </p>
-          )}
+              <p className="text-white mt-4">
+                Aguarde enquanto buscamos os atendimentos recebidos.
+              </p>
+              <div
+                className="
+      h-[120px] w-[120px] mt-2 shrink-0
+      rounded-full
+      border-[10px] border-white/15
+      border-t-white
+      animate-spin
+    "
+              />
+            </div>
+            </section>
+        ) : erro && clientes.length === 0 ? (
+          <section className="mt-12 w-full pl-50 pr-50">
+            <div className="mt-6 w-full h-50 flex flex-col items-center justify-center">
+              <h1 className="text-left text-white font-semibold text-[30px]">
+                Nenhum atendimento encontrado
+              </h1>
 
-          <div className="mt-6 max-h-[500px] overflow-y-auto flex flex-col gap-4 pb-4">
-            {carregando ? (
-              <p className="text-white">Carregando clientes...</p>
-            ) : clientes.length === 0 && !erro ? (
-              <p className="text-[#9E9A9A]">Nenhum cliente cadastrado.</p>
-            ) : (
-              clientes.map((cliente) => (
-                <BaseClientCard
-                  key={cliente.id}
-                  nome={cliente.nome}
-                  data={cliente.dataCadastro}
-                  status={obterStatusCliente(cliente)}
-                  onVerRespostas={() => abrirAtendimento(cliente)}
-                  onWhatsApp={() => {
-                    if (cliente.telefoneWhatsapp) {
-                      window.open(
-                        `https://wa.me/${cliente.telefoneWhatsapp.replace(/\D/g, "")}`,
-                        "_blank",
-                        "noopener,noreferrer",
-                      );
-                    }
-                  }}
-                  onExcluir={() => abrirConfirmacao(cliente)}
-                />
-              ))
+              <p className="text-white mt-4 mb-33 text-center">
+              Quando novos atendimentos forem recebidos pelo assistente virtual, eles aparecerão aqui.
+              </p>
+            </div>
+          </section>
+        ) : (
+          <section className="mt-12 w-full pl-37 pr-37">
+            <h1 className="text-left text-white font-semibold text-[24px]">
+              Clientes Recentes
+            </h1>
+
+            {erro && (
+              <p className="mt-4 text-red-400" role="alert">
+                {erro}
+              </p>
             )}
-          </div>
-        </section>
+
+            {clientes.length === 0 && !erro ? (
+              <div className="mt-6 w-full h-50 flex items-center justify-center">
+                <p className="text-[#9E9A9A]">
+                  Sem clientes encontrados
+                </p>
+              </div>
+            ) : (
+              <div className="mt-6 max-h-[650px] overflow-y-auto flex flex-col gap-4">
+                {clientes.map((cliente) => (
+                  <BaseClientCard
+                    key={cliente.id}
+                    nome={cliente.nome}
+                    data={cliente.dataCadastro ?? "Data não informada"}
+                    status={
+                      cliente.sessoes?.some(
+                        (sessao) => sessao.status === "EM_ANDAMENTO"
+                      )
+                        ? "EM ATENDIMENTO"
+                        : cliente.sessoes?.length
+                          ? "AGUARDANDO RETORNO"
+                          : "NOVO"
+                    }
+                    onVerRespostas={() => abrirAtendimento(cliente)}
+                    onWhatsApp={() => {
+                      if (cliente.telefoneWhatsapp) {
+                        window.open(
+                          `https://wa.me/${cliente.telefoneWhatsapp.replace(/\D/g, "")}`,
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
+                      }
+                    }}
+                    onExcluir={() => abrirConfirmacao(cliente)}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
       </main>
 
       {clienteParaExcluir && (
