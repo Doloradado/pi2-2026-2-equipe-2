@@ -24,13 +24,16 @@ function BaseButton({
             "bg-[#AD1818] text-white w-72 p-2 rounded-lg font-semibold hover:bg-[#8F1414] transition",
         acao:
             "bg-[#780606] hover:bg-[#660D0D] transition text-white text-[12px] font-semibold rounded-lg px-8 py-3",
+        sembg:
+            "w-72 p-2 rounded-lg bg-[#252121] text-[#D11919] font-semibold hover:text-[#FA2F2F] transition",
+
     }
     return (
         <button
             type="button"
             onClick={onClick}
             disabled={disabled}
-            className={estilos[variante]?? estilos.login}
+            className={estilos[variante] ?? estilos.login}
         >
             {texto}
         </button>

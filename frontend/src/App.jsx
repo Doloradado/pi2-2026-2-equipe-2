@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import TesteComponentes from "./pages/TesteComponentes";
 import Dashboard from "./pages/Dashboard";
 import Perfil from "./pages/Perfil";
+import EsqSenha from "./pages/Esq-Senha";
 
 function NotFound() {
   return <h1>Página não encontrada</h1>;
@@ -21,6 +22,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/atendimento/:id" element={<AtendimentoDetalhe />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/esqsenha" element={<EsqSenha />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/login" replace />} />
