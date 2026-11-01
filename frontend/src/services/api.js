@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api/Chatbot";
+const API_URL = `${window.location.protocol}//${window.location.hostname}:8080/api/Chatbot`;
 
 export async function getClientes() {
   const response = await fetch(`${API_URL}/clientes`);
