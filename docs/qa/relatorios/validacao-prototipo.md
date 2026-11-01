@@ -5,7 +5,7 @@
 - **Projeto:** Chatbot Personal Trainer — Projeto Integrador II
 - **Equipe:** Equipe 2
 - **Atividade:** Validação de usabilidade do protótipo atualizado
-- **Responsável pela validação:** QA
+- **Responsável:** QA
 - **Ferramenta:** Figma
 - **Tipo de teste:** Usabilidade, navegação, interface e consistência visual
 - **Resultado geral:** Reprovado — necessita correções
@@ -26,14 +26,14 @@ Por se tratar de um protótipo navegável, não são exigidos comportamentos dep
 
 ## 3. Escopo da validação
 
-Foram avaliados os seguintes elementos:
+Foram avaliados:
 
 - Tela de Login e apresentação de mensagens de erro.
 - Dashboard e organização das informações.
 - Tela de detalhes do atendimento.
 - Modal de confirmação para assumir atendimento.
 - Modal de exclusão de cliente.
-- Menu do administrador no Dashboard e na tela de perfil.
+- Menu Administrador no Dashboard e na tela de perfil.
 - Tela de perfil e navegação de retorno.
 - Modal de alteração de e-mail.
 - Acesso à edição de telefone.
@@ -53,9 +53,11 @@ Também foram consideradas as observações da equipe de Frontend sobre cores, a
 - **Método:** Navegação manual pelos fluxos disponíveis
 - **Evidências:** Capturas de tela e duas gravações de vídeo
 
-A validação foi realizada por meio da navegação entre as telas e da inspeção visual dos componentes.
+As evidências em imagem foram organizadas em:
 
-As evidências estáticas foram registradas por capturas de tela. Os comportamentos de cancelamento de exclusão e do menu Administrador no Dashboard foram registrados em vídeo.
+`docs/qa/evidencias/prototipo-atualizado/`
+
+Os vídeos foram registrados separadamente, com referências aos respectivos links de acesso.
 
 ---
 
@@ -85,7 +87,7 @@ Também foi identificada uma versão da interface com mensagem de credenciais in
 
 **Evidência:**
 
-![QA-USAB-01 — Tela de Login](../evidencias/prototipo/QA-USAB-01-login.png)
+![QA-USAB-01 — Tela de Login](../evidencias/prototipo-atualizado/QA-USAB-01-login.png)
 
 ---
 
@@ -115,7 +117,7 @@ Entretanto, foram identificadas inconsistências de alinhamento e distribuição
 
 **Evidência:**
 
-![QA-USAB-02 — Desalinhamentos no Dashboard](../evidencias/prototipo/QA-USAB-02-dashboard-desalinhamentos.png)
+![QA-USAB-02 — Desalinhamentos no Dashboard](../evidencias/prototipo-atualizado/QA-USAB-02-dashboard-desalinhamentos.png)
 
 ---
 
@@ -148,7 +150,7 @@ A organização das mensagens também pode dificultar a leitura sequencial da co
 
 **Evidência:**
 
-![QA-USAB-03 — Detalhes do atendimento](../evidencias/prototipo/QA-USAB-03-detalhe-atendimento.png)
+![QA-USAB-03 — Detalhes do atendimento](../evidencias/prototipo-atualizado/QA-USAB-03-detalhe-atendimento.png)
 
 ---
 
@@ -177,7 +179,7 @@ O modal é apresentado corretamente, mas, ao selecionar "Cancelar", o protótipo
 
 **Evidência:**
 
-![QA-USAB-04 — Cancelamento de assumir atendimento](../evidencias/prototipo/QA-USAB-04-cancelar-assumir-atendimento.png)
+![QA-USAB-04 — Cancelamento de assumir atendimento](../evidencias/prototipo-atualizado/QA-USAB-04-cancelar-assumir-atendimento.png)
 
 ---
 
@@ -208,7 +210,7 @@ Entretanto, durante o fluxo de cancelamento, os cartões de estatísticas desapa
 
 **Evidência em vídeo:**
 
-[▶ Assistir — QA-USAB-05: Cancelamento da exclusão]([LINK_DO_DRIVE_QA_USAB_05](https://drive.google.com/file/d/1Vc8f3S36lcWEcuvgPjC0A8tITt5Y5MIG/view?usp=sharing))
+[▶ Assistir — QA-USAB-05: Cancelamento da exclusão](LINK_DO_DRIVE_QA_USAB_05)
 
 ---
 
@@ -246,11 +248,9 @@ Além disso, ao acessar a tela de perfil e clicar em "Administrador", o menu nã
 
 **Defeitos relacionados:** DEF-USAB-03 e DEF-USAB-08.
 
-**Evidências:**
+**Evidência em vídeo:**
 
-[▶ Assistir — QA-USAB-06: Menu do administrador no Dashboard]([LINK_DO_DRIVE_QA_USAB_06](https://drive.google.com/file/d/1MSaisyhqmFvWo6sjmSSJ0fkRg5OcZyGI/view?usp=sharing))
-
-O comportamento do menu na tela de perfil também foi observado durante a navegação manual.
+[▶ Assistir — QA-USAB-06: Menu do administrador no Dashboard](LINK_DO_DRIVE_QA_USAB_06)
 
 ---
 
@@ -287,7 +287,7 @@ O problema é agravado pelo fato de o menu Administrador também não abrir ness
 
 **Evidência:**
 
-![QA-USAB-07 — Perfil do administrador](../evidencias/prototipo/QA-USAB-07-perfil-administrador.png)
+![QA-USAB-07 — Perfil do administrador](../evidencias/prototipo-atualizado/QA-USAB-07-perfil-administrador.png)
 
 ---
 
@@ -325,7 +325,7 @@ Foram identificadas inconsistências no posicionamento do modal e na apresentaç
 
 **Evidência:**
 
-![QA-USAB-08 — Modal de alteração de e-mail](../evidencias/prototipo/QA-USAB-08-modal-alterar-email.png)
+![QA-USAB-08 — Modal de alteração de e-mail](../evidencias/prototipo-atualizado/QA-USAB-08-modal-alterar-email.png)
 
 ---
 
@@ -355,7 +355,7 @@ O usuário permanece na tela de perfil, sem acesso ao formulário correspondente
 
 **Evidência:**
 
-![QA-USAB-09 — Edição de telefone sem interação](../evidencias/prototipo/QA-USAB-09-editar-telefone.png)
+![QA-USAB-09 — Edição de telefone sem interação](../evidencias/prototipo-atualizado/QA-USAB-09-editar-telefone.png)
 
 ---
 
@@ -384,7 +384,7 @@ O protótipo permanece na mesma tela, sem demonstrar o fluxo de saída.
 
 **Evidência:**
 
-![QA-USAB-10 — Opção Sair sem interação](../evidencias/prototipo/QA-USAB-10-sair.png)
+![QA-USAB-10 — Opção Sair sem interação](../evidencias/prototipo-atualizado/QA-USAB-10-sair.png)
 
 ---
 
@@ -422,9 +422,9 @@ Também foram identificadas inconsistências de capitalização nos títulos, bo
 
 **Evidências:**
 
-![QA-USAB-11 — Recuperação de senha](../evidencias/prototipo/QA-USAB-11-recuperacao-senha.png)
+![QA-USAB-11 — Recuperação de senha](../evidencias/prototipo-atualizado/QA-USAB-11-recuperacao-senha.png)
 
-![QA-USAB-11 — Confirmação de recuperação](../evidencias/prototipo/QA-USAB-11-confirmacao-recuperacao.png)
+![QA-USAB-11 — Confirmação de recuperação](../evidencias/prototipo-atualizado/QA-USAB-11-confirmacao-recuperacao.png)
 
 ---
 
@@ -453,7 +453,7 @@ Entretanto, a tela apresentada contém a mensagem de erro de credenciais incorre
 
 **Evidência:**
 
-![QA-USAB-12 — Retorno ao Login com erro](../evidencias/prototipo/QA-USAB-12-retorno-login-com-erro.png)
+![QA-USAB-12 — Retorno ao Login com erro](../evidencias/prototipo-atualizado/QA-USAB-12-retorno-login-com-erro.png)
 
 ---
 
@@ -465,7 +465,7 @@ Entretanto, a tela apresentada contém a mensagem de erro de credenciais incorre
 | Aprovados | 1 |
 | Aprovados com observações | 4 |
 | Reprovados | 7 |
-| Defeitos de interação e navegação | 8 |
+| Defeitos identificados | 8 |
 | Observações de usabilidade e interface | 9 |
 
 **Resultado geral: Reprovado — necessita correções.**
