@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ChatbotBackend.Data;
 using ChatbotBackend.Services;
+using ChatbotBackend.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,13 @@ builder.Services.AddControllers()
 builder.Services.AddHttpClient<GeminiService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ISessaoService, SessaoService>();
+
+// Registo dos Repositórios 
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<ISessaoRepository, SessaoRepository>();
+builder.Services.AddScoped<IMensagemRepository, MensagemRepository>();
+builder.Services.AddScoped<IAdministradorRepository, AdministradorRepository>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
