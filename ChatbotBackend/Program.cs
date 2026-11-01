@@ -49,6 +49,7 @@ app.MapGet("/", () => "API do Chatbot do Personal Trainer rodando com sucesso! �
 
 app.MapControllers();
 
+// Bloco para executar as migrações e os seeds automaticamente ao iniciar a aplicação
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -56,8 +57,13 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
+        // Aplica as migrações pendentes no PostgreSQL automaticamente
         context.Database.Migrate();
 
+        // 1. Inicializa o Administrador padrão com hash seguro
+        DbInitializer.Initialize(context);
+
+        // 2. Inicializa os clientes e dados de teste
         SeedData.Initialize(context);
     }
     catch (Exception ex)
