@@ -238,7 +238,9 @@ Confirmação da exclusão:
 
 Vídeo demonstrando o problema de cancelamento:
 
-[▶ Assistir — QA-USAB-05: Cancelamento da exclusão]([LINK_DO_DRIVE_QA_USAB_05](https://drive.google.com/file/d/1Vc8f3S36lcWEcuvgPjC0A8tITt5Y5MIG/view?usp=sharing))
+**Evidência em vídeo:**
+
+[🎥 Assistir à gravação — Problema ao cancelar a exclusão](https://drive.google.com/file/d/1MSaisyhqmFvWo6sjmSSJ0fkRg5OcZyGI/view?usp=sharing)
 
 ---
 
@@ -313,9 +315,9 @@ O problema é agravado pelo fato de o menu Administrador também não abrir ness
 
 **Observação relacionada:** OBS-USAB-05.
 
-**Evidência:**
+**Evidência em vídeo:**
 
-![QA-USAB-07 — Perfil do administrador](../evidencias/prototipo-atualizado/QA-USAB-07-perfil-administrador.png)
+[🎥 Assistir à gravação — Comportamento incorreto do menu Administrador](https://drive.google.com/file/d/1Vc8f3S36lcWEcuvgPjC0A8tITt5Y5MIG/view?usp=sharing)
 
 ---
 
