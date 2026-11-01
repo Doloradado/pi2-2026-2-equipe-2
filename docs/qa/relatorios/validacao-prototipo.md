@@ -10,7 +10,7 @@
 - **Tipo de teste:** Usabilidade, navegação, interface e consistência visual
 - **Resultado geral:** Reprovado — necessita correções
 
-**Protótipo avaliado:** [Projeto Wilson — Figma](https://www.figma.com/design/c66dk22TX8piHAWbdMvX4y/projeto-wilson?node-id=93-283)
+**Protótipo avaliado:** [Projeto Wilson — Figma](https://www.figma.com/design/c66dk22TX8piHAWbdMvX4y/projeto-wilson?node-id=0-1&p=f&t=YkttIVR0J6uE2nWJ-0)
 
 ---
 
@@ -51,7 +51,7 @@ Também foram consideradas as observações da equipe de Frontend sobre cores, a
 - **Navegador:** Brave
 - **Plataforma:** Desktop
 - **Método:** Navegação manual pelos fluxos disponíveis
-- **Evidências:** Capturas de tela e duas gravações de vídeo
+- **Evidências:** 15 capturas de tela e duas gravações de vídeo
 
 As evidências em imagem foram organizadas em:
 
@@ -171,13 +171,21 @@ Ao selecionar "Cancelar", o usuário deve retornar à tela de detalhes do atendi
 
 **Resultado obtido:**
 
-O modal é apresentado corretamente, mas, ao selecionar "Cancelar", o protótipo retorna ao Dashboard em vez de permanecer na tela de detalhes.
+O modal de confirmação é apresentado corretamente, contendo as opções "Assumir atendimento" e "Cancelar".
+
+Entretanto, ao selecionar "Cancelar", o protótipo retorna ao Dashboard em vez de permanecer na tela de detalhes do atendimento.
 
 **Status:** Reprovado.
 
 **Defeito relacionado:** DEF-USAB-01.
 
-**Evidência:**
+**Evidências:**
+
+Modal de confirmação:
+
+![QA-USAB-04 — Modal de assumir atendimento](../evidencias/prototipo-atualizado/QA-USAB-04-modal-assumir-atendimento.png)
+
+Redirecionamento incorreto após o cancelamento:
 
 ![QA-USAB-04 — Cancelamento de assumir atendimento](../evidencias/prototipo-atualizado/QA-USAB-04-cancelar-assumir-atendimento.png)
 
@@ -193,24 +201,44 @@ O modal é apresentado corretamente, mas, ao selecionar "Cancelar", o protótipo
 3. Verificar a apresentação do modal.
 4. Clicar em "Cancelar".
 5. Observar a tela apresentada.
+6. Reiniciar o fluxo e selecionar "Excluir".
+7. Verificar a apresentação da confirmação de exclusão.
 
 **Resultado esperado:**
 
 Ao cancelar, o usuário deve retornar ao Dashboard sem alterações inesperadas na interface.
 
+Ao confirmar a exclusão, o protótipo deve apresentar uma indicação clara de que a ação foi realizada.
+
 **Resultado obtido:**
 
 O modal apresenta a identificação do cliente e informa que a exclusão não poderá ser desfeita.
 
-Entretanto, durante o fluxo de cancelamento, os cartões de estatísticas desaparecem do Dashboard.
+Ao selecionar "Cancelar", o protótipo retorna ao Dashboard, porém os cartões de estatísticas desaparecem da interface.
+
+Ao confirmar a exclusão, o protótipo apresenta a mensagem "cliente excluido com sucesso", e o cliente deixa de aparecer na lista.
 
 **Status:** Reprovado.
 
 **Defeito relacionado:** DEF-USAB-02.
 
-**Evidência em vídeo:**
+**Evidências:**
 
-[▶ Assistir — QA-USAB-05: Cancelamento da exclusão](LINK_DO_DRIVE_QA_USAB_05)
+Modal de confirmação de exclusão:
+
+![QA-USAB-05 — Modal de exclusão](../evidencias/prototipo-atualizado/QA-USAB-05-modal-exclusao.png)
+
+Dashboard após o cancelamento:
+
+![QA-USAB-05 — Cancelamento de exclusão](../evidencias/prototipo-atualizado/QA-USAB-05-cancelar-exclusao.png)
+
+Confirmação da exclusão:
+
+![QA-USAB-05 — Exclusão confirmada](../evidencias/prototipo-atualizado/QA-USAB-05-exclusao-confirmada.png)
+
+Vídeo demonstrando o problema de cancelamento:
+
+[▶ Assistir — QA-USAB-05: Cancelamento da exclusão]([LINK_DO_DRIVE_QA_USAB_05](https://drive.google.com/file/d/1Vc8f3S36lcWEcuvgPjC0A8tITt5Y5MIG/view?usp=sharing))
 
 ---
 
@@ -250,7 +278,7 @@ Além disso, ao acessar a tela de perfil e clicar em "Administrador", o menu nã
 
 **Evidência em vídeo:**
 
-[▶ Assistir — QA-USAB-06: Menu do administrador no Dashboard](LINK_DO_DRIVE_QA_USAB_06)
+[▶ Assistir — QA-USAB-06: Menu do administrador no Dashboard]([LINK_DO_DRIVE_QA_USAB_06](https://drive.google.com/file/d/1MSaisyhqmFvWo6sjmSSJ0fkRg5OcZyGI/view?usp=sharing))
 
 ---
 
