@@ -12,6 +12,7 @@ namespace ChatbotBackend.Data
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<SessaoAtendimento> SessoesAtendimento { get; set; }
         public DbSet<HistoricoMensagem> HistoricoMensagens { get; set; }
+        public DbSet<Administrador> Administradores { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,6 +51,16 @@ namespace ChatbotBackend.Data
                       .WithMany(s => s.Mensagens)
                       .HasForeignKey(h => h.SessaoId)
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Administrador>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.HasIndex(e => e.Email).IsUnique();
+                entity.Property(e => e.Nome).IsRequired().HasMaxLength(150);
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(150);
+                entity.Property(e => e.SenhaHash).IsRequired();
+                entity.Property(e => e.DataCriacao).HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
         }
     }
