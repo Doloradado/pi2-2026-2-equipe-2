@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ChatbotBackend.Data;
 using ChatbotBackend.Models;
@@ -11,6 +12,7 @@ namespace ChatbotBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ClientesController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -39,23 +41,23 @@ namespace ChatbotBackend.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCliente([FromBody] ClienteCreateDTO dto)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var clienteExiste = await _context.Clientes.AnyAsync(c => c.TelefoneWhatsapp == dto.TelefoneWhatsapp);
             if (clienteExiste)
                 return Conflict(new { Erro = "Este telefone já está cadastrado." });
 
-            var novoCliente = new Cliente 
-            { 
-                TelefoneWhatsapp = dto.TelefoneWhatsapp, 
-                Nome = dto.Nome 
+            var novoCliente = new Cliente
+            {
+                TelefoneWhatsapp = dto.TelefoneWhatsapp,
+                Nome = dto.Nome
             };
 
             _context.Clientes.Add(novoCliente);
             await _context.SaveChangesAsync();
-            
-            return CreatedAtAction(nameof(GetClientes), new { id = novoCliente.Id }, new ClienteResponseDTO 
+
+            return CreatedAtAction(nameof(GetClientes), new { id = novoCliente.Id }, new ClienteResponseDTO
             {
                 Id = novoCliente.Id,
                 TelefoneWhatsapp = novoCliente.TelefoneWhatsapp,
