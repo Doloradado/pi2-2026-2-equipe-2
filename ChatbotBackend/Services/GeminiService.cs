@@ -24,15 +24,19 @@ public class GeminiService
 
     public async Task<string> EnviarMensagemAsync(string mensagem)
     {
-       var url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={_apiKey}";
+       var url = $"https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash:generateContent?key={_apiKey}";
 
-        var requestBody = new
+       var requestBody = new
+{
+    contents = new[]
+    {
+        new
         {
-            contents = new[]
-            {
-                new { parts = new[] { new { text = mensagem } } }
-            }
-        };
+            role = "user",
+            parts = new[] { new { text = mensagem } }
+        }
+    }
+};
 
         var jsonContent = JsonSerializer.Serialize(requestBody);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -51,6 +55,8 @@ public class GeminiService
             {
                 return "Atingimos o limite de mensagens permitidas por minuto. Por favor, aguarde um pouco antes de enviar nova mensagem.";
             }
+
+            Console.WriteLine($"[GEMINI ERRO] Status: {response.StatusCode} | Body: {responseString}");
 
             throw new Exception($"Erro na API do Google ({response.StatusCode}): {responseString}");
         }
