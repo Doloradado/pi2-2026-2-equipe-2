@@ -2,42 +2,50 @@ using Microsoft.EntityFrameworkCore;
 using ChatbotBackend.Data;
 using ChatbotBackend.Services;
 using ChatbotBackend.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer; // NOVO: Para o JWT
-using Microsoft.IdentityModel.Tokens; // NOVO: Para as chaves do JWT
-using Microsoft.OpenApi.Models; // NOVO: Para o Swagger
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 
-// 1. SUBSTITUÍDO: Configuração do Swagger com suporte a Token (Cadeado) e XML
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Chatbot API", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-{
-    Name = "Authorization",
-    Type = SecuritySchemeType.ApiKey,
-    Scheme = "Bearer",
-    BearerFormat = "JWT",
-    In = ParameterLocation.Header,
-    Description = "Insira o token JWT gerado no login. Exemplo: Bearer {seu_token}"
-});
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Insira o token JWT gerado no login. Exemplo: Bearer {seu_token}"
+    });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
-            new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } },
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
             Array.Empty<string>()
         }
     });
-    
-    // Suporte aos comentários XML nas rotas
+
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
-    if (System.IO.File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);
+    if (System.IO.File.Exists(xmlPath))
+    {
+        c.IncludeXmlComments(xmlPath);
+    }
 });
 
 builder.Services.AddControllers()
@@ -51,7 +59,7 @@ builder.Services.AddHttpClient<GeminiService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ISessaoService, SessaoService>();
 
-// Registo dos Repositórios 
+// Registo dos Repositórios
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ISessaoRepository, SessaoRepository>();
 builder.Services.AddScoped<IMensagemRepository, MensagemRepository>();
@@ -60,7 +68,7 @@ builder.Services.AddScoped<IAdministradorRepository, AdministradorRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2. ADICIONADO: Configuração de Autenticação JWT
+// Configuração de Autenticação JWT
 var chaveSecreta = "UmaChaveSuperSecretaParaOChatbotDaSprint4QueDeveTerMaisDe32Caracteres";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -80,8 +88,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("PermitirFrontend", policy =>
     {
         policy.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -89,20 +97,15 @@ var app = builder.Build();
 
 app.UseCors("PermitirFrontend");
 
-// 3. ADICIONADO: Middleware de Autenticação e Autorização (Tem de ser antes do Swagger e Controllers)
 app.UseAuthentication();
 app.UseAuthorization();
 
-if (app.Environment.IsDevelopment())
+// Swagger habilitado em qualquer ambiente (incluindo Produção no Render)
+app.UseSwagger(c =>
 {
-    app.UseSwagger(c =>
-    {
-        c.SerializeAsV2 = true; // Voltamos a ativar a compatibilidade
-    });
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
+    c.SerializeAsV2 = true;
+});
+app.UseSwaggerUI();
 
 app.MapGet("/", () => "API do Chatbot do Personal Trainer rodando com sucesso! 🚀");
 
@@ -116,7 +119,7 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        // Aplica as migrações pendentes no PostgreSQL automaticamente
+        // Aplica as migrações pendentes no PostgreSQL (Supabase) automaticamente
         context.Database.Migrate();
 
         // 1. Inicializa o Administrador padrão com hash seguro
@@ -131,4 +134,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.Run();
+// Configura a porta dinâmica exigida pelo ambiente de deploy (Render/Docker)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Run($"http://0.0.0.0:{port}");
