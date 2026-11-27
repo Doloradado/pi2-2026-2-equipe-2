@@ -1,39 +1,52 @@
 const API_URL = `${window.location.protocol}//${window.location.hostname}:8080/api/Chatbot`;
 
-export async function getClientes() {
-  const response = await fetch(`${API_URL}/clientes`);
+function getHeaders(json = false) {
+  const token = localStorage.getItem("token");
+
+  return {
+    ...(json ? { "Content-Type": "application/json" } : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+}
+
+async function tratarResposta(response, mensagemErro) {
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    throw new Error("Sessão expirada. Faça login novamente.");
+  }
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar clientes.");
+    throw new Error(mensagemErro);
   }
 
   return await response.json();
 }
 
+export async function getClientes() {
+  const response = await fetch(`${API_URL}/clientes`, {
+    headers: getHeaders(),
+  });
+
+  return tratarResposta(response, "Erro ao buscar clientes.");
+}
+
 export async function getClientePorId(clienteId) {
-  const response = await fetch(`${API_URL}/clientes/${clienteId}`);
+  const response = await fetch(`${API_URL}/clientes/${clienteId}`, {
+    headers: getHeaders(),
+  });
 
-  if (!response.ok) {
-    throw new Error("Erro ao buscar cliente.");
-  }
-
-  return await response.json();
+  return tratarResposta(response, "Erro ao buscar cliente.");
 }
 
 export async function criarSessao(clienteId) {
   const response = await fetch(`${API_URL}/sessao`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getHeaders(true),
     body: JSON.stringify(clienteId),
   });
 
-  if (!response.ok) {
-    throw new Error("Erro ao criar sessão de atendimento.");
-  }
-
-  return await response.json();
+  return tratarResposta(response, "Erro ao criar sessão de atendimento.");
 }
 
 export async function enviarMensagem(
@@ -44,9 +57,7 @@ export async function enviarMensagem(
 ) {
   const response = await fetch(`${API_URL}/mensagem`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getHeaders(true),
     body: JSON.stringify({
       sessaoId,
       remetente,
@@ -55,19 +66,13 @@ export async function enviarMensagem(
     }),
   });
 
-  if (!response.ok) {
-    throw new Error("Erro ao enviar mensagem.");
-  }
-
-  return await response.json();
+  return tratarResposta(response, "Erro ao enviar mensagem.");
 }
 
 export async function getMensagens(sessaoId) {
-  const response = await fetch(`${API_URL}/sessoes/${sessaoId}/mensagens`);
+  const response = await fetch(`${API_URL}/sessoes/${sessaoId}/mensagens`, {
+    headers: getHeaders(),
+  });
 
-  if (!response.ok) {
-    throw new Error("Erro ao buscar mensagens.");
-  }
-
-  return await response.json();
+  return tratarResposta(response, "Erro ao buscar mensagens.");
 }
