@@ -24,7 +24,7 @@ public class GeminiService
 
     public async Task<string> EnviarMensagemAsync(string mensagem)
     {
-       var url = $"https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash:generateContent?key={_apiKey}";
+       var url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={_apiKey}";
 
        var requestBody = new
 {
